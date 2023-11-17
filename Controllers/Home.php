@@ -5,7 +5,7 @@
         }
         public function home() {
             $data['title_page'] = 'Controlador Home';
-            $this->views->getView($this, 'home', $data);
+            $this->views->getView($this, 'Home', $data);
         }
         public function addUser() {
             $data = $this->model->setUser('Ramon',22);
@@ -32,5 +32,11 @@
             echo '<pre>';
             print_r($data);
             echo '</pre>';
+        }
+        public function dashboard() {
+            // $nombre = $_POST['nombre'];
+            // $apellido = $_POST['apellido'];
+            // echo json_encode([$nombre, $apellido], JSON_UNESCAPED_UNICODE);
+            echo json_encode('arrData', JSON_UNESCAPED_UNICODE);
         }
     }

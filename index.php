@@ -1,11 +1,12 @@
 <?php 
-    require_once 'Config/Config.php'; #Constantes
+    require_once 'Config/Config.php'; # Constantes
+    require_once 'Helpers/Helpers.php'; # Helpers
 
     $url = !empty($_GET['url']) ? $_GET['url'] : 'home/home';
     $arrUrl = explode('/',$url);
-    $controller = $arrUrl[0];
-    $model = $arrUrl[0];
-    $method = $arrUrl[0];
+    $controller = ucfirst($arrUrl[0]);
+    $model = ucfirst($arrUrl[0]);
+    $method = ucfirst($arrUrl[0]);
     $params = "";
     if (!empty($arrUrl[1])) {
         if ($arrUrl[1] != "") {

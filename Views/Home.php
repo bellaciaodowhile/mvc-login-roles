@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <?php echo $data['title_page']; ?>  </title>
-</head>
-<body>
-    <h1>Este es el home de mi sitio</h1>
-</body>
-</html>
+
+<?php headerAdmin($data); ?>
+
+
+    <form>
+        <h1>Inicio de sesión</h1>
+        <input type="text" name="user" id="user">
+        <input type="text" name="password" id="password">
+        <button class="send" type="submit">
+            Registrar
+        </button>
+    </form>
+
+
+
+<?php footerAdmin($data); ?>

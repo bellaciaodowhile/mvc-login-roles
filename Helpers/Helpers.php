@@ -9,6 +9,16 @@
     {
         return BASE_URL."Assets/";
     }
+    function headerAdmin($data="")
+    {
+        $viewHeader = "Views/Templates/HeaderAdmin.php";
+        require_once ($viewHeader);
+    }
+    function footerAdmin($data="")
+    {
+        $viewFooter = "Views/Templates/FooterAdmin.php";
+        require_once ($viewFooter);        
+    }
     
 	//Muestra información formateada
 	function dep($data)
