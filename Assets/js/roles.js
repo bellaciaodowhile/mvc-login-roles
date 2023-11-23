@@ -65,8 +65,15 @@ AJAXGJ8({
                             document.querySelectorAll('.status__rol').forEach(elementInputCheckbox => {
                                 let idRol = elementInputCheckbox.closest('tr').querySelector('td').textContent;
                                 let idModuloCurrent = elementInputCheckbox.closest('tr').querySelector('.id__modulo').textContent;
-                                let permission = elementInputCheckbox.getAttribute('name');
-                                btnsStatusRol(elementInputCheckbox, idRol, idModuloCurrent, permission);
+                                let permissions = [...elementInputCheckbox.closest('tr').querySelectorAll('.status__rol')];
+                                let newPermissions = [];
+                                permissions.map(permission => {
+                                    newPermissions.push({
+                                        name: permission.getAttribute('name'),
+                                        status: permission
+                                    });
+                                });
+                                btnsStatusRol(elementInputCheckbox, idRol, idModuloCurrent, newPermissions);
                             });
                         },
                         error: function(err) {
@@ -85,34 +92,52 @@ AJAXGJ8({
          * @param { String } permission - recieves letter permission r || w || u || d
          */
 
-        function btnsStatusRol(elementInputCheckbox, idRol, idModuloCurrent, permission) {
+        function btnsStatusRol(elementInputCheckbox, idRol, idModuloCurrent, permissions) {
             // console.log(elementInputCheckbox, idRol)
             onclick({
                 el: elementInputCheckbox,
                 res: (e) => {
-                    let status = changeStatusCheckbox(elementInputCheckbox);
-                    console.log({ idRol, idModuloCurrent, status, permission })
-                    AJAXGJ8({
-                        url: 'Permissions/setPermission',
-                        data: [{
-                            idRol,
-                            idModuloCurrent,
-                            status,
-                            permission
-                        }],
-                        success: (res) => {
-                            console.log(res)
-                        }
-                    });
+                    changeStatusCheckbox(elementInputCheckbox);
+                    console.log({ elementInputCheckbox, idRol, idModuloCurrent, permissions })
                 }
             });
         }
 
-
-
         console.log(data)
+
+
     },
     error: function(err) {
         console.error(err)
+    }
+});
+
+// * Guardando Permisos
+onclick({
+    el: '.btn-save-permissions',
+    res: (e) => {
+        let allModulesPermissions = getAllElements({el: '.table__content__permissions tr'});
+        let data = [];
+        allModulesPermissions.map(mod => {
+            let idRol = mod.children[0].textContent
+            let idModule = mod.children[1].textContent
+            let r = mod.children[5].children[0].getAttribute('checked') == null ? 0 : 1;
+            let w = mod.children[6].children[0].getAttribute('checked') == null ? 0 : 1;
+            let u = mod.children[7].children[0].getAttribute('checked') == null ? 0 : 1;
+            let d = mod.children[8].children[0].getAttribute('checked') == null ? 0 : 1;
+            data.push({ idRol, idModule, r, w, u, d });
+        });
+        console.log(data)
+        
+        AJAXGJ8({
+            url: 'Permissions/setPermission',
+            data: data,
+            success: function(res) {
+                console.log(res)
+            },
+            error: function(err) {
+                console.log(err)
+            }
+        });
     }
 });

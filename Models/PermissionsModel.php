@@ -13,14 +13,14 @@
             $q = $this->selectAll($s);
             return $q;
         }
-        public function setPermission($idRol, $idModulo, $r, $w, $u, $d) {
+        public function setPermission($idRol, $idModule, $r, $w, $u, $d) {
             $s = "INSERT INTO permisos (rolid, moduloid, r, w, u, d) VALUES (?,?,?,?,?,?)";
-            $arrData = array($idRol, $idModulo, $r, $w, $u, $d);
+            $arrData = array($idRol, $idModule, $r, $w, $u, $d);
             $q = $this->insert($s, $arrData);
             return $q;
         }
-        public function deletePermission($idRol, $idModulo) {
-            $s = "DELETE FROM permisos WHERE rolid = '$id' and moduloid = '$idModulo'";
+        public function deletePermission($idRol) {
+            $s = "DELETE FROM permisos WHERE rolid = '$idRol'";
             $q = $this->delete($s);
             return $q;
         }

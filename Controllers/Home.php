@@ -5,6 +5,8 @@
         }
         public function home() {
             $data['title_page'] = 'Controlador Home';
+            $data['css'] = 'home.js';
+            $data['js'] = 'home.js';
             $this->views->getView($this, 'Home', $data);
         }
         public function addUser() {

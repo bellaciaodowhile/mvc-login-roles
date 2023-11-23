@@ -21,7 +21,7 @@
                             'u'=> $arrPermissionsRol[$i]['u'],
                             'd'=> $arrPermissionsRol[$i]['d']
                         );
-                        if ($arrModules[$i]['idmodulo'] == $arrPermissionsRol[$i]['moduloid']) {
+                        if ($arrModules[$i]['idModulo'] == $arrPermissionsRol[$i]['moduloid']) {
                             $arrModules[$i]['permissions'] = $arrPermissions;
                         }
                     }
@@ -32,23 +32,24 @@
             }
         }
         public function setPermission() {
-            $idRol = strClean($_POST['idRol']);
-            $idModulo = strClean($_POST['idModuloCurrent']);
-            $r = strClean($_POST['r']) == false ? 0 : 1;
-            $w = strClean($_POST['w']) == false ? 0 : 1;
-            $u = strClean($_POST['u']) == false ? 0 : 1;
-            $d = strClean($_POST['d']) == false ? 0 : 1;
-            
-            // $this->model->deletePermission($idRol, $idModulo);
-            // $arrData = $this->model->setPermission($idRol, $idModulo, $r, $w, $u, $d);
 
-            // if ($arrData > 0) {
-            //     $arrResponse = array('status' => 'Permisos registrados correctamente');
-            // } else {
-            //     $arrResponse = array('status' => 'Error al guardar los permisos...');
-            // }
-            
-            echo json_encode($r, JSON_UNESCAPED_UNICODE);
+            $data = json_decode($_POST['arrData']);
+            $idRol = intval($data[0]->idRol);
 
+            $this->model->deletePermission($idRol);
+            foreach ($data as $permission) {
+                $idModule = $permission->idModule;
+                $r = intval($permission->r);
+                $w = intval($permission->w);
+                $u = intval($permission->u);
+                $d = intval($permission->d);
+                $requestPermission = $this->model->setPermission($idRol, $idModule, $r, $w, $u, $d);
+            }
+            if ($requestPermission > 0) {
+                $arrResponse = array('status' => true, 'msg' => 'Permisos asignados correctamente');
+            } else {
+                $arrResponse = array('status' => false, 'msg' => 'Error al guardar los permisos...');
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
     }

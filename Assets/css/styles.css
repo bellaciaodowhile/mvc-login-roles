@@ -1,0 +1,154 @@
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+  - The "symbol *" part is to solve Firefox SVG sprite bug
+*/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap");
+*:where(:not(iframe, canvas, img, svg, video):not(svg *, symbol *)) {
+  all: unset;
+  display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a {
+  cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul,
+menu {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+  max-width: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+/* fix the feature of 'hidden' attribute.
+   display:revert; revert to element instead of attribute */
+:where([hidden]) {
+  display: none;
+}
+
+/* revert for bug in Chromium browsers
+   - fix for the content editable attribute will work properly. */
+:where([contenteditable]) {
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable=true]) {
+  -webkit-user-drag: element;
+}
+
+.input__text {
+  display: flex;
+  position: relative;
+  height: 75px;
+  width: 100%;
+  align-items: center;
+}
+.input__text-input {
+  height: 55px;
+  width: inherit;
+  font-size: 16px;
+  caret-color: #3737b3;
+  padding: 0 10px;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #C2C2C2;
+  border-width: 0.5px;
+  float: left;
+  -webkit-transition: border-color 0.3s;
+  -o-transition: border-color 0.3s;
+  -moz-transition: border-color 0.3s;
+  transition: border-color 0.3s;
+}
+.input__text-input:hover {
+  border-color: rgba(55, 55, 179, 0.5);
+}
+.input__text-input:valid {
+  border-color: #3737b3;
+}
+.input__text-input:valid + .input__text-label {
+  top: 2px;
+  left: 10px;
+  font-size: 12px;
+  background-color: #FFF;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.input__text-input:focus {
+  padding-left: 9px;
+  border-width: 2px;
+  border-color: #3737b3;
+  outline: none;
+}
+.input__text-input:focus + .input__text-label {
+  top: 2px;
+  left: 10px;
+  font-size: 12px;
+  color: #3737b3;
+  background-color: #FFF;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.input__text-label {
+  position: absolute;
+  pointer-events: none;
+  left: 20px;
+  top: 27px;
+  font-size: 14px;
+  color: #666666;
+  -webkit-transition: all 0.5s; /* For Safari 3.0 to 6.0 */
+  -o-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s; /* For modern browsers */
+}
+
+/* Ripple effect styles */
+.ripple {
+  background: white;
+  width: 1px;
+  height: 1px;
+  border-radius: 100%;
+  opacity: 0.4;
+  position: absolute;
+  transition: all 1s ease-out;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.ripple.run {
+  opacity: 0;
+  transform: scale(200);
+}
+
+[ripple] {
+  position: relative;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=styles.css.map */

@@ -31,7 +31,9 @@
         </thead>
         <tbody class="table__content__permissions"></tbody>
     </table>
-    
+    <button class="btn-save-permissions">
+        Guardar permisos
+    </button>
 
 
 <?php footerAdmin($data); ?>

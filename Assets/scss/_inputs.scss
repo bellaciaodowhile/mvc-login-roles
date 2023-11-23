@@ -1,0 +1,67 @@
+.input__text {
+    display: flex;
+    position: relative;
+    height: 75px;
+    width: 100%;
+    align-items: center;
+    &-input {
+        height: 55px;
+        width: inherit;
+        font-size: 16px;
+        caret-color: $color-secondary;
+        padding: 0 10px;
+        border-radius: 4px;
+        border-style: solid;
+        border-color: #C2C2C2;
+        border-width: 0.5px;
+        float: left;
+    
+        -webkit-transition: border-color 0.3s;
+        -o-transition: border-color 0.3s;
+        -moz-transition: border-color 0.3s;
+        transition: border-color 0.3s;
+        &:hover {
+            border-color: rgba($color: $color-secondary, $alpha: 0.5);
+        }
+        &:valid {
+            border-color: $color-secondary;
+            + .input__text-label {
+                top: 2px;
+                left: 10px;
+                font-size: 12px;
+                background-color: #FFF;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+        &:focus {
+            padding-left: 9px;
+            border-width: 2px;
+            border-color: $color-secondary;
+            outline: none;
+        }
+        &:focus + .input__text-label {
+            top: 2px;
+            left: 10px;
+            font-size: 12px;
+            color: $color-secondary;
+            background-color: #FFF;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+    &-label {
+        position: absolute;
+        pointer-events: none;
+        left: 20px;
+        top: 27px;
+        font-size: 14px;
+        color: #666666;
+    
+        -webkit-transition: all .5s; /* For Safari 3.0 to 6.0 */
+        -o-transition: all .5s;
+        -moz-transition: all .5s;
+        transition: all .5s; /* For modern browsers */
+    }
+}
+

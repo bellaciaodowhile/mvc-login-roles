@@ -5,6 +5,7 @@
         }
         public function roles() {
             $data['title_page'] = 'Roles';
+            $data['js'] = 'roles.js';
             $this->views->getView($this, 'Roles', $data);
         }
         public function getRoles() {

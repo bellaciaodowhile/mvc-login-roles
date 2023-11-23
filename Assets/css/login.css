@@ -1,0 +1,61 @@
+body {
+  background-color: #111826;
+  background-image: url("../img/login.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+  cursor: none;
+}
+body .cursor {
+  width: 20px;
+  height: 20px;
+  border-radius: 200px;
+  background: #a1a1e2;
+  position: fixed;
+  z-index: 2;
+}
+body .login {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  max-width: 700px;
+  min-width: 400px;
+  background: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body .login .card__login {
+  transform: scale(1.5);
+  max-width: 300px;
+  padding: 2em;
+  border-radius: 10px;
+  border-radius: 23px;
+}
+body .login .card__login h2 {
+  color: #111826;
+  margin-bottom: 1em;
+}
+body .login .card__login .btn-login {
+  margin-top: 1em;
+  border: 0;
+  width: 100%;
+  padding: 12px 24px;
+  min-height: 48px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background: #3737b3;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+}
+
+/*# sourceMappingURL=login.css.map */
