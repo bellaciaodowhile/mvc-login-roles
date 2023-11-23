@@ -2,7 +2,7 @@
     require_once 'Config/Config.php'; # Constantes
     require_once 'Helpers/Helpers.php'; # Helpers
 
-    $url = !empty($_GET['url']) ? $_GET['url'] : 'home/home';
+    $url = !empty($_GET['url']) ? $_GET['url'] : 'login/login';
     $arrUrl = explode('/',$url);
     $controller = ucfirst($arrUrl[0]);
     $model = ucfirst($arrUrl[0]);
