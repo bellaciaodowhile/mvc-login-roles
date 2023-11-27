@@ -19,6 +19,17 @@
         $viewFooter = "Views/Templates/FooterAdmin.php";
         require_once ($viewFooter);        
     }
+    function headerDashboard($data="")
+    {
+        $viewFooter = "Views/Templates/HeaderDashboard.php";
+        require_once ($viewFooter);        
+    }
+    function footerDashboard($data="")
+    {
+        $viewFooter = "Views/Templates/FooterDashboard.php";
+        require_once ($viewFooter);        
+    }
+    
     
 	//Muestra información formateada
 	function dep($data)

@@ -5,9 +5,9 @@
     width: 1px;
     height: 1px;
     border-radius: 100%;
-    opacity: 0.4;
+    opacity: 0.3;
     position: absolute;
-    transition: all 1s ease-out;
+    transition: all 500ms ease-out;
     pointer-events: none;
     will-change: transform;
 }

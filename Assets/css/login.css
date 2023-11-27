@@ -1,6 +1,6 @@
 body {
   background-color: #111826;
-  background-image: url("../img/login.svg");
+  background-image: url("../img/login.webp");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -11,7 +11,7 @@ body .cursor {
   width: 20px;
   height: 20px;
   border-radius: 200px;
-  background: #a1a1e2;
+  background: #5b7795;
   position: fixed;
   z-index: 2;
 }

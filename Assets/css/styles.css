@@ -74,7 +74,7 @@ textarea {
   height: 55px;
   width: inherit;
   font-size: 16px;
-  caret-color: #3737b3;
+  caret-color: #212b36;
   padding: 0 10px;
   border-radius: 4px;
   border-style: solid;
@@ -87,10 +87,10 @@ textarea {
   transition: border-color 0.3s;
 }
 .input__text-input:hover {
-  border-color: rgba(55, 55, 179, 0.5);
+  border-color: rgba(33, 43, 54, 0.5);
 }
 .input__text-input:valid {
-  border-color: #3737b3;
+  border-color: #212b36;
 }
 .input__text-input:valid + .input__text-label {
   top: 2px;
@@ -103,14 +103,14 @@ textarea {
 .input__text-input:focus {
   padding-left: 9px;
   border-width: 2px;
-  border-color: #3737b3;
+  border-color: #212b36;
   outline: none;
 }
 .input__text-input:focus + .input__text-label {
   top: 2px;
   left: 10px;
   font-size: 12px;
-  color: #3737b3;
+  color: #212b36;
   background-color: #FFF;
   padding-left: 5px;
   padding-right: 5px;
@@ -134,9 +134,9 @@ textarea {
   width: 1px;
   height: 1px;
   border-radius: 100%;
-  opacity: 0.4;
+  opacity: 0.3;
   position: absolute;
-  transition: all 1s ease-out;
+  transition: all 500ms ease-out;
   pointer-events: none;
   will-change: transform;
 }

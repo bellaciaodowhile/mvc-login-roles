@@ -1,0 +1,177 @@
+.dashboard {
+  position: relative;
+}
+
+.nav__component {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #111826;
+  width: 300px;
+  height: 100%;
+  overflow-y: auto;
+  color: white;
+  border-right: 1px dashed #3737b3;
+}
+.nav__component .nav__logo {
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+}
+.nav__component .nav__logo-img {
+  width: 50px;
+  margin-right: 10px;
+}
+.nav__component .nav__logo-text {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.nav__component .nav__content {
+  padding: 20px;
+}
+.nav__component .nav__content .nav__title {
+  padding: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+.nav__component .nav__content .nav__item {
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #717173;
+}
+.nav__component .nav__content .nav__item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-top: 3px;
+  border-radius: 10px;
+  transition: all 300ms ease-in-out;
+}
+.nav__component .nav__content .nav__item-head span:nth-child(1) {
+  display: flex;
+  align-items: center;
+}
+.nav__component .nav__content .nav__item-head span:nth-child(1) i {
+  margin-right: 10px;
+  font-size: 2em;
+}
+.nav__component .nav__content .nav__item-head:hover {
+  background: rgba(0, 0, 0, 0.1490196078);
+  color: #fff;
+}
+.nav__component .nav__content .nav__item-content {
+  transition: height 0.4s;
+  height: 0;
+  border-left: 1px solid;
+}
+
+.dashboard__content {
+  padding-left: 300px;
+  height: 100%;
+}
+.dashboard__content .header__component {
+  z-index: 1;
+  position: fixed;
+  padding: 10px 5em;
+  top: 0;
+  left: 0;
+  width: calc(100% - 300px);
+  margin-left: 300px;
+  background: rgba(17, 24, 38, 0.5);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard__content .main__content {
+  background: #111826;
+  padding: 5em 3em 3em;
+  height: 100vh;
+  overflow-y: auto;
+  color: #fff;
+}
+
+.cards_section {
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: repeat(12, 1fr);
+}
+.cards_section .card__item {
+  background: #212b36;
+  border-radius: 20px;
+  padding: 20px;
+  line-height: 1.5;
+  grid-column: span 4;
+}
+.cards_section .card__item .card__title {
+  font-size: 2em;
+}
+.cards_section .card__item .card__description {
+  font-size: 1.2em;
+}
+.cards_section .card__item .card__btn {
+  padding: 10px 20px;
+  background: #da029f;
+  width: auto;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin-top: 2em;
+}
+.cards_section .card__item--first {
+  position: relative;
+  background: url("../img/login.webp") no-repeat;
+  background-size: cover;
+  color: #fff;
+  grid-column: 1/-6;
+  padding: 5em 2em 2em;
+}
+.cards_section .card__item--first p {
+  margin-top: 20px;
+}
+.cards_section .card__item--carousel {
+  grid-column: -6/13;
+}
+
+.dropdown__component {
+  position: relative;
+}
+.dropdown__component .dropdown__icon {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+}
+.dropdown__component .dropdown__icon:hover {
+  background: rgba(0, 0, 0, 0.1490196078);
+}
+.dropdown__component .dropdown__content {
+  position: absolute;
+  width: 200px;
+  background: #111826;
+  padding: 20px;
+  border-radius: 10px;
+  top: 50px;
+  right: 0;
+  opacity: 0;
+  transform: translateY(-150%);
+  transition: all 0.3s;
+  border: 1px dashed #3737b3;
+}
+.dropdown__component .dropdown__content--active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.dropdown__component .dropdown__content a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+/*# sourceMappingURL=dashboard.css.map */

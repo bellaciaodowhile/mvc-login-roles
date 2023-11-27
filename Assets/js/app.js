@@ -103,6 +103,17 @@ function changeStatusCheckbox(el) {
     }
     return el.checked;
 }
+// Documentar
+function el(el) {
+    return document.querySelector(el)
+}
+// Documentar
+function submit({el, res}) {
+    el.addEventListener('submit',  function(e) {
+        e.preventDefault();
+        res(e);
+    });
+}
 /**
  * Temporary
  * @param { HTMLElement } el 
