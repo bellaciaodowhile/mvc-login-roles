@@ -1,0 +1,63 @@
+.main-global-users-subtabs-gj8 {
+    padding: 10px;
+    background: $color-box;
+    border-radius: 6px;
+	.main-triggers-subtabs-gj8 {
+        position: relative;
+		background: $color-btn;
+		width: 100%;
+		display: flex;
+        border-radius: 22px 22px 0 0;
+        padding: 10px 10px 0;
+		.tab-trigger-subtabs-gj8 {
+			padding: 12px 18px;
+			display: flex;
+			cursor: pointer;
+			transition: $trs;
+			color: $color-nav-text;
+            position: relative;
+            &::after {
+                content: "";
+                position: absolute;
+                width: 1px;
+                height: 13px;
+                background: #fff;  
+                top: 16px;
+                right: 0;
+            }
+			i {
+				font-size: 1.3em;
+				margin-right: 5px;
+			}
+			// &:nth-child(1) {
+			// 	background: $color-btn;
+			// 	color: #fff;
+            //     &.active {
+            //         background: $color-btn;
+            //         border-radius: 0;
+            //         transform: translateY(0px);
+            //     }
+			// }
+            &.active {
+                background: #1e1e1e;
+                border-radius: 10px 10px 0 0;
+                transition: $trs;
+                &::after {
+                    content: "";
+                    background: $color-box;  
+                }
+            }
+		}
+	}
+	.main-subtabs-content-gj8 {
+		// font-size: 1.6em;
+		.tab-content-subtabs-gj8 {
+            position: relative;
+			&:nth-child(1) {
+				display: block;
+			}
+			display: none;
+			animation: $fade;
+		}
+	}
+}

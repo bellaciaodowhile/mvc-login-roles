@@ -3,7 +3,7 @@
 <div class="login">
     <div class="card__login">
         <h2>Inicia sesión</h2>
-        <form action="#" class="form__login">
+        <form class="form__login">
             <div class="input__text">
                 <input class="input__text-input" type="text" required>
                 <span class="input__text-label">Usuario</span>

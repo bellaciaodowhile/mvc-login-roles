@@ -1,0 +1,112 @@
+.select {
+    display: flex;
+    position: relative;
+    height: 75px;
+    width: 100%;
+    align-items: center;
+    &--active {
+        .select__header {
+            border-color: $color-btn;
+            border-width: 2px;
+            &__icon {
+                &::before {
+                    transform: rotate(43deg);
+                }
+                &::after {
+                    transform: rotate(-43deg);
+                } 
+            }
+            &:hover {
+                border-color: $color-btn;
+            }
+        }
+    }
+    &--valid {
+        .select__header {
+            border-color: $color-btn;
+            &__label {
+                font-size: 1em;
+                top: 15px;
+            }
+            &:hover {
+                border-color: $color-btn;
+            }
+        }
+    }
+    &__header {
+        height: 55px;
+        width: 100%;
+        border-radius: $radius-field;
+        padding: 0 10px;
+        border: 0.5px solid #C2C2C2;
+        position: relative;
+        transition: border-color 200ms;
+        cursor: pointer;
+        &:hover {
+            border-color: rgba($color: $color-btn, $alpha: 0.5);
+        }
+        &__label {
+            height: 55px;
+            position: absolute;
+            pointer-events: none;
+            left: 20px;
+            top: 17px;
+            font-size: 14px;
+            color: #666666;
+            transition: $trs;
+        }
+        &__icon {
+            position: absolute;
+            top: 28px;
+            right: 30px;
+            &::before {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: 10px;
+                width: 8px;
+                height: 1px;
+                background: $color-btn;
+                transform: rotate(-43deg);
+                transition: $trs-200;
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: 4px;
+                width: 8px;
+                height: 1px;
+                background: $color-btn;
+                transform: rotate(43deg);
+                transition: $trs-200;
+            }
+        }
+    }
+    &__content {
+        position: absolute;
+        width: 100%;
+        top: 62px;
+        left: 0;
+        background: #fff;
+        border-radius: 0 0 $radius-field $radius-field;
+        box-shadow: 0 10px 20px #00000026;
+        border-right: 2px solid $color-btn;
+        border-left: 2px solid $color-btn;
+        border-bottom: 2px solid $color-btn;
+        z-index: -1;
+        transform: scale(0) translateY(-120%);
+        transition: $trs;
+        &--active {
+            z-index: 2;
+            transform: scale(1);
+        }
+        &-item {
+            padding: 1em;
+            cursor: pointer;
+            &:hover {
+                background: rgba($color: $color-btn, $alpha: 0.1);
+            }
+        }
+    }
+}

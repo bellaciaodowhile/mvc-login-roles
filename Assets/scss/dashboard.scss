@@ -15,8 +15,8 @@
     width: 300px;
     height: 100%;
     overflow-y: auto;
-    color: white;
-    border-right: 1px dashed $color-btn;
+    color: #8892a9;
+    border-right: 1px dashed $color-secondary;
 
     .nav__logo {
         display: flex;
@@ -40,10 +40,10 @@
             font-weight: bold;
             text-transform: uppercase;
             font-size: .8em;
+            color: #fff;
         }
 
         .nav__item {
-
             cursor: pointer;
             overflow: hidden;
             display: flex;
@@ -54,11 +54,19 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 20px;
+                padding: 11px;
                 margin-top: 3px;
                 border-radius: 10px;
                 transition: all 300ms ease-in-out;
-
+                &--pink {
+                    background: #00000057;
+                    color: #7947e8;
+                    border: 1px solid #7947e8;
+                    &:hover {
+                        background: #00000057;
+                        color: #7947e8;
+                    }
+                }
                 span:nth-child(1) {
                     display: flex;
                     align-items: center;
@@ -68,17 +76,21 @@
                         font-size: 2em;
                     }
                 }
-
+                &--active {
+                    background: #00000057;
+                    color: #7947e8;
+                }
                 &:hover {
-                    background: #00000026;
-                    color: #fff;
+                    background: #00000057;
+                    color: #7947e8;
                 }
             }
 
             &-content {
                 transition: height .4s;
                 height: 0;
-                border-left: 1px solid;
+                margin-left: 1em;
+                font-size: 0.8em;
             }
         }
     }
@@ -111,6 +123,7 @@
         height: 100vh;
         overflow-y: auto;
         color: #fff;
+        animation: $fadeIn;
     }
 }
 
@@ -150,7 +163,7 @@
             background: url('../img/login.webp') no-repeat;
             background-size: cover;
             color: #fff;
-            grid-column: 1 / -6;
+            grid-column: 1 / -1;
             padding: 5em 2em 2em;
 
             p {
@@ -203,3 +216,4 @@
         }
     }
 }
+

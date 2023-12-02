@@ -1,0 +1,62 @@
+.switch {
+    display: flex;
+    position: relative;
+    .switch__label{
+        position: relative;
+        background: $color-btn;
+        border-radius: 200px;
+        color: white;
+        padding: 7px 40px 10px 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: $trs;
+        width: 100%;
+        height: 40px;
+        &::before {
+            content: "";
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-radius: 200px;
+            background: white;
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            transition: $trs;
+        }
+
+        .switch__label-slider {
+            .switch__inactive {
+                display: none;
+                animation: $fade;
+            }
+        }
+        &--small {
+            &.switch__off {
+                &::before {
+                    right: 70% !important;
+                }
+            }
+        }
+
+        &.switch__off {
+            .switch__inactive {
+                display: flex;
+                animation: $fade;
+            }
+
+            .switch__active {
+                display: none;
+                animation: $fade;
+            }
+
+            &::before {
+                right: 93%;
+            }
+
+            background: #ccc;
+            padding: 7px 10px 10px 40px;
+            color: $color-btn;
+        }
+    }
+}

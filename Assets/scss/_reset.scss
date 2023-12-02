@@ -12,7 +12,7 @@
 *::before,
 *::after {
     box-sizing: border-box;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Ubuntu';
 }
 
 /* Reapply the pointer cursor for anchor tags */
@@ -57,7 +57,7 @@ textarea {
     -webkit-line-break: after-white-space;
 }
 
-/* apply back the draggable feature - exist only in Chromium and Safari */
+// /* apply back the draggable feature - exist only in Chromium and Safari */
 :where([draggable="true"]) {
     -webkit-user-drag: element;
 }

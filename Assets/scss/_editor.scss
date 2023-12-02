@@ -1,0 +1,267 @@
+.container__editor {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    // position: absolute;
+    // left: 0;
+    // top: 0;
+}
+
+.container__editor.view1 {
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.container__editor.view2 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.coder {
+    display: grid;
+    padding: 10px;
+}
+
+.coder.view1 {
+    height: 100%;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.coder.view2 {
+    height: 100vh;
+    width: 100%;
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.code-editor {
+    height: 100%;
+    width: 100%;
+}
+
+.code {
+    /* background-color: red; */
+    height: 100%;
+    width: 100%;
+}
+
+.code-type {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    height: fit-content;
+    width: 100%;
+    background-color: #1A1B1F;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.ace_gutter {
+    background-color: #1D1E22 !important;
+}
+
+.ace_gutter-cell.ace_gutter-active-line.ace_info {
+    background-color: #1D1E22 !important;
+}
+
+.ace-nord-dark .ace_gutter-active-line {
+    background-color: #1D1E22 !important;
+}
+
+.output {
+    background-color: #ddd;
+}
+
+.virtual-iframe {
+    height: 100%;
+    width: 100%;
+}
+
+.change-layout {
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 7px;
+    background-color: #444857;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    padding: 10px 20px;
+    margin: auto;
+    bottom: 15px;
+    left: 15px;
+    cursor: pointer;
+    z-index: 20;
+    user-select: none;
+}
+
+
+.change-layout:hover {
+    background-color: #2d303a;
+}
+
+// ! De aquí para abajo es lo que vamos a usar por ahora
+.panel-grid,
+.panel {
+    // display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+
+#panel-a {
+    overflow: hidden;
+    right: 50%;
+    bottom: 50%;
+    background-color: #aaa;
+}
+
+#panel-b {
+    overflow: hidden;
+    left: 50%;
+    bottom: 50%;
+    background-color: #bbb;
+    border-bottom: 2px solid silver;
+}
+
+#panel-c {
+    overflow: hidden;
+    top: 50%;
+    right: 50%;
+    background-color: #ccc;
+}
+
+#panel-d {
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    background-color: #ddd;
+}
+
+#handler {
+    $r: 5px;
+    z-index: 9999;
+    position: absolute;
+    left: calc(50% - #{$r});
+    top: calc(50% - #{$r});
+    width: 0;
+    height: 0;
+    border: $r solid $color-btn;
+    transform: rotate(45deg);
+    // transition: $trs;
+    &:hover {
+        cursor: crosshair;
+        transform: rotate(45deg) scale(10);
+    }
+}
+#components__result {
+    width: 100%;
+    height: 100%;
+}
+.trigger__nav {
+    display: none;
+    position: fixed;
+    // align-items: center;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    // width: 50px;
+    z-index: 3;
+    // background: $color-btn;
+}
+nav.nav__create__components {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: $color-primary;
+    padding: 10px;
+    z-index: 3;
+    .nav__logo {
+        .nav__logo-img {
+            width: 50px;
+        }
+    }
+    .title__component {
+        display: flex;
+        align-items: center;
+        gap: 20px
+    }
+    .nav__create__components-icons {
+        display: flex;
+        align-items: center;
+    }
+}
+// !
+
+
+
+
+
+
+
+.box__editor {
+    height: 100%;
+    width: 100%;
+}
+
+.boxes__editor {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.create__components {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $color-primary;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.99);
+    transition: $trs-200;
+    overflow: auto;
+
+    &--active {
+        z-index: 10;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .card__components {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        gap: 20px;
+        resize: both;
+        overflow: hidden;
+
+        &-item {
+            background: $color-secondary;
+            border-radius: 4px;
+            padding: 1em;
+
+        }
+    }
+
+    &-output {
+        // flex-grow: 1;
+        resize: both;
+        background: $color-secondary;
+        border-radius: 4px;
+        padding: 1em;
+        // height: 60vh;
+    }
+}
