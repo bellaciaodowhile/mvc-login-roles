@@ -18,14 +18,37 @@ function dataUsers() {
                             <td>${ item.nombre }</td>
                             <td>${ item.apellido }</td>
                             <td>${ item.usuario }</td>
-                            <td>${ item.status ? 'Activo' : 'Inactivo' }</td>
-                            <td>${ item.tipo }</td>
                             <td>
-                                <button ripple class="btn btn-icon">
+                                <span class="tag tag--${ item.status == '1' ? 'active' : 'inactive' }">${ item.status == '1' ? 'Activo' : 'Inactivo' }</span>
+                            </td>
+                            <td>${ item.tipo }</td>
+                            <td style="display: flex;">
+                                <button ripple class="btn btn-icon trigger__update" id="${ item.id }" data-toggle="modal">
                                     <i class="material-icons-outlined">edit</i>
+                                </button>
+                                <button ${item.tipo == 'SuperAdmin' ? 'style="display: none"' : ''} ripple class="btn btn-icon trigger__delete" id="${ item.id }">
+                                    <i class="material-icons-outlined">delete</i>
                                 </button>
                             </td>
                         </tr>`
+                    });
+                    switchs();
+                    let triggersUpdate = getAllElements({el: '.trigger__update'});
+                    triggersUpdate.map(trigger => {
+                        onclick({el: trigger, res: function(res) {
+                            let id = res.currentTarget.getAttribute('id')
+                            getUser(id)
+                            openModal('#modal__update__users');
+                        }});
+                    });
+                    let triggersDelete = getAllElements({el: '.trigger__delete'});
+                    triggersDelete.map(trigger => {
+                        onclick({el: trigger, res: function(res) {
+                            let id = res.currentTarget.getAttribute('id')
+                            if (confirm('¿Esta seguro de eliminar este registro?')) {
+                                delUser(id, trigger)
+                            }
+                        }});
                     });
                 }
             }
@@ -33,7 +56,6 @@ function dataUsers() {
     });
 }
 dataUsers();
-
 // * Add Users
 const formAddUsers = el('.form__add__users');
 submit({
@@ -42,7 +64,7 @@ submit({
         console.log(res)
         let data = new FormData(formAddUsers);
         let tipo = formAddUsers.querySelector('.select__header__label').textContent;
-
+        let estado = formAddUsers.querySelector('.switch__label').classList.contains('switch__off') ? 0 : 1;
         AJAXGJ8({
             url: 'Usuarios/setUsers',
             data: [{
@@ -50,7 +72,7 @@ submit({
                 apellido: data.get('apellido'),
                 usuario: data.get('usuario'),
                 contrasena: data.get('contrasena'),
-                estado: data.get('estado'),
+                estado,
                 tipo
             }],
             success: function (res) {
@@ -69,546 +91,277 @@ submit({
         });
     }
 });
-// * HTML Editor
-// let htmlEditorm = ace.edit("html-box");
-// htmlEditorm.setTheme("ace/theme/monokai");
-// htmlEditorm.getSession().setMode("ace/mode/html");
-// htmlEditorm.setOptions({
-//     autoScrollEditorIntoView: true,
-//     copyWithEmptySelection: true,
-//     fontFamily: 'Ubuntu',
-//     // fontSize: '10pt'
-// });
-// htmlEditorm.session.setUseWrapMode(true);
-// htmlEditorm.commands.addCommand({
-//     name: 'myCommand',
-//     bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
-//     exec: function(editor) {
-//         alert('Cambios guardados')
-//     },
-//     readOnly: true, // false if this command should not apply in readOnly mode
-//     // multiSelectAction: "forEach", optional way to control behavior with multiple cursors
-//     // scrollIntoView: "cursor", control how cursor is scolled into view after the command
-// });
-
-// let cssEditorm = ace.edit("css-box");
-// cssEditorm.setTheme("ace/theme/monokai");
-// cssEditorm.getSession().setMode("ace/mode/css");
-// cssEditorm.setOptions({
-//     autoScrollEditorIntoView: true,
-//     copyWithEmptySelection: true,
-// });
-// cssEditorm.session.setUseWrapMode(true);
-// cssEditorm.commands.addCommand({
-//     name: 'myCommand',
-//     bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
-//     exec: function(editor) {
-//         alert('Cambios guardados')
-//     },
-//     readOnly: true, // false if this command should not apply in readOnly mode
-//     // multiSelectAction: "forEach", optional way to control behavior with multiple cursors
-//     // scrollIntoView: "cursor", control how cursor is scolled into view after the command
-// });
-// let jsEditorm = ace.edit("js-box");
-// jsEditorm.setTheme("ace/theme/monokai");
-// jsEditorm.getSession().setMode("ace/mode/javascript");
-// jsEditorm.setOptions({
-//     autoScrollEditorIntoView: true,
-//     copyWithEmptySelection: true,
-// });
-// jsEditorm.session.setUseWrapMode(true);
-// jsEditorm.commands.addCommand({
-//     name: 'myCommand',
-//     bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
-//     exec: function(editor) {
-//         alert('Cambios guardados')
-//     },
-//     readOnly: true, // false if this command should not apply in readOnly mode
-//     // multiSelectAction: "forEach", optional way to control behavior with multiple cursors
-//     // scrollIntoView: "cursor", control how cursor is scolled into view after the command
-// });
-
-// let html = htmlEditorm.getValue();
-// let css = cssEditorm.getValue();
-// let js = jsEditorm.getValue();
-
-// htmlEditorm.session.on('change', function (delta) {
-//     console.log(delta);
-// });
-
-// let outputFrame = document.getElementById("output").contentWindow.document;
-// outputFrame.open();
-// outputFrame.write(html + "<style>" + css + "</style><script>" + js + "</script>");
-// outputFrame.close();
-
-
-// ! CLONE CODEPEN
-// window.onload = function () {
-//     for (var i = 0; i < document.getElementsByClassName("code").length; i++)
-//         document.getElementsByClassName("code")[i].style.height = document.querySelector(".code-editor").clientHeight - 40 + "px";
-
-//     let htmlEditor = ace.edit("html");
-//     htmlEditor.session.setMode("ace/mode/html");
-//     htmlEditor.setTheme("ace/theme/nord_dark");
-//     if (localStorage.getItem("lc-codepen-clone-html") == null)
-//         htmlEditor.session.setValue(`<!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Document</title>
-// </head>
-// <body>
-
-// </body>
-// </html>`);
-//     else htmlEditor.session.setValue(localStorage.getItem("lc-codepen-clone-html"))
-//     htmlEditor.session.setUseWrapMode(true);
-//     htmlEditor.setShowPrintMargin(false);
-//     htmlEditor.setHighlightActiveLine(false);
-//     htmlEditor.session.on('change', function (delta) {
-//         update();
-//     });
+// * Get User
+function getUser(id) {
+    console.log(id)
+    let formUpdate = el('.form__update__users');
+    let estado = formUpdate.querySelector('.switch__label');
+    AJAXGJ8({
+        url: 'Usuarios/getUser',
+        data: [{ id }],
+        success: function(res) {
+            res = JSON.parse(res)
+            console.log(res)
+            formUpdate.setAttribute('id', res.id)
+            formUpdate.querySelector('input[name="nombre"]').value = res.nombre;
+            formUpdate.querySelector('input[name="apellido"]').value = res.apellido;
+            formUpdate.querySelector('input[name="usuario"]').value = res.usuario;
+            formUpdate.querySelector('input[name="contrasena"]').value = res.contrasena;
+            res.status == '1' ? estado.classList.remove('switch__off') : estado.classList.add('switch__off');
+            formUpdate.querySelector('.select__header__label').textContent = res.tipo;
+        }
+    })
+}
+// * Delete user
+function delUser(id) {
+    AJAXGJ8({
+        url: 'Usuarios/deleteUser',
+        data: [{ id }],
+        success: function(res) {
+            res = JSON.parse(res)
+            console.log(res)
+            if (res.status) {
+                alert(res.msg)
+                dataUsers();
+            } else {
+                alert(res.msg)
+            }
+        }
+    });
+}
+// * Update Users
+const formUpdateUsers = el('.form__update__users');
+submit({
+    el: formUpdateUsers,
+    res: function (res) {
+        console.log(res)
+        let data = new FormData(formUpdateUsers);
+        let tipo = formUpdateUsers.querySelector('.select__header__label').textContent;
+        let id = formUpdateUsers.getAttribute('id')
+        let status = formUpdateUsers.querySelector('.switch__label').classList.contains('switch__off') ? 0 : 1;
+        switchs();
+        AJAXGJ8({
+            url: 'Usuarios/updateUsers',
+            data: [{
+                id,
+                nombre: data.get('nombre'),
+                apellido: data.get('apellido'),
+                usuario: data.get('usuario'),
+                contrasena: data.get('contrasena'),
+                status,
+                tipo
+            }],
+            success: function (res) {
+                res = JSON.parse(res)
+                console.log(res)
+                if (res.status) {
+                    alert(res.msg)
+                    let idModal = '#' + formUpdateUsers.closest('.modal').getAttribute('id')
+                    closeModal(idModal)
+                    dataUsers();
+                    switchs();
+                } else {
+                    alert(res.msg)
+                }
+            }
+        });
+    }
+});
 
 
-//     let cssEditor = ace.edit("css");
-//     cssEditor.session.setMode("ace/mode/css");
-//     cssEditor.setTheme("ace/theme/nord_dark");
-//     cssEditor.setOptions({
-//         enableBasicAutocompletion: true,
-//         enableSnippets: true,
-//         enableLiveAutocompletion: false
-//     });
 
-//     if (localStorage.getItem("lc-codepen-clone-css") == null)
-//         cssEditor.session.setValue(`body{
+// * Cargando lista de roles
+// console.log(el('#select__content__roles'))
+AJAXGJ8({
+    url: 'Roles/getRoles',
+    success: function(res) {
+        res = JSON.parse(res)
+        let allSelectsRoles = getAllElements({el: '#select__content__roles'});
+        allSelectsRoles.map(select => {
+            cleanHtml(select);
+            for (rol of res) {
+                viewHtml({el: select, content: /*html*/ `
+                    <div ripple class="select__content-item">
+                        ${ rol.nombrerol }
+                    </div>
+                `})
+            }
+        });
+    }
+});
 
-//     }`);
-//     else cssEditor.session.setValue(localStorage.getItem("lc-codepen-clone-css"))
-//     cssEditor.session.setUseWrapMode(true);
-//     cssEditor.setShowPrintMargin(false);
-//     cssEditor.setHighlightActiveLine(false);
-//     cssEditor.session.on('change', function (delta) {
-//         update();
-//     });
+const componentsOpen = getAllElements({el: '.components__open'});
+componentsOpen.map(open => {
+    onclick({el: open, res: function(res) {
+        el('.components__items').classList.toggle('components__items--active')
+    }});
+});
 
-//     let jsEditor = ace.edit("javascript");
-//     jsEditor.session.setMode("ace/mode/javascript");
-//     jsEditor.setTheme("ace/theme/nord_dark");
-//     jsEditor.setOptions({
-//         enableBasicAutocompletion: true,
-//         enableSnippets: true,
-//         enableLiveAutocompletion: false
-//     });
-//     if (localStorage.getItem("lc-codepen-clone-js") == null)
-//         jsEditor.session.setValue(`//JavaScript goes here`);
-//     else
-//         jsEditor.session.setValue(localStorage.getItem("lc-codepen-clone-js"))
-//     jsEditor.session.setUseWrapMode(true);
-//     jsEditor.setShowPrintMargin(false);
-//     jsEditor.setHighlightActiveLine(false);
-//     jsEditor.session.on('change', function (delta) {
-//         update();
-//     });
-//     update();
+// * Cargando Components
+function getComponents() {
+    AJAXGJ8({
+        url: 'Components/getComponents',
+        success: function(res) {
+            res = JSON.parse(res)
+            // console.log(res)
+            cleanHtml('.cards__components');
+            if (res.length >= 1) {
+                for (component of res) {
+                    // console.log(component)
+                    viewHtml({el: '.cards__components', content: /*html*/`
+                    <div class="card-work create__component" component="${component.id}">
+                        <div class="card-work__img">
+                            <img src="assets/img/logo.png" />
+                        </div>
+                        <div class="card-work__header">
+                            <div class="card-work__logo">
+                                <img src="assets/img/logo.png" />
+                            </div>
+                            <div class="card-work__info">
+                                <p class="title"> ${ component.nombre } </p>
+                                <p class="author"> Huánuco </p>
+                            </div>
+                            <div class="card-work__tag">
+                                <div class="tag">
+                                    html
+                                </div>
+                                <div class="tag">
+                                    css
+                                </div>
+                                <div class="tag">
+                                    js
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `});
+                    contentLoadedButtonsComponents();
+                }
+            } else {
+                viewHtml({el: '.cards__components', content: /*html*/`
+                    No existen componentes registrados...`
+                });
+            }
+            
+        }
+    });
+}
 
-//     function update() {
-//         let output = document.querySelector(".output .virtual-iframe").contentWindow.document;
-//         console.log(output)
-//         output.open();
-//         output.write("<style>" + cssEditor.getValue() + "</style>" + htmlEditor.getValue() + "<script>" + jsEditor.getValue() + "</script>");
-//         output.close();
-//         localStorage.setItem("lc-codepen-clone-html", htmlEditor.getValue())
-//         localStorage.setItem("lc-codepen-clone-css", cssEditor.getValue())
-//         localStorage.setItem("lc-codepen-clone-js", jsEditor.getValue())
-//     }
+getComponents();
+const components = el(`.create__components`);
+function contentLoadedButtonsComponents() {
+    const createComponent = getAllElements({
+        el: `.create__component`
+    });
+    // console.log(createComponent)
+    return createComponent;
 
-//     window.addEventListener("resize", e => {
-//         for (var i = 0; i < document.getElementsByClassName("code").length; i++)
-//             document.getElementsByClassName("code")[i].style.height = document.querySelector(".code-editor").clientHeight - 40 + "px";
-//         htmlEditor.resize();
-//         cssEditor.resize();
-//         jsEditor.resize();
-//     })
-
-//     let layout = 0;
-
-//     document.querySelector(".change-layout").addEventListener("click", function () {
-//         layout++;
-//         if (layout > 1) layout = 0;
-//         changeLayout();
-//     })
-
-//     function changeLayout() {
-//         switch (layout) {
-//             case 0:
-//                 document.querySelector(".coder").classList.add("view1")
-//                 document.querySelector(".coder").classList.remove("view2")
-//                 document.querySelector(".container").classList.add("view1")
-//                 document.querySelector(".container").classList.remove("view2")
-
-//                 for (var i = 0; i < document.getElementsByClassName("code").length; i++) {
-//                     document.getElementsByClassName("code")[i].style.maxHeight = "unset";
-//                     document.getElementsByClassName("code")[i].style.height = document.querySelector(".code-editor").clientHeight - 40 + "px";
-//                 }
-//                 htmlEditor.resize();
-//                 cssEditor.resize();
-//                 jsEditor.resize();
-//                 break;
-//             case 1:
-//                 document.querySelector(".coder").classList.add("view2")
-//                 document.querySelector(".coder").classList.remove("view1")
-//                 document.querySelector(".container").classList.add("view2")
-//                 document.querySelector(".container").classList.remove("view1")
-
-//                 for (var i = 0; i < document.getElementsByClassName("code").length; i++) {
-//                     document.getElementsByClassName("code")[i].style.height = document.querySelector(".code-editor").clientHeight - 40 + "px";
-//                     document.getElementsByClassName("code")[i].style.maxHeight = "194px";
-//                 }
-//                 htmlEditor.resize();
-//                 cssEditor.resize();
-//                 jsEditor.resize();
-//                 break;
-//         }
-//     }
-// }
-
-// setTimeout(() => {
-
-// const htmlEditor = el('.html__editor .monaco-editor');
-// console.log(htmlEditor)
-// }, 2000);
-// const viewContent = el('.view__content');
-// onclick({el: viewContent, res: (res) => {
-//     getAllElements({el: '.view-line'}).map(line => {
-//         console.log(line.textContent)
-//     })
-// }});
-
-// Load the Monaco Editor.
+}
+contentLoadedButtonsComponents();
+// * Load the Monaco Editor.
 require.config({
     paths: {
         'vs': 'https://topiaires.fr/monaco-editor/node_modules/monaco-editor/min/vs'
     }
 });
 require(['vs/editor/editor.main'], function () {
-    // monaco.editor.defineTheme('myTheme', {
-    //     base: 'vs',
-    //     inherit: true,
-    //     rules: [{ background: 'EDF9FA' }],
-    //     // colors: { 'editor.lineHighlightBackground': '#0000FF20' }
-    // });
-    // monaco.editor.setTheme('myTheme');
-    // let htmlEditor = monaco.editor.create(document.getElementById('js__editor'), {
-    //     value: [ // Initial code to put in the editor.
-    //         'function x() {',
-    //         '\tconsole.log("Hello world!");',
-    //         '}'
-    //     ].join('\n'),
-    //     language: 'javascript',
-    //     // theme: 'vs-dark'
-    // });
 
-    var fileCounter = 0;
-    var editorArray = [];
-    var defaultCode = [
-        'function helloWorld() {',
-        '   console.log("Hello world!");',
-        '}'
-    ].join('\n');
-
-    // monaco.editor.setTheme('dracula');
-   
-
-    // 新建一个编辑器
-    function newEditor(container_id, code, language) {
-        var model = monaco.editor.createModel(code, language);
-        var editor = monaco.editor.create(document.getElementById(container_id), {
-            model: model,
-            // theme: 'vs-dark'
-            automaticLayout: true,
-
-        });
-        editorArray.push(editor);
-        window.onresize = function (e) {
-            editor.layout()
+    // * Create Component
+    
+    const closeComponents = el(`.close__component`);
+    onclick({
+        el: closeComponents,
+        res: (res) => {
+            components.classList.toggle('create__components--active');
+            el('.list-container').classList.toggle('active');
         }
+    });
+    let createComponent = contentLoadedButtonsComponents();
+    // console.log(createComponent)
+    createComponent.map(btn => {
+        onclick({
+            el: btn,
+            res: (res) => {
+                if (btn.classList.contains('card-work')) {
+                     // * Get only component
+                    console.log(btn)
+                    let id = btn.getAttribute('component');
+                    AJAXGJ8({
+                        url: 'Components/getComponent',
+                        data: [{ id }],
+                        success: function(res) {
+                            res = JSON.parse(res)
+                            console.log(res)
+                            let htmlDecode = res[0].html.replaceAll('___amp___','&');
+                            let cssDecode = res[0].css.replaceAll('___amp___','&');
+                            let jsDecode = res[0].js.replaceAll('___amp___','&');
+                            htmlEditor.setValue(htmlDecode);
+                            cssEditor.setValue(cssDecode);
+                            jsEditor.setValue(jsDecode);
 
-        return editor;
-    }
+                            updateIframeOutput({ lang: 'html', value: htmlDecode })
+                            updateIframeOutput({ lang: 'css', value: cssDecode })
+                            updateIframeOutput({ lang: 'js', value: jsDecode })
+                            getComponents();
+                        }
+                    });
+                } else {
+                    console.log('not component')
+                    htmlEditor.setValue('');
+                    cssEditor.setValue('');
+                    jsEditor.setValue('');
+                    updateIframeOutput({ lang: 'html', value: '' })
+                    updateIframeOutput({ lang: 'css', value: '' })
+                    updateIframeOutput({ lang: 'js', value: '' })
+                }
+                components.classList.toggle('create__components--active');
+            }
+        });
+    });
+
+
+    monaco.editor.setTheme('vs-dark');
     let htmlEditor = monaco.editor.create(document.getElementById('html__editor'), {
         language: 'html',
-        // theme: 'vs-dark'
-        automaticLayout: true
+        automaticLayout: true,
+        fontSize: "16px",
     });
     let cssEditor = monaco.editor.create(document.getElementById('css__editor'), {
         language: 'css',
-        // theme: 'vs-dark'
-        automaticLayout: true
+        automaticLayout: true,
+        fontSize: "16px",
     });
     let jsEditor = monaco.editor.create(document.getElementById('js__editor'), {
         language: 'javascript',
-        // theme: 'vs-dark'
-        automaticLayout: true
+        automaticLayout: true,
+        fontSize: "16px",
     });
-    // editorArray.push(editor);
-    // window.onresize = function(e) {
-    //     editor.layout()
-    // }
-    setTimeout(() => {
-        // Define el tema personalizado
-        monaco.editor.defineTheme('myCustomTheme', {
-            base: 'vs-dark', // Elige la base del tema (puede ser 'vs', 'vs-dark' o 'hc-black')
-            inherit: true, // Indica si hereda estilos de otro tema
-            rules: [{
-                "background": "282a36",
-                "token": ""
-            },
-            {
-                "foreground": "6272a4",
-                "token": "comment"
-            },
-            {
-                "foreground": "f1fa8c",
-                "token": "string"
-            },
-            {
-                "foreground": "bd93f9",
-                "token": "constant.numeric"
-            },
-            {
-                "foreground": "bd93f9",
-                "token": "constant.language"
-            },
-            {
-                "foreground": "bd93f9",
-                "token": "constant.character"
-            },
-            {
-                "foreground": "bd93f9",
-                "token": "constant.other"
-            },
-            {
-                "foreground": "ffb86c",
-                "token": "variable.other.readwrite.instance"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "constant.character.escaped"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "constant.character.escape"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "string source"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "string source.ruby"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "keyword"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "storage"
-            },
-            {
-                "foreground": "8be9fd",
-                "fontStyle": "italic",
-                "token": "storage.type"
-            },
-            {
-                "foreground": "50fa7b",
-                "fontStyle": "underline",
-                "token": "entity.name.class"
-            },
-            {
-                "foreground": "50fa7b",
-                "fontStyle": "italic underline",
-                "token": "entity.other.inherited-class"
-            },
-            {
-                "foreground": "50fa7b",
-                "token": "entity.name.function"
-            },
-            {
-                "foreground": "ffb86c",
-                "fontStyle": "italic",
-                "token": "variable.parameter"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "entity.name.tag"
-            },
-            {
-                "foreground": "50fa7b",
-                "token": "entity.other.attribute-name"
-            },
-            {
-                "foreground": "8be9fd",
-                "token": "support.function"
-            },
-            {
-                "foreground": "6be5fd",
-                "token": "support.constant"
-            },
-            {
-                "foreground": "66d9ef",
-                "fontStyle": " italic",
-                "token": "support.type"
-            },
-            {
-                "foreground": "66d9ef",
-                "fontStyle": " italic",
-                "token": "support.class"
-            },
-            {
-                "foreground": "f8f8f0",
-                "background": "ff79c6",
-                "token": "invalid"
-            },
-            {
-                "foreground": "f8f8f0",
-                "background": "bd93f9",
-                "token": "invalid.deprecated"
-            },
-            {
-                "foreground": "cfcfc2",
-                "token": "meta.structure.dictionary.json string.quoted.double.json"
-            },
-            {
-                "foreground": "6272a4",
-                "token": "meta.diff"
-            },
-            {
-                "foreground": "6272a4",
-                "token": "meta.diff.header"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "markup.deleted"
-            },
-            {
-                "foreground": "50fa7b",
-                "token": "markup.inserted"
-            },
-            {
-                "foreground": "e6db74",
-                "token": "markup.changed"
-            },
-            {
-                "foreground": "bd93f9",
-                "token": "constant.numeric.line-number.find-in-files - match"
-            },
-            {
-                "foreground": "e6db74",
-                "token": "entity.name.filename"
-            },
-            {
-                "foreground": "f83333",
-                "token": "message.error"
-            },
-            {
-                "foreground": "eeeeee",
-                "token": "punctuation.definition.string.begin.json - meta.structure.dictionary.value.json"
-            },
-            {
-                "foreground": "eeeeee",
-                "token": "punctuation.definition.string.end.json - meta.structure.dictionary.value.json"
-            },
-            {
-                "foreground": "8be9fd",
-                "token": "meta.structure.dictionary.json string.quoted.double.json"
-            },
-            {
-                "foreground": "f1fa8c",
-                "token": "meta.structure.dictionary.value.json string.quoted.double.json"
-            },
-            {
-                "foreground": "50fa7b",
-                "token": "meta meta meta meta meta meta meta.structure.dictionary.value string"
-            },
-            {
-                "foreground": "ffb86c",
-                "token": "meta meta meta meta meta meta.structure.dictionary.value string"
-            },
-            {
-                "foreground": "ff79c6",
-                "token": "meta meta meta meta meta.structure.dictionary.value string"
-            },
-            {
-                "foreground": "bd93f9",
-                "token": "meta meta meta meta.structure.dictionary.value string"
-            },
-            {
-                "foreground": "50fa7b",
-                "token": "meta meta meta.structure.dictionary.value string"
-            },
-            {
-                "foreground": "ffb86c",
-                "token": "meta meta.structure.dictionary.value string"
-            }
-        ],
-        colors: {
-            "editor.foreground": "#f8f8f2",
-            "editor.background": "#282a36",
-            "editor.selectionBackground": "#44475a",
-            "editor.lineHighlightBackground": "#44475a",
-            "editorCursor.foreground": "#f8f8f0",
-            "editorWhitespace.foreground": "#3B3A32",
-            "editorIndentGuide.activeBackground": "#9D550FB0",
-            "editor.selectionHighlightBorder": "#222218"
-        }
-            // colors: {
-            //     'editor.background': '#CB4335', // Establece el color de fondo del editor
-            //     'editorLineNumber.foreground': '#58D68D', // Establece el color de las líneas de número
-            //     // Agrega más colores de tema según tus necesidades
-            // }
-        });
-
-        // Aplica el tema personalizado al editor
-        monaco.editor.setTheme('myCustomTheme');
-    }, 4000);
 
     [document.getElementById('html__editor'), document.getElementById('css__editor'), document.getElementById('js__editor')].map(editor => {
         editor.addEventListener('keyup', function (e) {
             let editor = e.currentTarget;
-            console.log(editor)
+            // console.log(editor)
             if (editor.id == 'html__editor') {
                 updateIframeOutput({
                     lang: 'html',
                     value: htmlEditor.getValue()
                 })
-                console.log(htmlEditor.getValue())
+                // console.log(htmlEditor.getValue())
             } else if (editor.id == 'css__editor') {
                 updateIframeOutput({
                     lang: 'css',
                     value: cssEditor.getValue()
                 })
-                console.log(cssEditor.getValue())
+                // console.log(cssEditor.getValue())
             } else if (editor.id == 'js__editor') {
                 updateIframeOutput({
                     lang: 'js',
                     value: jsEditor.getValue()
                 })
-                console.log(jsEditor.getValue())
+                // console.log(jsEditor.getValue())
             }
         })
     });
-
-
-    // editorArray.push(editor2);
-    window.onresize = function (e) {
-        htmlEditor.layout()
-    }
-
-
-
-
 
     el('#handler').addEventListener('mousedown', function () {
         document.addEventListener('mousemove', function (e) {
@@ -617,31 +370,54 @@ require(['vs/editor/editor.main'], function () {
             jsEditor.layout();
         });
     });
+    // * Guardando componente
+    onclick({el: '.save__component', res: (res) => {
+        let nameComponent = el('input[name="name__component"]').value;
+        let htmlEncode = htmlEditor.getValue().replaceAll('&', '___amp___')
+        let cssEncode = cssEditor.getValue().replaceAll('&', '___amp___')
+        let jsEncode = jsEditor.getValue().replaceAll('&', '___amp___')
 
-    // function addNewEditor(code, language, id) {
-    //     var new_container = document.createElement("DIV");
-    //     // new_container.id = "container-" + fileCounter.toString(10);
-    //     new_container.className = "box__editor";
-    //     document.getElementById(id).appendChild(new_container);
-    //     newEditor(new_container.id, code, language);
-    //     fileCounter += 1;
-    // }
+        AJAXGJ8({
+            url: 'Components/setComponents',
+            data: [{
+                html: htmlEncode,
+                css: cssEncode,
+                js: jsEncode,
+                user: el('.cards_section').getAttribute('id'),
+                name: nameComponent
+            }],
+            success: function (res) {
+                console.log(res)
+                res = JSON.parse(res);
+                if (res.status) {
+                    el('.list-container').classList.toggle('active');
+                    getComponents();
+                } else {
+                    alert(res.msg)
+                }
+            }
+        })
+    }});    
 
-    // addNewEditor(defaultCode, 'javascript', 'root');
-    // addNewEditor(defaultCode, 'html', 'html__editor');
-    // addNewEditor(defaultCode, 'css', 'css__editor');
-
-    // var btn = document.createElement("button");
-    // btn.id = "show-content";
-    // btn.innerHTML = "点我获取编辑器内容";
-    // var header = document.getElementById("header__");
-    // header.appendChild(btn);
-
-    // 点击 button 弹出编辑器内容
-    // document.getElementById("show-content").addEventListener("click", function () {
-    //     // 获取编辑器内容
-    //     alert(editorArray[0].getValue());
+    // * Editando Componente
+    // createComponent.map(btn => {
+    //     console.log(btn)
+    //     onclick({
+    //         el: btn,
+    //         res: (res) => {
+                
+    //             if (!btn.classList.contains('card-work')) {
+    //                 console.log('No contiene')
+    //                 // htmlEditor.setValue('');
+    //                 // cssEditor.setValue('');
+    //                 // jsEditor.setValue('');
+    //             }
+    //             console.log('Hola vale')
+    //             components.classList.toggle('create__components--active');
+    //         }
+    //     });
     // });
+
 });
 
 function updateIframeOutput(res) {
@@ -659,8 +435,24 @@ function updateIframeOutput(res) {
         script.innerHTML = "\n" + res.value + "\n";
         iframeBody.appendChild(script);
     }
-    console.log(res)
 }
+
+// * Fullscreen component
+function fullscreenComponent() {
+    el('#panel-d').classList.toggle('panel-d--active');
+    if (el('#panel-d').classList.contains('panel-d--active')) {
+        el('#panel-d').children[0].children[0].textContent = 'fullscreen_exit';
+        el('#handler').style.zIndex = '-1';
+        el('.list-container').classList.toggle('list-container--remove')
+    } else {
+        el('#panel-d').children[0].children[0].textContent = 'fullscreen';
+        el('#handler').style.zIndex = '9999';
+        el('.list-container').classList.toggle('list-container--remove')
+    }
+}
+onclick({el: '#fullscreen__component', res: function(res) {
+    fullscreenComponent()
+}});
 
 
 
@@ -669,29 +461,31 @@ function updateIframeOutput(res) {
     document.addEventListener('DOMContentLoaded', function () {
         var grid, handler, pa, pb, pc, pd, resize_panel;
         grid = document.querySelector('.panel-grid');
-        handler = document.querySelector('#handler');
-        pa = document.querySelector('#panel-a');
-        pb = document.querySelector('#panel-b');
-        pc = document.querySelector('#panel-c');
-        pd = document.querySelector('#panel-d');
-        resize_panel = function (e) {
-            handler.style.left = e.pageX - 5 + 'px';
-            handler.style.top = e.pageY - 5 + 'px';
-            pa.style.width = e.pageX + 'px';
-            pa.style.height = e.pageY + 'px';
-            pb.style.left = e.pageX + 'px';
-            pb.style.height = e.pageY + 'px';
-            pc.style.width = e.pageX + 'px';
-            pc.style.top = e.pageY - 5 + 'px';
-            pd.style.left = e.pageX + 'px';
-            pd.style.top = e.pageY - 5 + 'px';
-        };
-        handler.addEventListener('mousedown', function () {
-            document.addEventListener('mousemove', resize_panel);
-        });
-        grid.addEventListener('mouseup', function () {
-            document.removeEventListener('mousemove', resize_panel);
-        });
+        if (grid) {
+            handler = document.querySelector('#handler');
+            pa = document.querySelector('#panel-a');
+            pb = document.querySelector('#panel-b');
+            pc = document.querySelector('#panel-c');
+            pd = document.querySelector('#panel-d');
+            resize_panel = function (e) {
+                handler.style.left = e.pageX - 5 + 'px';
+                handler.style.top = e.pageY - 5 + 'px';
+                pa.style.width = e.pageX + 'px';
+                pa.style.height = e.pageY + 'px';
+                pb.style.left = e.pageX + 'px';
+                pb.style.height = e.pageY + 'px';
+                pc.style.width = e.pageX + 'px';
+                pc.style.top = e.pageY - 5 + 'px';
+                pd.style.left = e.pageX + 'px';
+                pd.style.top = e.pageY - 5 + 'px';
+            };
+            handler.addEventListener('mousedown', function () {
+                document.addEventListener('mousemove', resize_panel);
+            });
+            grid.addEventListener('mouseup', function () {
+                document.removeEventListener('mousemove', resize_panel);
+            });
+        }
     });
 }).call(this);
 
@@ -705,41 +499,24 @@ document.onkeyup = function (e) {
 document.onkeydown = function (e) {
     if (e.keyCode == 17) isCtrl = true;
     if (e.keyCode == 83 && isCtrl == true) {
-        //run code for CTRL+S -- ie, save!
         alert('guardado')
         return false;
-
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-// ! Temporary
-const createComponent = getAllElements({
-    el: `.create__component`
-});
-console.log(createComponent)
-const closeComponents = el(`.close__component`);
-const components = el(`.create__components`);
-onclick({
-    el: closeComponents,
-    res: (res) => {
+    if (e.keyCode == 81 && isCtrl == true) {
+        el('.components__items').classList.toggle('components__items--active')
+        components.classList.remove('create__components--active');
+        return false;
+    }
+    if (e.keyCode == 49 && isCtrl == true) {
+        fullscreenComponent();
+        return false;
+    }
+    if (event.key === "Escape") {
+        el('.list-container').classList.remove('active');
         components.classList.toggle('create__components--active');
     }
-});
-createComponent.map(btn => {
-    onclick({
-        el: btn,
-        res: (res) => {
-            components.classList.toggle('create__components--active');
-        }
-    });
-});
+}
+onclick({el: '.more-button', res: (e) => {
+    el('.list-container').classList.toggle('active');
+}});
+

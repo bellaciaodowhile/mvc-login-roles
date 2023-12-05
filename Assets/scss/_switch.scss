@@ -38,6 +38,20 @@
                 }
             }
         }
+        &--users {
+            &.switch__off {
+                &::before {
+                    right: 86% !important;
+                }
+            }
+        }
+        &--roles {
+            &.switch__off {
+                &::before {
+                    right: 93% !important;
+                }
+            }
+        }
 
         &.switch__off {
             .switch__inactive {

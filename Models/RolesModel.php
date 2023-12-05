@@ -4,7 +4,7 @@
             parent::__construct(); 
         }
         public function getRoles() {
-            $sql = "SELECT * FROM roles WHERE `status` != 0";
+            $sql = "SELECT * FROM roles";
             $q = $this->selectAll($sql);
             return $q;
         }
@@ -21,5 +21,21 @@
                 $return = $qInsert;
             }
             return $return;
+        }
+        public function getRol($id) {
+            $s = "SELECT * FROM roles WHERE idRol = '$id'";
+            $q = $this->select($s);
+            return $q;
+        }
+        public function updateRol($nombre, $descripcion, $status, $id) {
+            $s = "UPDATE roles SET nombrerol = ?, descripcion = ?, `status` = ? WHERE idRol = '$id'";
+            $arrData = array($nombre, $descripcion, $status);
+            $q = $this->update($s, $arrData);
+            return $q;
+        }
+        public function deleteRol($id) {
+            $s = "DELETE FROM roles WHERE idRol = '$id'";
+            $q = $this->delete($s);
+            return $q;
         }
     }

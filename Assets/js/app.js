@@ -6,6 +6,7 @@
  * @param { Object.error } error - Return error function
  */
 console.log('APP JS')
+
 function AJAXGJ8({
     url,
     data = [],
@@ -58,40 +59,25 @@ function onclick({
     el,
     res
 }) {
-    console.log(el)
-    if (typeof el == 'string') {
-        if (el != null || el != undefined) {
-            document.querySelector(el).onclick = (e) => {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                res(e);
+    if (el) {
+        if (typeof el == 'string') {
+            if (document.querySelector(`${el}`) != null || document.querySelector(`${el}`) != undefined) {
+                document.querySelector(`${el}`).addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    res(e);
+                })
             }
-        }
-    } else {
-        if (el != null) {
-            el.onclick = (e) => {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                res(e);
+        } else {
+            if (el != null || el != undefined) {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    res(e);
+                });
             }
         }
     }
-
-    // if (typeof el == 'Object') {
-    //     el.addEventListener('click', (e) => {
-    //         e.preventDefault();
-    //         e.stopImmediatePropagation();
-    //         res(e);
-    //     });
-    // } else {
-    //     document.querySelector(el).addEventListener('click', (e) => {
-    //         e.preventDefault();
-    //         e.stopImmediatePropagation();
-    //         res(e);
-    //     });
-    // }
-    
-
 }
 // View Html
 function viewHtml({
@@ -99,16 +85,29 @@ function viewHtml({
     content
 }) {
     if (el != undefined) {
-        el.innerHTML += content;
         rippleFunction();
         switchs();
+        if (typeof el == 'string') {
+            if (document.querySelector(`${el}`) != null || document.querySelector(`${el}`) != undefined) {
+                document.querySelector(`${el}`).innerHTML += content;
+            }
+        } else {
+            el.innerHTML += content;
+        }
     }
 }
 
 // Clean Html
 function cleanHtml(el) {
     if (el) {
-        el.innerHTML = '';
+        if (typeof el == 'string') {
+            console.log(el)
+            if (document.querySelector(`${el}`) != null || document.querySelector(`${el}`) != undefined) {
+                document.querySelector(`${el}`).innerHTML = '';
+            }
+        } else {
+            el.innerHTML = '';
+        }
     }
 }
 // Element Valid 
@@ -132,7 +131,9 @@ function changeStatusCheckbox(el) {
  * @returns HTMLElement
  */
 function el(el) {
-    return document.querySelector(el)
+    if (el != null || el != undefined) {
+        return document.querySelector(el)
+    }
 }
 /**
  * 
@@ -191,31 +192,31 @@ function getAllElements({
 function rippleFunction() {
     const elementsWithRipple = document.querySelectorAll('[ripple]');
 
-elementsWithRipple.forEach(elementWithRipple => {
-    elementWithRipple.addEventListener('pointerdown', (mouseEvent) => {
-        // Create a ripple element <div class="ripple">
-        const rippleEl = document.createElement('div');
-        rippleEl.classList.add('ripple');
+    elementsWithRipple.forEach(elementWithRipple => {
+        elementWithRipple.addEventListener('pointerdown', (mouseEvent) => {
+            // Create a ripple element <div class="ripple">
+            const rippleEl = document.createElement('div');
+            rippleEl.classList.add('ripple');
 
-        // Position the ripple
-        const x = mouseEvent.offsetX;
-        const y = mouseEvent.offsetY;
+            // Position the ripple
+            const x = mouseEvent.offsetX;
+            const y = mouseEvent.offsetY;
 
-        rippleEl.style.left = `${x}px`;
-        rippleEl.style.top = `${y}px`;
+            rippleEl.style.left = `${x}px`;
+            rippleEl.style.top = `${y}px`;
 
-        elementWithRipple.appendChild(rippleEl);
+            elementWithRipple.appendChild(rippleEl);
 
-        requestAnimationFrame(() => {
-            rippleEl.classList.add('run');
-        });
+            requestAnimationFrame(() => {
+                rippleEl.classList.add('run');
+            });
 
-        // Remove ripple element when the transition is done
-        rippleEl.addEventListener('transitionend', () => {
-            rippleEl.remove();
+            // Remove ripple element when the transition is done
+            rippleEl.addEventListener('transitionend', () => {
+                rippleEl.remove();
+            });
         });
     });
-});
 }
 rippleFunction();
 
@@ -228,28 +229,35 @@ let modalsTrigger = getAllElements({
     el: '[data-toggle="modal"]'
 });
 modalsTrigger.map(btn => {
-    onclick({el: btn, res: (e) => {
-        let id = btn.getAttribute('data-target');
-        openModal(id);
-    }});
+    onclick({
+        el: btn,
+        res: (e) => {
+            let id = btn.getAttribute('data-target');
+            openModal(id);
+        }
+    });
 });
 let modalsClose = getAllElements({
     el: '[data-dismiss="modal"]'
 });
 modalsClose.map(btn => {
-    onclick({el: btn, res: (e) => {
-        let id = '#' + btn.closest('.modal').getAttribute('id');
-        console.log(id)
-        closeModal(id);
-    }});
+    onclick({
+        el: btn,
+        res: (e) => {
+            let id = '#' + btn.closest('.modal').getAttribute('id');
+            console.log(id)
+            closeModal(id);
+        }
+    });
 });
 
 function openModal(id) {
     let modal = document.querySelector(id);
-    console.log(modal)
+    // console.log(modal)
     modal.classList.toggle('modal--active');
     modals.push(modal);
     closeContains(modal)
+    switchs(); /* OJO CON ESTO */
 }
 
 function closeModal(id) {
@@ -257,8 +265,9 @@ function closeModal(id) {
     modal.classList.toggle('modal--active');
     modals.splice(modals.indexOf(modal), 1);
 }
+
 function closeContains(modal) {
-    console.log(modal)
+    // console.log(modal)
     modal.addEventListener('click', function (e) {
         e.stopImmediatePropagation()
         let content = modal.querySelector(`.modal__content`);
@@ -271,25 +280,30 @@ function closeContains(modal) {
 
 
 // Select
-const selectsAll = getAllElements({ el: '.select' });
+const selectsAll = getAllElements({
+    el: '.select'
+});
 console.log(selectsAll)
 selectsAll.map(select => {
-    console.log(select)
-    onclick({ el: select, res:(res) => {
-        select.classList.toggle('select--active');
-        let content = select.querySelector('.select__content');
-        let label = select.querySelector('.select__header__label');
-        let items = [...select.querySelectorAll('.select__content-item')];
-        content.classList.toggle('select__content--active');
-        items.map(item => {
-            if (item.contains(res.target)) {
-                if (label.textContent != item.textContent) {
-                    select.classList.add('select--valid');
-                    label.textContent = item.textContent
+    // console.log(select)
+    onclick({
+        el: select,
+        res: (res) => {
+            select.classList.toggle('select--active');
+            let content = select.querySelector('.select__content');
+            let label = select.querySelector('.select__header__label');
+            let items = [...select.querySelectorAll('.select__content-item')];
+            content.classList.toggle('select__content--active');
+            items.map(item => {
+                if (item.contains(res.target)) {
+                    if (label.textContent != item.textContent) {
+                        select.classList.add('select--valid');
+                        label.textContent = item.textContent
+                    }
                 }
-            }
-        })
-    }});
+            })
+        }
+    });
 });
 
 const allItemsMoreNav = [...document.querySelectorAll('.nav__item')];
@@ -332,11 +346,28 @@ function switchs() {
     switchs.map(x => {
         x.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopImmediatePropagation(); /* OJO CON ESTO */
             x.classList.toggle('switch__off')
         });
     });
+    // console.log(switchs)
 }
 switchs();
+
+function createTooltip() {
+    const tooltips = document.querySelectorAll('.tooltip');
+    tooltips.forEach((tooltip) => {
+        const position = tooltip.getAttribute('data-tooltip-position');
+        tooltip.addEventListener('mouseenter', () => {
+            tooltip.style.setProperty('data-tooltip', position);
+        });
+        tooltip.addEventListener('mouseleave', () => {
+            tooltip.style.setProperty('data-tooltip', '');
+        });
+    });
+}
+
+createTooltip();
 
 
 const subtabsGj8 = [...document.querySelectorAll('.main-parent-subtabs-gj8')];

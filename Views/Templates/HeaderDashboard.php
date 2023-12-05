@@ -9,7 +9,7 @@
         <div class="nav__content">
             <div class="nav__item">
                 <button ripple class="nav__item-head nav__item-head--pink create__component">
-                    <span><i class="material-icons">dashboard</i> Crear componente</span>
+                    <span><i class="material-icons">dashboard</i> Crear componente <kbd>Esc</kbd></span>
                 </button>
             </div>
             <div class="nav__title mt-5">
@@ -20,6 +20,7 @@
                     <span><i class="material-icons">dashboard</i> Dashboard</span>
                 </a>
             </div>
+            <?php if ($_SESSION['tipo'] == 'SuperAdmin') {  ?>
             <div class="nav__item">
                 <div ripple red class="nav__item-head">
                     <span><i class="material-icons">people</i> Usuarios</span>
@@ -30,26 +31,20 @@
                         <a href="<?= BASE_URL . 'usuarios' ?>" ripple class="nav__item-head">
                             <span>Usuarios</span>
                         </a>
-                        <a href="<?= BASE_URL . 'modulos' ?>" ripple class="nav__item-head">
+                        <!-- <a href="<?= BASE_URL . 'modulos' ?>" ripple class="nav__item-head">
                             <span>Modulos</span>
-                        </a>
+                        </a> -->
                         <a href="<?= BASE_URL . 'roles' ?>" ripple class="nav__item-head">
                             <span>Roles</span>
                         </a>
                     </div>
                 </div>
             </div>
+            <?php } ?>
+
             <div class="nav__item">
-                <div ripple class="nav__item-head">
-                    <span><i class="material-icons-outlined">folder</i> Componentes</span>
-                    <span><i class="material-icons">chevron_right</i></span>
-                </div>
-                <div class="nav__item-content">
-                    <div class="nav__item">
-                        <div ripple class="nav__item-head">
-                            <span>Inputs</span>
-                        </div>
-                    </div>
+                <div ripple class="nav__item-head components__open">
+                    <span><i class="material-icons-outlined">folder</i> Componentes <kbd>Ctrl + Q</kbd></span>
                 </div>
             </div>
         </div>
@@ -63,12 +58,6 @@
                 </div>
                 <ul class="dropdown__content">
                     <li>
-                        <a href="#">Editar perfil</a>
-                    </li>
-                    <li>
-                        <a href="#">Cambiar estado</a>
-                    </li>
-                    <li>
                         <a href="<?= BASE_URL . 'Logout' ?>">Cerrar sesión</a>
                     </li>
                 </ul>
@@ -76,4 +65,7 @@
         </header>
 
         <section class="main__content">
+
+        <?php require_once "Views/Templates/Components/CreateComponents.php"; ?>
+        <?php require_once "Views/Templates/Components/ComponentsItems.php"; ?>
 

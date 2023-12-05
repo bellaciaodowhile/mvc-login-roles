@@ -1,0 +1,47 @@
+.tooltip {
+    position: relative;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background-color: $color-primary;
+    color: silver;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    width: auto;
+    text-wrap: nowrap;
+}
+
+.tooltip:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip[data-tooltip-position="top"]::after {
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip[data-tooltip-position="right"]::after {
+    top: 50%;
+    left: 110%;
+    transform: translateY(-55%);
+}
+
+.tooltip[data-tooltip-position="left"]::after {
+    top: 50%;
+    right: 110%;
+    transform: translateY(-50%);
+}
+
+.tooltip[data-tooltip-position="bottom"]::after {
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+}

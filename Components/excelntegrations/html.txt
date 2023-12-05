@@ -1,0 +1,26 @@
+<div id="slider">
+  <div class="span">We excel at</div>
+  <div class="span" id="sliderValue"></div>
+</div>
+
+<div class="youtube">
+  <style>
+    .youtube {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      left: auto;
+      right: auto;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px 50px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      font-weight: 700;
+      color: #0077ee !important;
+    }
+  </style>
+  youtube.com/@AdamCurzonDev
+</div>

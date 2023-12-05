@@ -10,7 +10,7 @@
         public function dashboard() {
             $data['title_page'] = 'Controlador Dashboard';
             $data['css'] = 'dashboard.css';
-            $data['js'] = 'dashboard.js';
+            $data['js'] = ['dashboard.js'];
             $data['active'] = 'dashboard';
             $this->views->getView($this, 'Dashboard', $data);
         }

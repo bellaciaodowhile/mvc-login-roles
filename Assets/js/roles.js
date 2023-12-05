@@ -17,14 +17,40 @@ function dataRoles() {
                         <td>${ x++ }</td>
                         <td>${ item.nombrerol }</td>
                         <td>${ item.descripcion }</td>
-                        <td>${ item.status }</td>
                         <td>
+                            <span class="tag tag--${ item.status == '1' ? 'active' : 'inactive' }">${ item.status == '1' ? 'Activo' : 'Inactivo' }</span>
+                        </td>
+                        <td style="display: flex;">
+                            <button ripple class="btn btn-icon trigger__update__rol" rol="${ item.idRol }">
+                                <i class="material-icons-outlined">edit</i>
+                            </button>
                             <button ripple class="btn btn-icon view__permissions" rol="${ item.idRol }">
                                 <i class="material-icons-outlined">policy</i>
+                            </button>
+                            <button ripple class="btn btn-icon trigger__delete__rol" rol="${ item.idRol }">
+                                <i class="material-icons-outlined">delete</i>
                             </button>
                         </td>
                     </tr>`
                 });
+                switchs();
+            });
+            let triggersUpdate = getAllElements({el: '.trigger__update__rol'});
+            triggersUpdate.map(trigger => {
+                onclick({el: trigger, res: function(res) {
+                    let id = res.currentTarget.getAttribute('rol')
+                    getRol(id);
+                    openModal('#modal__update__roles');
+                }});
+            });
+            let triggersDelete = getAllElements({el: '.trigger__delete__rol'});
+            triggersDelete.map(trigger => {
+                onclick({el: trigger, res: function(res) {
+                    let id = res.currentTarget.getAttribute('rol')
+                    if (confirm('¿Esta seguro de eliminar este registro?')) {
+                        deleteRol(id);
+                    }
+                }});
             });
             // TODO: Permisos
             document.querySelectorAll('.view__permissions').forEach(item => {
@@ -91,6 +117,7 @@ function dataRoles() {
                                                 </td>
                                             </tr>`
                                         });
+                                        switchs();
                                     }
                                 }
                             },
@@ -108,6 +135,79 @@ function dataRoles() {
     });
 }
 dataRoles();
+
+// * Get Rol
+function getRol(id) {
+    console.log(id)
+    let formUpdate = el('.form__update__roles');
+    let estado = formUpdate.querySelector('.switch__label');
+    AJAXGJ8({
+        url: 'Roles/getRol',
+        data: [{ id }],
+        success: function(res) {
+            res = JSON.parse(res)
+            console.log(res)
+            formUpdate.setAttribute('id', res.idRol)
+            formUpdate.querySelector('input[name="nombre"]').value = res.nombrerol
+            formUpdate.querySelector('input[name="descripcion"]').value = res.descripcion
+            res.status == '1' ? estado.classList.remove('switch__off') : estado.classList.add('switch__off');
+            
+        }
+    })
+}
+// * Update Rol
+const formUpdateRoles = el('.form__update__roles');
+submit({
+    el: formUpdateRoles,
+    res: function (res) {
+        console.log(res)
+        let data = new FormData(formUpdateRoles);
+        let id = formUpdateRoles.getAttribute('id')
+        let status = formUpdateRoles.querySelector('.switch__label').classList.contains('switch__off') ? 0 : 1;
+        console.log(id)
+        switchs();
+        AJAXGJ8({
+            url: 'Roles/updateRol',
+            data: [{
+                id,
+                nombre: data.get('nombre'),
+                descripcion: data.get('descripcion'),
+                status
+            }],
+            success: function (res) {
+                res = JSON.parse(res)
+                console.log(res)
+                if (res.status) {
+                    alert(res.msg)
+                    let idModal = '#' + formUpdateRoles.closest('.modal').getAttribute('id')
+                    closeModal(idModal)
+                    dataRoles();
+                    switchs();
+                } else {
+                    alert(res.msg)
+                }
+            }
+        });
+    }
+});
+
+// * Delete Rol
+function deleteRol(id) {
+    AJAXGJ8({
+        url: 'Roles/deleteRol',
+        data: [{ id }],
+        success: function(res) {
+            res = JSON.parse(res)
+            console.log(res)
+            if (res.status) {
+                alert(res.msg)
+                dataRoles();
+            } else {
+                alert(res.msg)
+            }
+        }
+    });
+}
 
 // * Guardando Permisos
 onclick({

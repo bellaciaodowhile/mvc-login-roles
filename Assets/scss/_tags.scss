@@ -1,0 +1,11 @@
+.tag {
+    border-radius: 200px;
+    color: #fff;
+    padding: 2px 10px;
+    &--active {
+        background: #078c22;
+    }
+    &--inactive {
+        background: #cc2d2d;
+    }
+}

@@ -3,6 +3,7 @@
 <button ripple class="btn btn--auto btn-secondary" data-toggle="modal" data-target="#modal__add__roles">
     Añadir nuevo
 </button>
+<!-- Agregando Roles -->
 <div id="modal__add__roles" class="modal">
     <div class="modal__content">
         <div class="modal__header">
@@ -21,7 +22,41 @@
                     </div>
                 </div>
                 <div class="switch mt-2">
-                    <label ripple class="switch__label switch__label--small">
+                    <label ripple class="switch__label switch__label--roles">
+                        <span class="switch__label-slider">
+                            <span class="switch__active">Activo</span>
+                            <span class="switch__inactive">Inactivo</span>
+                        </span>
+                    </label>
+                </div>
+                <button ripple type="submit" class="btn btn--not-shadow btn--outlined mt-4">Enviar</button>
+            </form>
+        </div>
+        <div class="modal__footer">
+            <button ripple type="button" class="btn btn--not-shadow btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+<!-- Actulizando Roles -->
+<div id="modal__update__roles" class="modal">
+    <div class="modal__content">
+        <div class="modal__header">
+            <h2>Agregando Rol</h2>
+        </div>
+        <div class="modal__body">
+            <form class="form__update__roles">
+                <div class="form-group-2">
+                    <div class="input__text">
+                        <input class="input__text-input" name="nombre" type="text" required autocomplete="off">
+                        <span class="input__text-label">Nombre</span>
+                    </div>
+                    <div class="input__text">
+                        <input class="input__text-input" name="descripcion" type="text" required autocomplete="off">
+                        <span class="input__text-label">Descripción</span>
+                    </div>
+                </div>
+                <div class="switch mt-2">
+                    <label ripple class="switch__label switch__label--roles">
                         <span class="switch__label-slider">
                             <span class="switch__active">Activo</span>
                             <span class="switch__inactive">Inactivo</span>

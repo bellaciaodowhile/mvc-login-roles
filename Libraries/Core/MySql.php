@@ -12,7 +12,7 @@
         public function insert(string $query, array $arrValues) {
             $this->strQuery = $query;
             $this->arrValues = $arrValues;
-
+            
             $insert = $this->conexion->prepare($this->strQuery);
             $resInsert = $insert->execute($this->arrValues);
 
@@ -23,6 +23,49 @@
             }
             return  $lastInsert;
             
+        }
+        public function insertGonzalo(string $query, array $arrValues)
+        {
+            $this->strQuery = $query;
+            $this->arrValues = $arrValues;
+        
+            $insert = $this->conexion->prepare($this->strQuery);
+        
+            // Asignar los valores a los marcadores de posición
+            $i = 1;
+            foreach ($this->arrValues as $value) {
+                $insert->bindValue($i, $value);
+                $i++;
+            }
+        
+            $resInsert = $insert->execute();
+        
+            if ($resInsert) {
+                $lastInsert = $this->conexion->lastInsertId();
+            } else {
+                $lastInsert = 0;
+            }
+        
+            return $lastInsert;
+        }
+         // Insert Escape
+        public function insertEscape(string $query, array $arrValues) {
+            $this->strQuery = $query;
+            $this->arrValues = $arrValues;
+        
+            // Escapar los valores del array
+            $escapedValues = array_map([$this->conexion, 'quote'], $this->arrValues);
+        
+            $insert = $this->conexion->prepare($this->strQuery);
+            $resInsert = $insert->execute($escapedValues);
+        
+            if ($resInsert) {
+                $lastInsert = $this->conexion->lastInsertId();
+            } else {
+                $lastInsert = 0;
+            }
+        
+            return $lastInsert;
         }
         // Select Only
         public function select(string $query) {
