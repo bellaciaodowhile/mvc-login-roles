@@ -1,0 +1,145 @@
+.cards__projects {
+    margin-top: 3em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+
+    .card__project {
+        position: relative;
+        width: 300px;
+        max-width: 300px;
+        background: $color-secondary;
+        margin-top: 25px;
+        border-radius: 0 25px 25px 25px;
+        padding: 20px;
+        transition: $trs;
+        cursor: pointer;
+        top: 0%;
+        left: 0%;
+        &:hover {
+            transform: translateY(2px);
+        }
+
+        &--expand {
+            position: absolute;
+            left: 23px;
+            top: 67px;
+            width: 100%;
+            height: 100%;
+            max-width: calc(100% - 47px);
+            z-index: 2;
+            &:hover {
+                transform: translateY(0);
+            }
+        }
+
+        &-content {
+            z-index: 1;
+            opacity: 1;
+            visibility: visible;
+
+            &--hidden {
+                z-index: -1;
+                opacity: 0;
+                visibility: hidden;
+
+                .cards__projects .card__project-users {
+                    justify-content: flex-start;
+                }
+            }
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 25px;
+            background: $color-secondary;
+            border-radius: 25px 0 0 0;
+            top: -25px;
+            left: 0;
+            z-index: 1;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            display: block;
+            top: -25px;
+            left: 150px;
+            border-right: 20px solid transparent;
+            border-top: 10px solid transparent;
+            border-left: 10px solid $color-secondary;
+            border-bottom: 20px solid $color-secondary;
+        }
+
+        &-title {
+            font-size: 1.5em;
+            color: $color-nav-text;
+        }
+
+        &-description {
+            margin: 1em 0;
+            line-height: 1.5;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        &-options {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        &-users {
+            display: flex;
+            margin-top: 10px;
+            margin-left: 10px;
+            align-items: center;
+            justify-content: flex-end;
+
+            small {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+.card__project-edit {
+    opacity: 0;
+    z-index: -1;
+    visibility: hidden;
+    position: absolute;
+    top: 100px;
+    left: 23px;
+    width: 100%;
+    height: 100%;
+    max-width: calc(100% - 47px);
+    padding: 2em;
+    transition: $trs;
+    &-title {
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+    &--show {
+        opacity: 1;
+        z-index: 2;
+        visibility: visible;
+    }
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    &-description {
+        font-size: 1.3em;
+        margin-top: 1em;
+        color: $color-nav-text;
+        font-weight: normal;
+        line-height: 1.5;
+    }
+}

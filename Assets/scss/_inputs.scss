@@ -4,6 +4,18 @@
     height: 75px;
     width: 100%;
     align-items: center;
+    &-textarea {
+        height: 100%;
+        .input__text-input {
+            padding: 10px;
+            margin-top: 1em;
+            white-space: wrap; 
+            resize: auto;
+            overflow: auto;
+            height: 100px;
+            word-wrap: break-word;
+        }
+    }
     &--dark {
         .input__text-input {
             &:valid {
@@ -29,7 +41,6 @@
         border-color: #C2C2C2;
         border-width: 0.5px;
         float: left;
-    
         transition: border-color 200ms;
         &:hover {
             border-color: rgba($color: $color-btn, $alpha: 0.5);
@@ -170,4 +181,5 @@
         }
     }
 }
+
 

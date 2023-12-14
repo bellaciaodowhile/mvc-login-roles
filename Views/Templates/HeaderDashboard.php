@@ -41,7 +41,11 @@
                 </div>
             </div>
             <?php } ?>
-
+            <div class="nav__item">
+                <a href="<?= BASE_URL . 'proyectos' ?>" ripple class="nav__item-head">
+                    <span><i class="material-icons">web_stories</i> Proyectos</span>
+                </a>
+            </div>
             <div class="nav__item">
                 <div ripple class="nav__item-head components__open">
                     <span><i class="material-icons-outlined">folder</i> Componentes <kbd>Ctrl + Q</kbd></span>

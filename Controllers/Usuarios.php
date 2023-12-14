@@ -25,13 +25,17 @@
             $contrasena = strClean($_POST['contrasena']);
             $estado = intval($_POST['estado']);
             $tipo = strClean($_POST['tipo']);
-            $arrData = $this->model->setUsers($nombre, $apellido, $usuario, $contrasena, $estado, $tipo);
-            if ($arrData == 'exist') {
-                $arrResponse = array('status' => false, 'msg' => '¡Este usuario ya existe!');
-            } else if (!empty($arrData)) {
-                $arrResponse = array('status' => true, 'msg' => 'Operación exitosa!');
-            } else{
-                $arrResponse = array('status' => false, 'msg' => 'Ha ocurrido un problema');
+            if ($tipo == 'Tipo de usuario' || $tipo == '') {
+                $arrResponse = array('status' => false, 'msg' => 'Debe indicar el tipo de usuario');
+            } else {
+                $arrData = $this->model->setUsers($nombre, $apellido, $usuario, $contrasena, $estado, $tipo);
+                if ($arrData == 'exist') {
+                    $arrResponse = array('status' => false, 'msg' => '¡Este usuario ya existe!');
+                } else if (!empty($arrData)) {
+                    $arrResponse = array('status' => true, 'msg' => 'Operación exitosa!');
+                } else{
+                    $arrResponse = array('status' => false, 'msg' => 'Ha ocurrido un problema');
+                }
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }

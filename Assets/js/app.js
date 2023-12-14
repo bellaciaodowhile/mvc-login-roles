@@ -391,20 +391,192 @@ subtabsGj8.map((main, index) => {
 });
 
 
+// * Select Multiple
+function selectMultiple(main, arrData) {
+    let selectMain = document.querySelector(`${main}`);
+    if (selectMain != null || selectMain != undefined) {
+        let select = selectMain.querySelector('select[multiple]');
+        let selectOptions = select.querySelectorAll('option');
+        let newSelect = document.createElement('div');
+        newSelect.classList.add('selectMultiple');
+        let active = document.createElement('div');
+        active.classList.add('active');
+        let optionList = document.createElement('ul');
+        let placeholder = select.dataset.placeholder;
+        let span = document.createElement('span');
+        span.innerText = placeholder;
+        active.appendChild(span);
 
+        let searchInput = document.createElement('input');
+        searchInput.setAttribute('type', 'text');
+        searchInput.setAttribute('placeholder', 'Busca aquí');
+        searchInput.addEventListener('input', function (e) {
+            let searchValue = e.target.value.toLowerCase();
+            let filteredOptions = arrData.filter(option => option.name.toLowerCase().includes(searchValue));
+            let emAll = selectMain.querySelectorAll('.selectMultiple em');
+            let filteredOptionsDifferent = filteredOptions.filter(option => {
+                for (let i = 0; i < emAll.length; i++) {
+                    if (emAll[i].textContent.trim() === option.name.trim()) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+            updateOptions(filteredOptionsDifferent);
+        });
 
+        active.appendChild(searchInput);
 
+        function updateOptions(options) {
+            optionList.innerHTML = '';
+            // console.log(options)
+            options.map((option, index) => {
+                select.innerHTML += `<option value="${option.id}" ${ index == 0 ? 'selected' : ''}>${option.name}</option>`
+            });
 
+            options.forEach(option => {
+                let text = option.name;
+                if (option.selected) {
+                    let tag = document.createElement('a');
+                    tag.dataset.value = option.id;
+                    tag.innerHTML = "<em>" + text + "</em><i></i>";
+                    active.appendChild(tag);
+                    span.classList.add('hide');
+                } else {
+                    let item = document.createElement('li');
+                    item.dataset.value = option.id;
+                    item.innerHTML = text;
+                    optionList.appendChild(item);
+                }
+            });
+        }
 
+        updateOptions(arrData);
 
+        var arrow = document.createElement('div');
+        arrow.classList.add('arrow');
+        active.appendChild(arrow);
+        newSelect.appendChild(active);
+        newSelect.appendChild(optionList);
+        select.parentElement.append(newSelect);
+        span.appendChild(select);
 
+        selectMain.querySelector('.selectMultiple ul').addEventListener('click', (e) => {
+            let li = e.target.closest('li');
+            if (!li) {
+                return;
+            }
+            let select = li.closest('.selectMultiple');
+            if (!select.classList.contains('clicked')) {
+                select.classList.add('clicked');
+                if (li.previousElementSibling) {
+                    li.previousElementSibling.classList.add('beforeRemove');
+                }
+                if (li.nextElementSibling) {
+                    li.nextElementSibling.classList.add('afterRemove');
+                }
+                li.classList.add('remove');
+                let a = document.createElement('a');
+                a.dataset.value = li.dataset.value;
+                a.insertAdjacentHTML('beforeend', "<em>" + li.innerText + "</em><i></i>");
+                a.classList.add('notShown');
+                select.querySelector('div').appendChild(a);
+                let selectEl = select.querySelector('select');
+                let opt = selectEl.querySelector('option[value="' + li.dataset.value + '"]');
+                console.log(opt)
+                opt.setAttribute('selected', 'selected');
+                setTimeout(() => {
+                    a.classList.add('shown');
+                    select.querySelector('span').classList.add('hide');
+                }, 300);
+                setTimeout(() => {
+                    let styles = window.getComputedStyle(li);
+                    let liHeight = styles.height;
+                    let liPadding = styles.padding;
+                    let removing = li.animate([{
+                            height: liHeight,
+                            padding: liPadding
+                        },
+                        {
+                            height: '0px',
+                            padding: '0px'
+                        }
+                    ], {
+                        duration: 300,
+                        easing: 'ease-in-out'
+                    });
+                    removing.onfinish = () => {
+                        if (li.previousElementSibling) {
+                            li.previousElementSibling.classList.remove('beforeRemove');
+                        }
+                        if (li.nextElementSibling) {
+                            li.nextElementSibling.classList.remove('afterRemove');
+                        }
+                        li.remove();
+                        select.classList.remove('clicked');
+                    }
+                }, 300);
+            }
+        });
 
+        selectMain.querySelector('.selectMultiple > div').addEventListener('click', (e) => {
+            let a = e.target.closest('a');
+            let select = e.target.closest('.selectMultiple');
+            if (!a) {
+                return;
+            }
+            a.className = '';
+            a.classList.add('remove');
+            select.classList.add('open');
+            let selectEl = select.querySelector('select');
+            let opt = selectEl.querySelector('option[value="' + a.dataset.value + '"]');
+            opt.removeAttribute('selected');
+            a.classList.add('disappear');
+            setTimeout(() => {
+                let styles = window.getComputedStyle(a);
+                let padding = styles.padding;
+                let deltaWidth = styles.width;
+                let deltaHeight = styles.height;
+                let removeOption = a.animate([{
+                        width: deltaWidth,
+                        height: deltaHeight,
+                        padding: padding
+                    },
+                    {
+                        width: '0px',
+                        height: '0px',
+                        padding: '0px'
+                    }
+                ], {
+                    duration: 0,
+                    easing: 'ease-in-out'
+                });
+                let li = document.createElement('li');
+                li.dataset.value = a.dataset.value;
+                li.innerText = a.querySelector('em').innerText;
+                li.classList.add('show');
+                select.querySelector('ul').appendChild(li);
+                setTimeout(() => {
+                    if (!selectEl.selectedOptions.length) {
+                        select.querySelector('span').classList.remove('hide');
+                    }
+                    li.className = '';
+                }, 350);
+                removeOption.onfinish = () => {
+                    a.remove();
+                }
+            }, 300);
+        });
 
-// ! Por ahora de último [ARREGLAR ESTO OJO QUE NO HAGA CLICK EN TODA LA VENTANA]
-// window.onclick = function (event) {
-//     for (let i = 0; i < modals.length; i++) {
-//         if (event.target == modals[i]) {
-//             closeModal(modals[i].id);
-//         }
-//     }
-// };
+        selectMain.querySelectorAll('.selectMultiple > div .arrow, .selectMultiple > div span').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                el.closest('.selectMultiple').classList.toggle('open');
+            });
+        });
+        selectMain.querySelectorAll('.selectMultiple > div .arrow').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                searchInput.classList.toggle('active__input__search')
+            });
+        });
+    }
+}

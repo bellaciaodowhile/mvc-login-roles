@@ -8,6 +8,12 @@ function dataUsers() {
         success: function (res) {
             res = JSON.parse(res);
             let x = 1;
+            selectMultiple('#select__members', res.map(y => {
+                return {
+                    name: y.nombre + ' - ' + y.tipo,
+                    id: y.id
+                }
+            }))
             for (item of res) {
                 if (item != undefined) {
                     viewHtml({
@@ -51,6 +57,13 @@ function dataUsers() {
                         }});
                     });
                 }
+                 // * Select Members
+                // setTimeout(() => {
+                //     viewHtml({el: '#select__members', content: /*html*/ `
+                //     <option value="${ item.id }">${ item.nombre }</option>
+                // `})
+                // }, 1000);
+                // console.log(el('#select__members'))
             }
         }
     });
@@ -498,10 +511,10 @@ document.onkeyup = function (e) {
 
 document.onkeydown = function (e) {
     if (e.keyCode == 17) isCtrl = true;
-    if (e.keyCode == 83 && isCtrl == true) {
-        alert('guardado')
-        return false;
-    }
+    // if (e.keyCode == 83 && isCtrl == true) {
+    //     // alert('guardado')
+    //     return false;
+    // }
     if (e.keyCode == 81 && isCtrl == true) {
         el('.components__items').classList.toggle('components__items--active')
         components.classList.remove('create__components--active');
@@ -520,3 +533,139 @@ onclick({el: '.more-button', res: (e) => {
     el('.list-container').classList.toggle('active');
 }});
 
+// * Proyectos
+// * Get Languages
+AJAXGJ8({
+    url: 'Proyectos/getLanguages',
+    success: function (res) {
+        res = JSON.parse(res);
+        selectMultiple('#select__languages', res.map(x => {
+            return {
+                name: x.nombre, 
+                id: x.id
+            }
+        }));
+    }
+});
+// * Set Projects
+onclick({el: '.set__projects', res: function(res) {
+    let form = el('.form__add__projects');
+    let nombre = form.querySelector('input[name="nombre"]')
+    let status = form.querySelector('.switch__label').classList.contains('switch__off') ? 0 : 1;
+    let selectMembers = el('#select__members');
+    let selectLangs = el('#select__languages');
+    let members = [];
+    let langs = [];
+    let descripcion = form.querySelector('textarea[name="descripcion"]');
+    [...selectMembers.querySelectorAll('a')].map(member => {
+        members.push(member.getAttribute('data-value'));
+    });
+    [...selectLangs.querySelectorAll('a')].map(lang => {
+        langs.push(lang.getAttribute('data-value'));
+    })
+    function clearForm() {
+        [...selectMembers.querySelectorAll('a')].map(member => {
+            member.remove();
+        });
+        [...selectLangs.querySelectorAll('a')].map(lang => {
+            lang.remove();
+        });
+        descripcion.value = '';
+        nombre.value = '';
+        let idModal = '#' + form.closest('.modal').getAttribute('id')
+        closeModal(idModal)
+    }
+    AJAXGJ8({
+        url: 'Proyectos/setProjects',
+        data: [{
+            nombre: nombre.value,
+            status,
+            members,
+            descripcion: descripcion.value,
+            langs
+        }],
+        success: function(res) {
+            res = JSON.parse(res);
+            console.log(res)
+            if (res.status) {
+                alert(res.msg)
+                clearForm();
+                getProjects();
+            } else {
+                alert(res.msg)
+            }
+        }
+    });
+}});
+// * Get Projects
+function getProjects() {
+    AJAXGJ8({
+        url: 'Proyectos/getProjects',
+        success: function(res) {
+            res = JSON.parse(res)
+            console.log(res)
+            cleanHtml('#cards__projects');
+            for (item of res) {
+                let html = /*html*/`
+                <div class="card__project" item="${item.id}">
+                    <div class="card__project-content">
+                        <div class="card__project-title">
+                            ${ item.nombre }
+                        </div>
+                        <div class="card__project-description" max-word="14">
+                            ${ item.descripcion } 
+                        </div>
+                        <div class="card__project-options">
+                        </div>
+                        <div class="tag ${item.status == '0' ? 'tag--paused' : 'tag--progress'}">
+                            ${item.status == '0' ? 'pausado' : 'en progreso'}
+                        </div>
+                        <div class="card__project-users">`;
+                        item.members.map((member, index) => {
+                            if (index <= 3) {
+                                html += `<span class="tag__user tooltip" data-tooltip="${member.nombre}" data-tooltip-position="top">${ member.nombre[0] }</span>`;
+                            }
+                        })
+                        let membersLast = [];
+                        for (let indexM = 4; indexM < item.members.length; indexM++) {
+                            const element = item.members[indexM].nombre;
+                            membersLast.push(element)
+                        }
+                        console.log(membersLast)
+                        if (item.members.length > 3) {
+                            html += `<small class="tooltip" data-tooltip="${ membersLast.map(last => last.toString()).join(', ') }" data-tooltip-position="top">+${ (item.members.length - 4) }</small>`;
+                        }
+                        html += `
+                        </div>
+                    </div>
+                </div>`;
+                viewHtml({el: '#cards__projects', content: html });
+                openProjects();
+            }
+        }
+    });
+}
+getProjects();
+//  * Open Projects
+function openProjects() {
+    let cardsProjects = getAllElements({el: '.card__project .card__project-content'});
+    console.log(cardsProjects)
+    cardsProjects.map(project => {
+        project = project.parentElement
+        onclick({el: project, res: function(res) {
+            project.classList.add('card__project--expand')
+            project.querySelector('.card__project-content').classList.add('card__project-content--hidden')
+            el('.card__project-edit').classList.add('card__project-edit--show')
+            dataProject(project.attributes[1].textContent)
+        }});
+    });
+    onclick({el: '.close__project', res: function(res) {
+        el('.card__project--expand').querySelector('.card__project-content').classList.remove('card__project-content--hidden');
+        el('.card__project--expand').classList.remove('card__project--expand');
+        el('.card__project-edit').classList.remove('card__project-edit--show');
+    }});
+}
+function dataProject(id){
+    console.log(id)
+    // getProject(id)
+}
