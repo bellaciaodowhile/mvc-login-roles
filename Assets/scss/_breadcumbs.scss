@@ -1,0 +1,16 @@
+.main__breadcumb {
+    margin-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    .breadcumb__item {
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        animation: $fade;
+        i {
+            color: $color-btn;
+            font-size: 1em;
+        }
+    }
+}

@@ -148,6 +148,7 @@
     top: 50%;
     left: 50%;
     background-color: #ddd;
+    transition: $trs-100;
     &:hover {
         #fullscreen__component {
             opacity: 1;
@@ -161,7 +162,7 @@
     height: 100%;
     top: 0 !important; /* 81px */
     left: 0 !important;
-    transition: position 300ms;
+    transition: $trs-100;
     z-index: 4;
 }
 
@@ -187,6 +188,7 @@
     border: none;
 }
 #fullscreen__component {
+    display: flex !important;
     position: absolute;
     right: 10px;
     top: 10px;

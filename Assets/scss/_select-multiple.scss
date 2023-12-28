@@ -10,9 +10,9 @@ $primary: #4D18FF;
     input {
         background: #fff;
         display: none;
-        width: 101%;
+        width: calc(100% + 1px);
         position: absolute;
-        bottom: -43px;
+        bottom: -46px;
         left: -1px;
         border-radius: 8px 8px 0 0;
         padding: 10px;

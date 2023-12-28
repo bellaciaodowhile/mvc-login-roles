@@ -19,16 +19,43 @@
                     </div>
                 </li>
                 <div class="more-button-icons">
-                    <button ripple class="btn btn-icon btn-icon--fill save__component">
-                        <i class="material-icons-outlined">save</i>
-                    </button>
-                    <button ripple class="btn btn-icon btn-icon--fill close__component">
-                        <i class="material-icons-outlined">menu_open</i>
-                    </button>
+                    <div class="tooltip" data-tooltip="Guardar componente" data-tooltip-position="top">
+                        <button ripple class="btn btn-icon btn-icon--fill save__component">
+                            <i class="material-icons-outlined">save</i>
+                        </button>
+                    </div>
+                    <div class="tooltip" data-tooltip="Cerrar editor" data-tooltip-position="top">
+                        <button ripple class="btn btn-icon btn-icon--fill close__component">
+                            <i class="material-icons-outlined"></i>
+                        </button>
+                    </div>
                 </div>
             </form>
         </ul>
     </div>
+    <div class="component__settings">
+        <div class="tooltip" data-tooltip-position="right" data-tooltip="Guardar edición">
+            <button ripple class="btn btn-icon save__edit__component">
+                <i class="material-icons">edit</i>
+            </button>
+        </div>
+        <div class="tooltip" data-tooltip-position="right" data-tooltip="Tranferir componente">
+            <button ripple class="btn btn-icon transfer__component">
+                <i class="material-icons">account_tree</i>
+            </button>
+        </div>
+        <div class="tooltip" data-tooltip-position="right" data-tooltip="Eliminar componente">
+            <button ripple class="btn btn-icon delete__component">
+                <i class="material-icons-outlined">delete</i>
+            </button>
+        </div>
+        <div class="tooltip" data-tooltip-position="right" data-tooltip="Presione 'Esc' para salir del editor">
+            <button ripple class="btn btn-icon">
+                <i class="material-icons-outlined">help</i>
+            </button>
+        </div>
+    </div>
+
 
 
     <nav class="nav__create__components">
@@ -75,4 +102,72 @@
         <div id="handler"></div>
     </div>
 
+</section>
+<!-- Form Step -->
+<section class="create__component__step">
+    <div class="tooltip right" data-tooltip="Cerrar" data-tooltip-position="top">
+        <button ripple class="btn btn-icon create__component__step-close">
+            <i class="material-icons-outlined">close</i>
+        </button>
+    </div>
+    <h1 class="title__h1">Seleccione <span class="step__current__h1">un proyecto</span>:</h1>
+    <section class="create__component__step-projects create__component__step-projects--active">
+        <section class="cards__projects" id="cards__projects__components--create">
+            <div class="card__project"> 
+                <div class="card__project-title">
+                    Proyecto
+                </div>
+                <div class="card__project-options mt-3">
+                </div>
+                <div class="tag tag--paused">
+                    inactivo
+                </div>
+                <div class="card__project-users">
+                    <small class="center gap-5">
+                        <i class="material-icons-outlined">folder</i> <span>4</span>
+                    </small>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section class="create__component__step-categories">
+        <div class="d-flex">
+            <div class="tooltip" data-tooltip="Anterior" data-tooltip-position="top">
+                <button ripple class="btn btn-icon prev__step">
+                    <i class="material-icons-outlined">chevron_left</i>
+                </button>
+            </div>
+        </div>
+        <div class="radio-content categories">
+            <div class="radio-content subcategories">
+                <h4 class="subtitle normal mt-4"><strong>Mapa de categorías</strong></h4>
+                <div class="main-chevrondown-gj8 mt-2" id="categories-tree-main">
+                    <div class="d-flex jcsb">
+                        <div class="d-flex expand-less-gj8">
+                            <i class="material-icons-outlined">expand_less</i>
+                            Contraer todo
+                        </div>
+                        <div class="d-flex expand-more-gj8">
+                            <i class="material-icons-outlined">expand_more</i>
+                            Expandir todo
+                        </div>
+                    </div>
+                    <hr class="mt-3">
+                    <div class="chevrondown-gj8">
+                        <div class="chevrondown-item-gj8">
+                            <div class="chevrondown-head-gj8">
+                                <i class="material-icons">chevron_right</i>
+                                <span class="chevrondown-radio-button not active" item="base"></span>
+                                <span>Todas las categorías</span>
+                            </div>
+                            <div class="chevrondown-content-gj8 components not"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button ripple class="btn btn--auto right btn-secondary create__component-category">
+            Continuar
+        </button>
+    </section>
 </section>

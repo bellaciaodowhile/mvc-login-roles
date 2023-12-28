@@ -96,8 +96,15 @@ textarea {
     transform: translateX(0px);
   }
 }
+/*
+* Variabes
+* ----------------------------------------------------------------------
+*/
 .d-flex {
   display: flex;
+}
+.d-flex.jcsb {
+  justify-content: space-between;
 }
 
 kbd {
@@ -110,10 +117,51 @@ kbd {
   margin-left: 7px;
 }
 
-/*
- * Variabes
- * ----------------------------------------------------------------------
-*/
+hr {
+  all: revert;
+}
+
+.border__edit {
+  padding: 16px;
+  border-radius: 4px;
+  border: 1px solid #3737b3;
+  transition: all 300ms ease-in-out;
+}
+
+.hidden {
+  position: absolute !important;
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 100ms ease-in-out;
+}
+
+.show {
+  position: relative !important;
+  z-index: 3;
+  opacity: 1;
+  visibility: visible;
+  transition: all 100ms ease-in-out;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gap-5 {
+  gap: 5px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
 /*
  * Reset
  * ----------------------------------------------------------------------
@@ -269,11 +317,11 @@ table.table__basic--light {
   border-color: #3737b3;
 }
 .input__text--dark .input__text-input:valid + .input__text-label {
-  background-color: #111826;
+  background-color: #212b36;
   color: white;
 }
 .input__text--dark .input__text-input:focus + .input__text-label {
-  background-color: #111826;
+  background-color: #212b36;
   color: white;
 }
 .input__text-input {
@@ -651,6 +699,10 @@ table.table__basic--light {
   top: 8px;
   transition: all 300ms ease-in-out;
 }
+.switch .switch__label .switch__label-slider {
+  display: flex;
+  align-items: center;
+}
 .switch .switch__label .switch__label-slider .switch__inactive {
   display: none;
   animation: fade 300ms ease-in-out;
@@ -663,6 +715,15 @@ table.table__basic--light {
 }
 .switch .switch__label--roles.switch__off::before {
   right: 93% !important;
+}
+.switch .switch__label--only {
+  width: 150px;
+}
+.switch .switch__label--only.switch__off::before {
+  right: 78% !important;
+}
+.switch .switch__label--only .switch__label-slider {
+  margin-top: 3px;
 }
 .switch .switch__label.switch__off {
   background: #ccc;
@@ -830,6 +891,7 @@ table.table__basic--light {
   top: 50%;
   left: 50%;
   background-color: #ddd;
+  transition: all 100ms ease-in-out;
 }
 #panel-d:hover #fullscreen__component {
   opacity: 1;
@@ -842,7 +904,7 @@ table.table__basic--light {
   height: 100%;
   top: 0 !important; /* 81px */
   left: 0 !important;
-  transition: position 300ms;
+  transition: all 100ms ease-in-out;
   z-index: 4;
 }
 
@@ -868,6 +930,7 @@ table.table__basic--light {
 }
 
 #fullscreen__component {
+  display: flex !important;
   position: absolute;
   right: 10px;
   top: 10px;
@@ -1231,7 +1294,7 @@ nav.nav__create__components .nav__create__components-icons {
 }
 
 .tag__user {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   width: 30px;
@@ -1247,29 +1310,70 @@ nav.nav__create__components .nav__create__components-icons {
 
 .tags__members {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 1em;
 }
 .tags__members small {
+  text-wrap: nowrap;
   text-transform: uppercase;
   border-radius: 200px;
-  padding: 5px 10px;
+  padding: 5px 15px 5px 5px;
   background: #3737b3;
   color: #fffdff;
   font-size: small;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tags__members small .profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+  background: white;
+  display: flex;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0D1117;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+.tags__members small .profile--rol {
+  display: flex;
+  flex-direction: column;
+}
+.tags__members small .profile--rol-name {
+  position: relative;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+.tags__members small .profile--rol-name::before {
+  content: "";
+  position: absolute;
+  width: 30%;
+  height: 1px;
+  background: #8892a9;
+  bottom: -1px;
+  left: 0;
+}
+.tags__members small .profile--rol-rol {
+  text-transform: capitalize;
 }
 
 .tags__languages {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 1em;
 }
 .tags__languages img {
-  width: 30px;
+  width: 51px;
 }
 
 .tooltip {
   position: relative;
+  display: inline-block;
 }
 
 .tooltip::after {
@@ -1327,9 +1431,9 @@ nav.nav__create__components .nav__create__components-icons {
 .selectMultiple input {
   background: #fff;
   display: none;
-  width: 101%;
+  width: calc(100% + 1px);
   position: absolute;
-  bottom: -43px;
+  bottom: -46px;
   left: -1px;
   border-radius: 8px 8px 0 0;
   padding: 10px;
@@ -1618,6 +1722,89 @@ nav.nav__create__components .nav__create__components-icons {
     opacity: 0;
     transform: scale(50, 50);
   }
+}
+.md-checkbox {
+  position: relative;
+  margin: 1em 0;
+  text-align: left;
+}
+.md-checkbox label {
+  cursor: pointer;
+  display: inline;
+  line-height: 1.25em;
+  vertical-align: top;
+  clear: both;
+  padding-left: 1px;
+}
+.md-checkbox label:not(:empty) {
+  padding-left: 1.75em;
+}
+.md-checkbox label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.25em;
+  height: 1.25em;
+  background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.54);
+  border-radius: 0.125em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.md-checkbox label:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.md-checkbox input[type=checkbox] {
+  outline: 0;
+  visibility: hidden;
+  width: 1.25em;
+  margin: 0;
+  display: block;
+  float: left;
+  font-size: inherit;
+}
+.md-checkbox input[type=checkbox]:checked + label:before {
+  background: #3737b3;
+  border: none;
+}
+.md-checkbox input[type=checkbox]:checked + label:after {
+  transform: translate(0.25em, 0.3365384615em) rotate(-45deg);
+  width: 0.75em;
+  height: 0.375em;
+  border: 0.125em solid #fff;
+  border-top-style: none;
+  border-right-style: none;
+}
+.md-checkbox input[type=checkbox]:disabled + label:before {
+  border-color: rgba(0, 0, 0, 0.26);
+}
+.md-checkbox input[type=checkbox]:disabled:checked + label:before {
+  background: rgba(0, 0, 0, 0.26);
+}
+
+.md-checkbox.md-checkbox-inline {
+  display: inline-block;
+}
+
+.main__breadcumb {
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+}
+.main__breadcumb .breadcumb__item {
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  animation: fade 300ms ease-in-out;
+}
+.main__breadcumb .breadcumb__item i {
+  color: #3737b3;
+  font-size: 1em;
 }
 
 /*# sourceMappingURL=styles.css.map */

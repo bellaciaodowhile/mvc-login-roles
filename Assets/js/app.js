@@ -394,189 +394,282 @@ subtabsGj8.map((main, index) => {
 // * Select Multiple
 function selectMultiple(main, arrData) {
     let selectMain = document.querySelector(`${main}`);
-    if (selectMain != null || selectMain != undefined) {
-        let select = selectMain.querySelector('select[multiple]');
-        let selectOptions = select.querySelectorAll('option');
-        let newSelect = document.createElement('div');
-        newSelect.classList.add('selectMultiple');
-        let active = document.createElement('div');
-        active.classList.add('active');
-        let optionList = document.createElement('ul');
-        let placeholder = select.dataset.placeholder;
-        let span = document.createElement('span');
-        span.innerText = placeholder;
-        active.appendChild(span);
+    if (selectMain != null) {
+        let selectMultiple = selectMain.querySelector('.selectMultiple');
+        if (selectMain != null && selectMain != undefined && selectMultiple === null) {
+            let select = selectMain.querySelector('select[multiple]');
+            let selectOptions = select.querySelectorAll('option');
+            let newSelect = document.createElement('div');
+            newSelect.classList.add('selectMultiple');
+            let active = document.createElement('div');
+            active.classList.add('active');
+            let optionList = document.createElement('ul');
+            let placeholder = select.dataset.placeholder;
+            let span = document.createElement('span');
+            span.innerText = placeholder;
+            active.appendChild(span);
 
-        let searchInput = document.createElement('input');
-        searchInput.setAttribute('type', 'text');
-        searchInput.setAttribute('placeholder', 'Busca aquí');
-        searchInput.addEventListener('input', function (e) {
-            let searchValue = e.target.value.toLowerCase();
-            let filteredOptions = arrData.filter(option => option.name.toLowerCase().includes(searchValue));
-            let emAll = selectMain.querySelectorAll('.selectMultiple em');
-            let filteredOptionsDifferent = filteredOptions.filter(option => {
-                for (let i = 0; i < emAll.length; i++) {
-                    if (emAll[i].textContent.trim() === option.name.trim()) {
-                        return false;
+            let searchInput = document.createElement('input');
+            searchInput.setAttribute('type', 'text');
+            searchInput.setAttribute('placeholder', 'Busca aquí');
+            searchInput.addEventListener('input', function (e) {
+                let searchValue = e.target.value.toLowerCase();
+                let filteredOptions = arrData.filter(option => option.name.toLowerCase().includes(searchValue));
+                let emAll = selectMain.querySelectorAll('.selectMultiple em');
+                let filteredOptionsDifferent = filteredOptions.filter(option => {
+                    for (let i = 0; i < emAll.length; i++) {
+                        if (emAll[i].textContent.trim() === option.name.trim()) {
+                            return false;
+                        }
                     }
-                }
-                return true;
-            });
-            updateOptions(filteredOptionsDifferent);
-        });
-
-        active.appendChild(searchInput);
-
-        function updateOptions(options) {
-            optionList.innerHTML = '';
-            // console.log(options)
-            options.map((option, index) => {
-                select.innerHTML += `<option value="${option.id}" ${ index == 0 ? 'selected' : ''}>${option.name}</option>`
+                    return true;
+                });
+                updateOptions(filteredOptionsDifferent);
             });
 
-            options.forEach(option => {
-                let text = option.name;
-                if (option.selected) {
-                    let tag = document.createElement('a');
-                    tag.dataset.value = option.id;
-                    tag.innerHTML = "<em>" + text + "</em><i></i>";
-                    active.appendChild(tag);
-                    span.classList.add('hide');
-                } else {
-                    let item = document.createElement('li');
-                    item.dataset.value = option.id;
-                    item.innerHTML = text;
-                    optionList.appendChild(item);
-                }
-            });
-        }
+            active.appendChild(searchInput);
 
-        updateOptions(arrData);
+            function updateOptions(options) {
+                console.log(options)
+                optionList.innerHTML = '';
+                options.map((option, index) => {
+                    select.innerHTML += `<option value="${option.id}" ${ index == 0 ? 'selected="selected"' : ''}>${option.name}</option>`
+                });
 
-        var arrow = document.createElement('div');
-        arrow.classList.add('arrow');
-        active.appendChild(arrow);
-        newSelect.appendChild(active);
-        newSelect.appendChild(optionList);
-        select.parentElement.append(newSelect);
-        span.appendChild(select);
-
-        selectMain.querySelector('.selectMultiple ul').addEventListener('click', (e) => {
-            let li = e.target.closest('li');
-            if (!li) {
-                return;
+                options.forEach(option => {
+                    let text = option.name;
+                    if (option.selected) {
+                        let tag = document.createElement('a');
+                        tag.dataset.value = option.id;
+                        tag.innerHTML = "<em>" + text + "</em><i></i>";
+                        active.appendChild(tag);
+                        span.classList.add('hide');
+                    } else {
+                        let item = document.createElement('li');
+                        item.dataset.value = option.id;
+                        item.innerHTML = text;
+                        optionList.appendChild(item);
+                    }
+                });
             }
-            let select = li.closest('.selectMultiple');
-            if (!select.classList.contains('clicked')) {
-                select.classList.add('clicked');
-                if (li.previousElementSibling) {
-                    li.previousElementSibling.classList.add('beforeRemove');
+
+            updateOptions(arrData);
+
+            var arrow = document.createElement('div');
+            arrow.classList.add('arrow');
+            active.appendChild(arrow);
+            newSelect.appendChild(active);
+            newSelect.appendChild(optionList);
+            select.parentElement.append(newSelect);
+            span.appendChild(select);
+
+            selectMain.querySelector('.selectMultiple ul').addEventListener('click', (e) => {
+                let li = e.target.closest('li');
+                if (!li) {
+                    return;
                 }
-                if (li.nextElementSibling) {
-                    li.nextElementSibling.classList.add('afterRemove');
+                let select = li.closest('.selectMultiple');
+                if (!select.classList.contains('clicked')) {
+                    select.classList.add('clicked');
+                    if (li.previousElementSibling) {
+                        li.previousElementSibling.classList.add('beforeRemove');
+                    }
+                    if (li.nextElementSibling) {
+                        li.nextElementSibling.classList.add('afterRemove');
+                    }
+                    li.classList.add('remove');
+                    let a = document.createElement('a');
+                    a.dataset.value = li.dataset.value;
+                    a.insertAdjacentHTML('beforeend', "<em>" + li.innerText + "</em><i></i>");
+                    a.classList.add('notShown');
+                    select.querySelector('div').appendChild(a);
+                    let selectEl = select.querySelector('select');
+                    let opt = selectEl.querySelector('option[value="' + li.dataset.value + '"]');
+                    console.log(opt)
+                    opt.setAttribute('selected', 'selected');
+                    setTimeout(() => {
+                        a.classList.add('shown');
+                        select.querySelector('span').classList.add('hide');
+                    }, 300);
+                    setTimeout(() => {
+                        let styles = window.getComputedStyle(li);
+                        let liHeight = styles.height;
+                        let liPadding = styles.padding;
+                        let removing = li.animate([{
+                                height: liHeight,
+                                padding: liPadding
+                            },
+                            {
+                                height: '0px',
+                                padding: '0px'
+                            }
+                        ], {
+                            duration: 300,
+                            easing: 'ease-in-out'
+                        });
+                        removing.onfinish = () => {
+                            if (li.previousElementSibling) {
+                                li.previousElementSibling.classList.remove('beforeRemove');
+                            }
+                            if (li.nextElementSibling) {
+                                li.nextElementSibling.classList.remove('afterRemove');
+                            }
+                            li.remove();
+                            select.classList.remove('clicked');
+                        }
+                    }, 300);
                 }
-                li.classList.add('remove');
-                let a = document.createElement('a');
-                a.dataset.value = li.dataset.value;
-                a.insertAdjacentHTML('beforeend', "<em>" + li.innerText + "</em><i></i>");
-                a.classList.add('notShown');
-                select.querySelector('div').appendChild(a);
+            });
+
+            selectMain.querySelector('.selectMultiple > div').addEventListener('click', (e) => {
+                let a = e.target.closest('a');
+                let select = e.target.closest('.selectMultiple');
+                if (!a) {
+                    return;
+                }
+                a.className = '';
+                a.classList.add('remove');
+                select.classList.add('open');
                 let selectEl = select.querySelector('select');
-                let opt = selectEl.querySelector('option[value="' + li.dataset.value + '"]');
-                console.log(opt)
-                opt.setAttribute('selected', 'selected');
+                let opt = selectEl.querySelector('option[value="' + a.dataset.value + '"]');
+                opt.removeAttribute('selected');
+                a.classList.add('disappear');
                 setTimeout(() => {
-                    a.classList.add('shown');
-                    select.querySelector('span').classList.add('hide');
-                }, 300);
-                setTimeout(() => {
-                    let styles = window.getComputedStyle(li);
-                    let liHeight = styles.height;
-                    let liPadding = styles.padding;
-                    let removing = li.animate([{
-                            height: liHeight,
-                            padding: liPadding
+                    let styles = window.getComputedStyle(a);
+                    let padding = styles.padding;
+                    let deltaWidth = styles.width;
+                    let deltaHeight = styles.height;
+                    let removeOption = a.animate([{
+                            width: deltaWidth,
+                            height: deltaHeight,
+                            padding: padding
                         },
                         {
+                            width: '0px',
                             height: '0px',
                             padding: '0px'
                         }
                     ], {
-                        duration: 300,
+                        duration: 0,
                         easing: 'ease-in-out'
                     });
-                    removing.onfinish = () => {
-                        if (li.previousElementSibling) {
-                            li.previousElementSibling.classList.remove('beforeRemove');
+                    let li = document.createElement('li');
+                    li.dataset.value = a.dataset.value;
+                    li.innerText = a.querySelector('em').innerText;
+                    li.classList.add('show');
+                    select.querySelector('ul').appendChild(li);
+                    setTimeout(() => {
+                        if (!selectEl.selectedOptions.length) {
+                            select.querySelector('span').classList.remove('hide');
                         }
-                        if (li.nextElementSibling) {
-                            li.nextElementSibling.classList.remove('afterRemove');
-                        }
-                        li.remove();
-                        select.classList.remove('clicked');
+                        li.className = '';
+                    }, 350);
+                    removeOption.onfinish = () => {
+                        a.remove();
                     }
                 }, 300);
-            }
-        });
-
-        selectMain.querySelector('.selectMultiple > div').addEventListener('click', (e) => {
-            let a = e.target.closest('a');
-            let select = e.target.closest('.selectMultiple');
-            if (!a) {
-                return;
-            }
-            a.className = '';
-            a.classList.add('remove');
-            select.classList.add('open');
-            let selectEl = select.querySelector('select');
-            let opt = selectEl.querySelector('option[value="' + a.dataset.value + '"]');
-            opt.removeAttribute('selected');
-            a.classList.add('disappear');
-            setTimeout(() => {
-                let styles = window.getComputedStyle(a);
-                let padding = styles.padding;
-                let deltaWidth = styles.width;
-                let deltaHeight = styles.height;
-                let removeOption = a.animate([{
-                        width: deltaWidth,
-                        height: deltaHeight,
-                        padding: padding
-                    },
-                    {
-                        width: '0px',
-                        height: '0px',
-                        padding: '0px'
-                    }
-                ], {
-                    duration: 0,
-                    easing: 'ease-in-out'
+            });
+            selectMain.querySelectorAll('.selectMultiple > div .arrow, .selectMultiple > div a').forEach((el) => {
+                el.addEventListener('click', (e) => {
+                    el.closest('.selectMultiple').classList.toggle('open');
+                    searchInput.classList.toggle('active__input__search')
                 });
-                let li = document.createElement('li');
-                li.dataset.value = a.dataset.value;
-                li.innerText = a.querySelector('em').innerText;
-                li.classList.add('show');
-                select.querySelector('ul').appendChild(li);
-                setTimeout(() => {
-                    if (!selectEl.selectedOptions.length) {
-                        select.querySelector('span').classList.remove('hide');
-                    }
-                    li.className = '';
-                }, 350);
-                removeOption.onfinish = () => {
-                    a.remove();
-                }
-            }, 300);
-        });
-
-        selectMain.querySelectorAll('.selectMultiple > div .arrow, .selectMultiple > div span').forEach((el) => {
-            el.addEventListener('click', (e) => {
-                el.closest('.selectMultiple').classList.toggle('open');
             });
-        });
-        selectMain.querySelectorAll('.selectMultiple > div .arrow').forEach((el) => {
-            el.addEventListener('click', (e) => {
-                searchInput.classList.toggle('active__input__search')
-            });
-        });
+        }
     }
 }
+// * Utilities
+function contenteditable(element, boolean) {
+    if (boolean) {
+        element.classList.add('border__edit');
+        element.setAttribute('contenteditable', `${ boolean }`);
+    } else {
+        element.classList.remove('border__edit');
+        element.removeAttribute('contenteditable');
+    }
+}
+
+function hide(el) {
+    console.log(el)
+    el.classList.add('hidden');
+}
+
+function show(el) {
+    console.log(el)
+    el.classList.remove('hidden');
+}
+// Previsualizar y crear imagen con html2canvas
+function apiHtml2Canvas(html, css, js, idComponent) {
+    // console.log(html)
+    const iframeResult = document.getElementById('capture-area');
+    const iframeDoc = iframeResult.contentDocument;
+    const iframeHead = iframeDoc.head;
+    const iframeBody = iframeDoc.body;
+    iframeHead.innerHTML = "\n<style>\n" + css + "\n</style>\n";
+    iframeBody.innerHTML = "\n" + html + "\n";
+    const script = iframeDoc.createElement("script");
+    script.innerHTML = "\n" + js + "\n";
+    iframeBody.appendChild(script);
+
+
+
+
+    let returnData = [];
+
+
+    html2canvas(iframeBody, {
+        allowTaint: true,
+        backgroundColor: 'transparent',
+        useCORS: true,
+        // scale: window.devicePixelRatio,
+    }).then(
+        function (canvas) {
+            let imageData = canvas.toDataURL("image/png");
+            // Now browser starts downloading it instead of just showing it
+            // imageData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
+            // DowloadOnly
+            setTimeout(() => {
+                // document.getElementById('previewImage').appendChild(canvas);
+                document.getElementById('previewImageImg').src = imageData;
+                // const input = document.getElementById('inputImage');
+                // const blob = new Blob([imageData]);
+                // input.append(blob);
+            }, 500);
+            returnData.push(imageData)
+            setTimeout(() => {
+                // console.log(imageData)
+                // AJAXGJ8({
+                //     url: 'Componentes/createPreviewComponent',
+                //     data:[{
+                //         data: imageData
+                //     }],
+                //     success: function (res) {
+                //         console.log(res)
+                //     }
+                // });
+
+
+
+
+
+            }, 1000);
+
+        }
+    );
+    return returnData;
+}
+
+// let imageData = apiHtml2Canvas(`<p class="left">Lorem ipsum dolor sit amet, consectetuer adipiscing 
+// elit. Aenean commodo ligula eget dolor. Aenean massa. <br />
+// Cum sociis natoque penatibus et magnis dis parturient 
+// montes, nascetur ridiculus mus. Donec quam felis, 
+// ultricies nec, pellentesque eu, pretium quis, sem.</p>`, `.left {
+//     padding-right:15px;
+//     text-align:left;
+//     color: green;
+//     font-weight: bold;
+//     letter-spacing: 10px;
+//     font-size: 5em;
+//     background: red;
+//     text-align: center !important;}`, `document.querySelector('p').textContent = "Hola como estas vale";`);
+//     console.log(imageData[0])

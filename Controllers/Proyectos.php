@@ -48,4 +48,35 @@
             $arrData = $this->model->getProjects();
             echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         }
+        public function getProject($id) {
+            $arrData = $this->model->getProject($id);
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        }
+        public function updateProject() {
+            $id = intval($_POST['id']);
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $status = intval($_POST['status']);
+            $langs = json_decode($_POST['langs']);
+            $langsString = implode(',', $langs);
+            $members = json_decode($_POST['members']);
+            $membersString = implode(',', $members);
+
+            if ($title == '' || count($members) == 0 || $description == '' || count($langs) == 0 ) {
+                $arrResponse = array('status' => false, 'msg' => 'Debe llenar todos los campos');
+            } else {
+                $arrData = $this->model->updateProject($id, $title, $description, $status, $membersString, $langsString);
+                if ($arrData > 0) {
+                    $arrResponse = array('status' => true, 'msg' => 'Operación exitosa!');
+                } else {
+                    $arrResponse = array('status' => false, 'msg' => 'Ha ocurrido un error');
+                }
+            }
+
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        public function getProjectsComponents() {
+            $arrData = $this->model->getProjectsComponents();
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        }
     }

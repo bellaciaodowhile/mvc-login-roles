@@ -4,6 +4,7 @@
     height: 75px;
     width: 100%;
     align-items: center;
+
     &-textarea {
         height: 100%;
         .input__text-input {
@@ -21,12 +22,12 @@
             &:valid {
                 border-color: $color-btn;
                 + .input__text-label {
-                    background-color: $color-primary;
+                    background-color: $color-secondary;
                     color: white;
                 }
             }
             &:focus + .input__text-label {
-                background-color: $color-primary;
+                background-color: $color-secondary;
                     color: white;
             }
         }

@@ -26,6 +26,9 @@
         }
 
         .switch__label-slider {
+            display: flex;
+            align-items: center;
+            
             .switch__inactive {
                 display: none;
                 animation: $fade;
@@ -50,6 +53,17 @@
                 &::before {
                     right: 93% !important;
                 }
+            }
+        }
+        &--only {
+            width: 150px;
+            &.switch__off {
+                &::before {
+                    right: 78% !important;
+                }
+            }
+            .switch__label-slider {
+                margin-top: 3px;
             }
         }
 

@@ -31,9 +31,6 @@
                         <a href="<?= BASE_URL . 'usuarios' ?>" ripple class="nav__item-head">
                             <span>Usuarios</span>
                         </a>
-                        <!-- <a href="<?= BASE_URL . 'modulos' ?>" ripple class="nav__item-head">
-                            <span>Modulos</span>
-                        </a> -->
                         <a href="<?= BASE_URL . 'roles' ?>" ripple class="nav__item-head">
                             <span>Roles</span>
                         </a>
@@ -47,10 +44,26 @@
                 </a>
             </div>
             <div class="nav__item">
-                <div ripple class="nav__item-head components__open">
-                    <span><i class="material-icons-outlined">folder</i> Componentes <kbd>Ctrl + Q</kbd></span>
-                </div>
+                <a href="<?= BASE_URL . 'componentes' ?>" ripple class="nav__item-head">
+                    <span><i class="material-icons">folder</i> Componentes</span>
+                </a>
             </div>
+            <!-- <div class="nav__item">
+                <div ripple red class="nav__item-head">
+                    <span><i class="material-icons">folder</i> Componentes</span>
+                    <span><i class="material-icons">chevron_right</i></span>
+                </div>
+                <div class="nav__item-content">
+                    <div class="nav__item">
+                        <div ripple class="nav__item-head components__open">
+                            <span>Listado de componentes <kbd>Ctrl + Q</kbd></span>
+                        </div>
+                        <a href="<?= BASE_URL . 'categorias' ?>" ripple class="nav__item-head">
+                            <span>Categorías</span>
+                        </a>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </nav>
     <main class="dashboard__content">
@@ -68,7 +81,7 @@
             </div>
         </header>
 
-        <section class="main__content">
+        <section class="main__content" id="<?= $_SESSION['idUser']; ?>">
 
         <?php require_once "Views/Templates/Components/CreateComponents.php"; ?>
         <?php require_once "Views/Templates/Components/ComponentsItems.php"; ?>
