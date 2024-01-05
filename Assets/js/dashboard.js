@@ -405,43 +405,91 @@ onclick({el: '.create__component-category', res: function(res) {
         // * Precedencia
         AJAXGJ8({
             url: 'Categorias/getTree/' + parentCategory,
-            success: function(res) {
-                res = JSON.parse(res);
-                console.log(res)
+            success: function(resTree) {
+                resTree = JSON.parse(resTree);
+                console.log(resTree)
 
                 // * ¿En que proyecto estamos?
-                if (res.length > 1) {
-                AJAXGJ8({
-                    url: 'Proyectos/getProject/' + res[1].idProject,
-                    success: function(resProject) {
-                        resProject = JSON.parse(resProject);
-                        console.log(resProject)
-                        // * Nuevo Breadcumb al transferir componente
-                        cleanHtml('.main__breadcumb');
-                        cleanHtml('#cards__projects__components');
-                        viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                        <span class="breadcumb__item" item="base"> 
-                            Proyectos
-                        </span>`});
-                        for (itemProject of resProject) {
+                if (resTree.length > 0) {
+                    // AJAXGJ8({
+                    //     url: 'Proyectos/getProject/' + res[1].idProject,
+                    //     success: function(resProject) {
+                    //         resProject = JSON.parse(resProject);
+                    //         console.log(resProject)
+                    //         // * Nuevo Breadcumb al transferir componente
+                    //         cleanHtml('.main__breadcumb');
+                    //         cleanHtml('#cards__projects__components');
+                    //         viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                    //         <span class="breadcumb__item" item="base"> 
+                    //             Proyectos
+                    //         </span>`});
+                    //         for (itemProject of resProject) {
+                    //             viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                    //             <span class="breadcumb__item" item="${itemProject.id}"> 
+                    //                 <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
+                    //             </span>`});
+                    //         }
+                    //         for (itemCategory of res) {
+                    //             if (itemCategory != false) {
+                    //                 viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                    //                 <span class="breadcumb__item" item="${itemCategory.id}"> 
+                    //                     <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
+                    //                 </span>`});
+                    //             }
+                    //         }
+                    //         openBreadcumb();
+                    //         // getProjectComponents();
+                    //         getComponentsCategories(res[1].idProject);
+                    //     }
+                    // });
+                    AJAXGJ8({
+                        url: 'Proyectos/getProject/' + arrDataCreateComponent.idProject,
+                        success: function(resProject) {
+                            resProject = JSON.parse(resProject);
+                            console.log(resProject)
+                            // * Nuevo Breadcumb al transferir componente
+                            cleanHtml('.main__breadcumb');
+                            cleanHtml('#cards__projects__components');
                             viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                            <span class="breadcumb__item" item="${itemProject.id}"> 
-                                <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
+                            <span class="breadcumb__item" item="base"> 
+                                Proyectos
                             </span>`});
-                        }
-                        for (itemCategory of res) {
-                            if (itemCategory != false) {
+                            // * Cargando los proyectos
+                            for (itemProject of resProject) {
                                 viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                <span class="breadcumb__item" item="${itemCategory.id}"> 
-                                    <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
+                                <span class="breadcumb__item" item="${itemProject.id}" folder="project"> 
+                                <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
                                 </span>`});
+                                console.log('proyecto en curso: ======= ', itemProject.id, ' ¬ Categoría en curso: ', parentCategory)
                             }
+                            console.log('Este es el id del pryecto de donde vamos a traer los componentes y categorias',resProject.at(resProject.length - 1).id)
+                            for (itemCategory of resTree) {
+                                if (itemCategory != false) {
+                                    viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                                    <span class="breadcumb__item" item="${itemCategory.id}"> 
+                                    <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
+                                    </span>`});
+                                    console.log('subcategorías en curso: ======= ', itemCategory.id)
+                                }
+                            }
+                            console.log('Cargando las subcategorias y componentes de esta categoría: ', parentCategory)
+                            // getComponentsCategories(resTree.at(resTree.length - 1).id);
+                            
+                            // ! Este me está trayendo los componentes de la categoría en el cual registré el último componente
+                            getSubcategory(parentCategory, arrDataCreateComponent.idProject);
+                            // getProjectComponent(resTree.at(resTree.length - 1).id);
+
+                            openBreadcumb();
+                            console.log('Vamos a buscar la categoría: ', parentCategory, ' del proyecto: ', arrDataCreateComponent.idProject)
+                            // getComponentsCategories(category)
+                            // getProjectComponents();
+                            // getComponentsCategories(res[1].idProject);
+                            // if (category == 'base') {
+                            //     // getComponentsCategories('base', idProject);
+                            // }
                         }
-                        openBreadcumb();
-                        // getProjectComponents();
-                        getComponentsCategories(res[1].idProject);
-                    }
-                });
+                    });
+                    
                 }
                 
             }
@@ -452,7 +500,8 @@ onclick({el: '.create__component-category', res: function(res) {
             url: 'Componentes/setTransfer',
             data: [{
                 componentId,
-                newCategory: parentCategory
+                newCategory: parentCategory,
+                idProject: arrDataCreateComponent.idProject
             }],
             success: function(res) {
                 res = JSON.parse(res);
@@ -555,6 +604,7 @@ selectedFolderProject()
                     });
                     // * Abrir Forms-step
                     openCreateComponent();
+                    el('.more-button-list').classList.remove('more-button-list--active');
                 }
                 // components.classList.toggle('create__components--active');
             }
@@ -650,7 +700,7 @@ selectedFolderProject()
         }
     }
     function saveComponent() {
-        let nameComponent = el('input[name="name__component"]').value;
+            let nameComponent = el('input[name="name__component"]').value;
             let htmlEncode = htmlEditor.getValue().replaceAll('&', '___amp___')
             let cssEncode = cssEditor.getValue().replaceAll('&', '___amp___')
             let jsEncode = jsEditor.getValue().replaceAll('&', '___amp___')
@@ -677,6 +727,9 @@ selectedFolderProject()
                         el('.create__component__step').classList.toggle('create__component__step--active');
                         components.classList.toggle('create__components--active');
                         // *
+                        htmlEditor.setValue('');
+                        cssEditor.setValue('');
+                        jsEditor.setValue('');
                         // getProjectComponents();
                         toggleStepCreateComponent();
                         // cleanHtml('.main__breadcumb');
@@ -693,7 +746,6 @@ selectedFolderProject()
                             success: function(resTree) {
                                 resTree = JSON.parse(resTree);
                                 console.log(resTree)
-                
                                 // * ¿En que proyecto estamos?
                                 if (resTree.length > 0) {
                                 AJAXGJ8({
@@ -708,27 +760,39 @@ selectedFolderProject()
                                         <span class="breadcumb__item" item="base"> 
                                             Proyectos
                                         </span>`});
+                                        // * Cargando los proyectos
                                         for (itemProject of resProject) {
                                             viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                            <span class="breadcumb__item" item="${itemProject.id}"> 
-                                                <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
+                                            <span class="breadcumb__item" item="${itemProject.id}" folder="project"> 
+                                            <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
                                             </span>`});
+                                            console.log('proyecto en curso: ======= ', itemProject.id, ' ¬ Categoría en curso: ', category)
                                         }
+                                        console.log('Este es el id del pryecto de donde vamos a traer los componentes y categorias',resProject.at(resProject.length - 1).id)
                                         for (itemCategory of resTree) {
                                             if (itemCategory != false) {
                                                 viewHtml({el: '.main__breadcumb', content: /*html*/ `
                                                 <span class="breadcumb__item" item="${itemCategory.id}"> 
-                                                    <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
+                                                <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
                                                 </span>`});
+                                                console.log('subcategorías en curso: ======= ', itemCategory.id)
                                             }
                                         }
+                                        console.log('Cargando las subcategorias y componentes de esta categoría: ',resTree.at(resTree.length - 1).id)
+                                        // getComponentsCategories(resTree.at(resTree.length - 1).id);
+                                        
+                                        // ! Este me está trayendo los componentes de la categoría en el cual registré el último componente
+                                        getSubcategory(resTree.at(resTree.length - 1).id || category, idProject);
+                                        // getProjectComponent(resTree.at(resTree.length - 1).id);
+
                                         openBreadcumb();
                                         console.log('Vamos a buscar la categoría: ', category, ' del proyecto: ', idProject)
+                                        // getComponentsCategories(category)
                                         // getProjectComponents();
                                         // getComponentsCategories(res[1].idProject);
-                                        if (category == 'base') {
-                                            // getComponentsCategories('base', idProject);
-                                        }
+                                        // if (category == 'base') {
+                                        //     // getComponentsCategories('base', idProject);
+                                        // }
                                     }
                                 });
                                 }
@@ -742,24 +806,114 @@ selectedFolderProject()
             });
     }
 
-    // * Editando Componente
-    // createComponent.map(btn => {
-    //     console.log(btn)
-    //     onclick({
-    //         el: btn,
-    //         res: (res) => {
+    // * Guardando edición del componente
+    function saveComponentEdition() {
+        let idComponent = el('.save__edit__component').getAttribute('item');
+        let nameComponent = el('input[name="name__component"]').value;
+        let htmlEncode = htmlEditor.getValue().replaceAll('&', '___amp___')
+        let cssEncode = cssEditor.getValue().replaceAll('&', '___amp___')
+        let jsEncode = jsEditor.getValue().replaceAll('&', '___amp___')
+        let idProject = el('.save__edit__component').getAttribute('idProject');
+        let category = el('.save__edit__component').getAttribute('category');
+        console.log({
+            name: nameComponent,
+            idProject,
+            category,
+            idComponent
+        })
+        AJAXGJ8({
+            url: 'Componentes/updateComponent',
+            data: [{
+                html: htmlEncode,
+                css: cssEncode,
+                js: jsEncode,
+                user: el('.main__content').getAttribute('id'),
+                name: nameComponent,
+                idProject,
+                category,
+                idComponent
+            }],
+            success: function (res) {
+                console.log(res)
+                res = JSON.parse(res);
+                if (res.status) {
+                    el('.list-container').classList.remove('active');
+                    alert(res.msg);
+                    // ! Ubicación del componente
+                    AJAXGJ8({
+                        url: 'Categorias/getTree/' + category,
+                        success: function(resTree) {
+                            resTree = JSON.parse(resTree);
+                            console.log(resTree)
+                            // * ¿En que proyecto estamos?
+                            if (resTree.length > 0) {
+                            AJAXGJ8({
+                                url: 'Proyectos/getProject/' + idProject,
+                                success: function(resProject) {
+                                    resProject = JSON.parse(resProject);
+                                    console.log(resProject)
+                                    // * Nuevo Breadcumb al transferir componente
+                                    cleanHtml('.main__breadcumb');
+                                    cleanHtml('#cards__projects__components');
+                                    viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                                    <span class="breadcumb__item" item="base"> 
+                                        Proyectos
+                                    </span>`});
+                                    // * Cargando los proyectos
+                                    for (itemProject of resProject) {
+                                        viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                                        <span class="breadcumb__item" item="${itemProject.id}" folder="project"> 
+                                        <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
+                                        </span>`});
+                                        console.log('proyecto en curso: ======= ', itemProject.id, ' ¬ Categoría en curso: ', category)
+                                    }
+                                    console.log('Este es el id del pryecto de donde vamos a traer los componentes y categorias',resProject.at(resProject.length - 1).id)
+                                    for (itemCategory of resTree) {
+                                        if (itemCategory != false) {
+                                            viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                                            <span class="breadcumb__item" item="${itemCategory.id}"> 
+                                            <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
+                                            </span>`});
+                                            console.log('subcategorías en curso: ======= ', itemCategory.id)
+                                        }
+                                    }
+                                    console.log('Cargando las subcategorias y componentes de esta categoría: ',resTree.at(resTree.length - 1).id)
+                                    // getComponentsCategories(resTree.at(resTree.length - 1).id);
+                                    
+                                    // ! Este me está trayendo los componentes de la categoría en el cual registré el último componente
+                                    getSubcategory(resTree.at(resTree.length - 1).id || category, idProject);
 
-    //             if (!btn.classList.contains('card-work')) {
-    //                 console.log('No contiene')
-    //                 // htmlEditor.setValue('');
-    //                 // cssEditor.setValue('');
-    //                 // jsEditor.setValue('');
-    //             }
-    //             console.log('Hola vale')
-    //             components.classList.toggle('create__components--active');
-    //         }
-    //     });
-    // });
+                                    openBreadcumb();
+                                    console.log('Vamos a buscar la categoría: ', category, ' del proyecto: ', idProject)
+                                }
+                            });
+                            }
+                            
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+
+
+                } else {
+                    alert(res.msg);
+                }
+            }
+        });
+    }
+
+
+    onclick({el: '.save__edit__component', res: function(e) {
+        saveComponentEdition();
+    }});
+    
 
 
 
@@ -999,7 +1153,7 @@ function dataProject(id) {
                     el: '.tags__languages',
                     content: /*html*/ `
                 <div class="tooltip" data-tooltip="${ lang.nombre }" data-tooltip-position="top">
-                    <img src="assets/img/icons/icons/${ lang.nombre }/${ lang.nombre }-original.svg" alt="${ lang.nombre }__svg">
+                    <img src="${BASE_URL}Assets/img/icons/icons/${ lang.nombre }/${ lang.nombre }-original.svg" alt="${ lang.nombre }__svg">
                 </div>`
                 })
             }
@@ -1239,7 +1393,6 @@ onclick({el: '.edit__project', res: function(res) {
 
 
 }});
-
 onclick({el: '.cancel__project__edit', res: function(res) {
     closeProjectEdit();
 }});
@@ -1254,7 +1407,23 @@ function closeProjectEdit() {
         contenteditable(item, false);
     });
 }
-
+// * Delete Project
+onclick({el: '.delete__project', res: function(res) {
+    if (confirm('¿Está seguro de eliminar todoas las categorías y componentes de este proyecto?')) {
+        let idProject = el('.card__project-edit-title').getAttribute('item');
+        AJAXGJ8({
+            url: 'Proyectos/deleteProject/' + idProject,
+            success: function(res) {
+                res = JSON.parse(res);
+                console.log(res)
+                if (res) {
+                    el(`.card__project[item="${idProject}"]`).remove();
+                    el('.close__project').closest('.card__project-edit').classList.remove('card__project-edit--show');
+                }
+            }
+        });
+    }
+}});
 // * Save Edit
 onclick({el: '.save__project__edit', res: function(res) {
     res.stopImmediatePropagation();
@@ -1502,9 +1671,11 @@ function openBreadcumb() {
 }
 openBreadcumb();
 // * Cargando categorías, subcactegorías y componentes de cada proyecto según la categoría
-function getSubcategory(id) {
+function getSubcategory(id, idProject = 'none') {
+    console.log('Buscando IDPROJECT: ', idProject, ' en la CATEGORÍA:', id)
     AJAXGJ8({
         url: 'Categorias/getSubcategory/' + id,
+        data: [{ idProject }],
         success: function(res) {
             res = JSON.parse(res);
             console.log('---------------------------------------------')
@@ -1538,37 +1709,11 @@ function getSubcategory(id) {
                     });
                     openCategories();
                 }
-                // for (item of res) {
-                //     if (item != undefined) {
-                //         let html = '';
-                //         if (item.components.length > 0) {
-                //             item.components.map(component => {
-                //                 console.log(component)
-                //                 html += /*html*/ `
-                //                 <div class="card__load__component card__project card__project__component" component="${component.id}" id="component__${component.id}"> 
-                //                     <p class="title__component__load">${component.nombre}</p>
-                //                 </div> `;
-                //                 viewHtml({
-                //                     el: '#cards__projects__components',
-                //                     content: html
-                //                 });
-                //                 openCategories();
-                //                 shotit(
-                //                     { html: component.html ,
-                //                     css: component.css ,
-                //                     js: component.js,
-                //                     id: component.id }
-                //                 );
-                                
-                //             });
-                //         }
-                //     }
-                // }
             } 
         }
     });
     // * Trayendo los componentes de esta categoría
-    getComponentsCategories(id);
+    getComponentsCategories(id, idProject);
 }
 // * Trayendo los componentes de cada categoría
 function getComponentsCategories(id, idProject = 'none') {
@@ -1610,7 +1755,8 @@ function loadComponent() {
             console.log('Cargando un solo componente que es: ', componentId);
             components.classList.toggle('create__components--active');
             el('.component__settings').classList.add('component__settings--active');
-            components
+            el('.more-button-list').classList.add('more-button-list--active');
+            // components
             AJAXGJ8({
                 url: 'Componentes/getComponent',
                 data: [{
@@ -1619,6 +1765,10 @@ function loadComponent() {
                 success: function (res) {
                     res = JSON.parse(res)
                     console.log(res)
+                    el('.save__edit__component').setAttribute('item', res[0].id);
+                    el('.save__edit__component').setAttribute('idProject', res[0].idProject);
+                    el('.save__edit__component').setAttribute('category', res[0].category);
+                    el('input[name="name__component"]').value = res[0].nombre;
                     let htmlDecode = res[0].html.replaceAll('___amp___', '&');
                     let cssDecode = res[0].css.replaceAll('___amp___', '&');
                     let jsDecode = res[0].js.replaceAll('___amp___', '&');
@@ -1640,26 +1790,31 @@ function loadComponent() {
                 }
             });
             // * Delete component
-            deleteComponent(componentId, component);
+            // deleteComponent(componentId, component);
+            el('.delete__component').setAttribute('item', componentId);
+            el('.delete__component').setAttribute('category', component);
             // * Transfer component
             transferComponent(componentId);
+            
         }});
     });
 }
 // * Delete component
-function deleteComponent(id, category) {
+deleteComponent();
+function deleteComponent() {
     onclick({el: '.delete__component', res: function(res) {
+        console.log('Estas eliminando el componente con id: ', el('.delete__component').getAttribute('item'), ' de la categoría: ', el('.delete__component').getAttribute('category'))
         if(confirm('¿Esta seguro de eliminar este componente? No hay vuelta atrás')) {
             AJAXGJ8({
-                url: 'Componentes/deleteComponent/' + id,
+                url: 'Componentes/deleteComponent/' + el('.delete__component').getAttribute('item'),
                 success: function(res) {
                     res = JSON.parse(res);
                     console.log(res)
                     if (res.status) {
                         alert(res.msg);
                         closeViewComponent();
-                        console.log(el('#' + category))
-                        el('#' + category).remove();
+                        console.log(el('#' + el('.delete__component').getAttribute('category')))
+                        el('#' + el('.delete__component').getAttribute('category')).remove();
                     } else {
                         alert(res.msg);
                     }

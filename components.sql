@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-12-2023 a las 00:14:43
+-- Tiempo de generación: 29-12-2023 a las 03:33:16
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -24,31 +24,353 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `tipo` varchar(80) NOT NULL,
+  `estado` varchar(80) NOT NULL,
+  `idParent` varchar(80) NOT NULL,
+  `idProject` varchar(22) NOT NULL,
+  `global` varchar(22) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nombre`, `tipo`, `estado`, `idParent`, `idProject`, `global`) VALUES
+(148, 'No global de principito', 'categoria', 'active', 'base', '10', '10'),
+(149, 'No global de p 2', 'categoria', 'active', 'base', '10', '10'),
+(154, 'Dentro de widget', 'categoria', 'active', 'base', '9', '9'),
+(155, 'Widget 2', 'subcategoria', 'active', '154', '9', '9'),
+(156, 'widget 3', 'subcategoria', 'active', '155', '9', '9'),
+(157, 'Categoría no global de peludito', 'categoria', 'active', 'base', '11', '11'),
+(158, 'Perros', 'subcategoria', 'active', '157', '11', '11'),
+(159, 'Gatitos', 'subcategoria', 'active', '157', '11', '11');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `componentes`
 --
 
 CREATE TABLE `componentes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(77) NOT NULL,
-  `html` text NOT NULL,
+  `html` longtext NOT NULL,
   `css` longtext NOT NULL,
   `js` longtext NOT NULL,
   `user` varchar(66) NOT NULL,
-  `fecha` varchar(55) NOT NULL DEFAULT current_timestamp()
+  `fecha` varchar(55) NOT NULL DEFAULT current_timestamp(),
+  `idProject` varchar(22) NOT NULL,
+  `category` varchar(22) NOT NULL,
+  `image` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `componentes`
 --
 
-INSERT INTO `componentes` (`id`, `nombre`, `html`, `css`, `js`, `user`, `fecha`) VALUES
-(34, 'Slidershow Vanilla JS', '<div class=\"content-width\">\r\n  <div class=\"slideshow\">\r\n    <!-- Slideshow Items -->\r\n    <div class=\"slideshow-items\">\r\n      <div class=\"item\">\r\n        <div class=\"item-image-container\">\r\n          <img class=\"item-image\" src=\"https://i.pinimg.com/564x/23/a4/86/23a4860b8b70b1eb27f2791b97aaee8e.jpg\" />\r\n        </div>\r\n        <!-- Staggered Header Elements -->\r\n        <div class=\"item-header\">\r\n          <span class=\"vertical-part\"><b>N</b></span>\r\n          <span class=\"vertical-part\"><b>i</b></span>\r\n          <span class=\"vertical-part\"><b>k</b></span>\r\n          <span class=\"vertical-part\"><b>e</b></span>\r\n        </div>\r\n        <!-- Staggered Description Elements -->\r\n        <div class=\"item-description\">\r\n          <span class=\"vertical-part\">\r\n            <b>Nike</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>dolor</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>sit</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>amet,</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>consectetur</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>adipiscing</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>elit.</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>Pellentesque</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>elementum</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>gravida</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ex</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>at</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>maximus.</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>Nullam</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>quis</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>leo</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum.</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>Lorem</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>Nam</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>consectetur</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>malesuada</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>blandit.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Mauris</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>vulputate</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>purus</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>id</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>dolor</b>\r\n          </span> \r\n          <span class=\"vertical-part\">\r\n            <b>euismod</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>varius.</b>\r\n          </span>      \r\n        </div>\r\n      </div>\r\n      <div class=\"item\">\r\n        <div class=\"item-image-container\">\r\n          <img class=\"item-image\" src=\"https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a1232e48702241.589f548dc6bee.jpg\" />\r\n        </div>\r\n        <!-- Staggered Header Elements -->\r\n        <div class=\"item-header\">\r\n          <span class=\"vertical-part\"><b>S</b></span>\r\n          <span class=\"vertical-part\"><b>p</b></span>\r\n          <span class=\"vertical-part\"><b>o</b></span>\r\n          <span class=\"vertical-part\"><b>t</b></span>\r\n          <span class=\"vertical-part\"><b>i</b></span>\r\n          <span class=\"vertical-part\"><b>f</b></span>\r\n          <span class=\"vertical-part\"><b>y</b></span>\r\n        </div>\r\n        <!-- Staggered Description Elements -->\r\n        <div class=\"item-description\">\r\n          <span class=\"vertical-part\">\r\n            <b>Spotify</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>dolor</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>sit</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>amet,</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>consectetur</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>adipiscing</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>elit.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Pellentesque</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>elementum</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>gravida</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ex</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>at</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>maximus.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Nullam</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>quis</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>leo</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Lorem</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Nam</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>consectetur</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>malesuada</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>blandit.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Mauris</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>vulputate</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>purus</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>id</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>dolor</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>euismod</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>varius.</b>\r\n          </span>\r\n        </div>\r\n      </div>\r\n      <div class=\"item\">\r\n        <div class=\"item-image-container\">\r\n          <img class=\"item-image\" src=\"https://i2.wp.com/www.futuristarchitecture.com/wp-content/uploads/2016/11/fantastic-small-living-room-interior-idea-7.jpg?w=700___amp___ssl=1\" />\r\n        </div>\r\n        <!-- Staggered Header Elements -->\r\n        <div class=\"item-header\">\r\n          <span class=\"vertical-part\"><b>A</b></span>\r\n          <span class=\"vertical-part\"><b>i</b></span>\r\n          <span class=\"vertical-part\"><b>r</b></span>\r\n          <span class=\"vertical-part\"><b>b</b></span>\r\n          <span class=\"vertical-part\"><b>n</b></span>\r\n          <span class=\"vertical-part\"><b>b</b></span>\r\n        </div>\r\n        <!-- Staggered Description Elements -->\r\n        <div class=\"item-description\">\r\n          <span class=\"vertical-part\">\r\n            <b>Airbnb</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>dolor</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>sit</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>amet,</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>consectetur</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>adipiscing</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>elit.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Pellentesque</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>elementum</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>gravida</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ex</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>at</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>maximus.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Nullam</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>quis</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>leo</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Lorem</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>ipsum</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Nam</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>consectetur</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>malesuada</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>blandit.</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>Mauris</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>vulputate</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>purus</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>id</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>dolor</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>euismod</b>\r\n          </span>\r\n          <span class=\"vertical-part\">\r\n            <b>varius.</b>\r\n          </span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"controls\">\r\n      <ul>\r\n        <li class=\"control\" data-index=\"0\"></li>\r\n        <li class=\"control\" data-index=\"1\"></li>\r\n        <li class=\"control\" data-index=\"2\"></li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</div>', '* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\nhtml, body {\r\n  width: 100%;\r\n  height: 100vh;\r\n  overflow: hidden; \r\n  background: #22222A;\r\n  font-family: \'Fira Mono\', monospace;\r\n  -webkit-font-smoothing: antialiased;\r\n  font-size: .88rem;\r\n  color: #bdbdd5;\r\n}\r\n\r\n.content-width {\r\n  width: 86%;\r\n  height: 100vh;\r\n  margin: 0 auto;\r\n}\r\n\r\n.slideshow {\r\n  position: relative;\r\n  width: 100%;\r\n  height: 100vh;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-around;\r\n}\r\n\r\n.slideshow-items {\r\n  position: relative;\r\n  width: 100%;\r\n  height: 300px;\r\n}\r\n\r\n.item {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: auto;\r\n}\r\n\r\n.item-image-container {\r\n  position: relative;\r\n  width: 42%;\r\n}\r\n\r\n.item-image-container::before {\r\n  content: \'\';\r\n  position: absolute;\r\n  top: -1px;\r\n  left: 0;\r\n  width: 101%;\r\n  height: 101%;\r\n  background: #22222A;\r\n  opacity: 0;\r\n  z-index: 1;\r\n}\r\n\r\n.item-image {\r\n  position: relative;\r\n  width: 100%;\r\n  height: auto;\r\n  opacity: 0;\r\n  display: block;\r\n  /* transition: property name | duration | timing-function | delay  */\r\n  transition: opacity .3s ease-out .45s;\r\n}\r\n\r\n.item.active .item-image {\r\n  opacity: 1;\r\n}\r\n\r\n.item.active .item-image-container::before {\r\n  opacity: .8;\r\n}\r\n\r\n.item-description {\r\n  position: absolute;\r\n  top: 182px;\r\n  right: 0;\r\n  width: 50%;\r\n  padding-right: 4%;\r\n  line-height: 1.8;\r\n}\r\n\r\n/* Staggered Vertical Items ------------------------------------------------------*/\r\n.item-header {\r\n  position: absolute;\r\n  top: 150px;\r\n  left: -1.8%;\r\n  z-index: 100;\r\n}\r\n\r\n.item-header .vertical-part {\r\n  margin: 0 -4px;\r\n  font-family: \'Montserrat\', sans-serif;\r\n  -webkit-font-smoothing: auto;\r\n  font-size: 7vw;\r\n  color: #fff;\r\n}\r\n\r\n.vertical-part {\r\n  overflow: hidden;\r\n  display: inline-block;\r\n}\r\n\r\n.vertical-part b {\r\n  display: inline-block;\r\n  transform: translateY(100%);\r\n}\r\n\r\n.item-header .vertical-part b {\r\n  transition: .5s;\r\n}\r\n\r\n.item-description .vertical-part b {\r\n  transition: .21s;\r\n}\r\n\r\n.item.active .item-header .vertical-part b {\r\n  transform: translateY(0);\r\n}\r\n\r\n.item.active .item-description .vertical-part b {\r\n  transform: translateY(0);\r\n}\r\n\r\n/* Controls ----------------------------------------------------------------------*/\r\n.controls {\r\n  position: relative;\r\n  text-align: right;\r\n  z-index: 1000;\r\n}\r\n\r\n.controls ul {\r\n  list-style: none;\r\n}\r\n\r\n.controls ul li {\r\n  display: inline-block;\r\n  width: 10px;\r\n  height: 10px;\r\n  margin: 3px;\r\n  background:#bdbdd5;;\r\n  cursor: pointer;\r\n}\r\n\r\n.controls ul li.active {\r\n  background:#6a6a77;;\r\n}', '// Master DOManipulator v2 ------------------------------------------------------------\r\nconst items = document.querySelectorAll(\'.item\'),\r\ncontrols = document.querySelectorAll(\'.control\'),\r\nheaderItems = document.querySelectorAll(\'.item-header\'),\r\ndescriptionItems = document.querySelectorAll(\'.item-description\'),\r\nactiveDelay = .76,\r\ninterval = 5000;\r\n\r\nlet current = 0;\r\n\r\nconst slider = {\r\n  init: () => {\r\n    controls.forEach(control => control.addEventListener(\'click\', e => {slider.clickedControl(e);}));\r\n    controls[current].classList.add(\'active\');\r\n    items[current].classList.add(\'active\');\r\n  },\r\n  nextSlide: () => {// Increment current slide and add active class\r\n    slider.reset();\r\n    if (current === items.length - 1) current = -1; // Check if current slide is last in array\r\n    current  ;\r\n    controls[current].classList.add(\'active\');\r\n    items[current].classList.add(\'active\');\r\n    slider.transitionDelay(headerItems);\r\n    slider.transitionDelay(descriptionItems);\r\n  },\r\n  clickedControl: e => {// Add active class to clicked control and corresponding slide\r\n    slider.reset();\r\n    clearInterval(intervalF);\r\n\r\n    const control = e.target,\r\n    dataIndex = Number(control.dataset.index);\r\n\r\n    control.classList.add(\'active\');\r\n    items.forEach((item, index) => {\r\n      if (index === dataIndex) {// Add active class to corresponding slide\r\n        item.classList.add(\'active\');\r\n      }\r\n    });\r\n    current = dataIndex; // Update current slide\r\n    slider.transitionDelay(headerItems);\r\n    slider.transitionDelay(descriptionItems);\r\n    intervalF = setInterval(slider.nextSlide, interval); // Fire that bad boi back up\r\n  },\r\n  reset: () => {// Remove active classes\r\n    items.forEach(item => item.classList.remove(\'active\'));\r\n    controls.forEach(control => control.classList.remove(\'active\'));\r\n  },\r\n  transitionDelay: items => {// Set incrementing css transition-delay for .item-header ___amp___ .item-description, .vertical-part, b elements\r\n    let seconds;\r\n\r\n    items.forEach(item => {\r\n      const children = item.childNodes; // .vertical-part(s)\r\n      let count = 1,\r\n      delay;\r\n\r\n      item.classList.value === \'item-header\' ? seconds = .015 : seconds = .007;\r\n\r\n      children.forEach(child => {// iterate through .vertical-part(s) and style b element\r\n        if (child.classList) {\r\n          item.parentNode.classList.contains(\'active\') ? delay = count * seconds   activeDelay : delay = count * seconds;\r\n          child.firstElementChild.style.transitionDelay = `${delay}s`; // b element\r\n          count  ;\r\n        }\r\n      });\r\n    });\r\n  } };\r\n\r\n\r\nlet intervalF = setInterval(slider.nextSlide, interval);\r\nslider.init();', '1', '2023-12-05 17:41:22'),
-(35, 'Icons', '<link rel=\"stylesheet\" href=\"http:////netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css\">\r\n<h1>Font Awesome Colored - Brand And Social Icons</h1>\r\n  	<div class=\"wrapper\">\r\n	    <ul class=\"social-icons icon-circle list-unstyled list-inline\"> \r\n	      <li><a href=\"#\"><i class=\"fa fa-adn\"></i></a> </li> \r\n	      <li><a href=\"#\"><i class=\"fa fa-android\"></i></a> </li>   \r\n	      <li> <a href=\"#\"><i class=\"fa fa-apple\"></i></a> </li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitbucket\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitbucket-square\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitcoin\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-css3\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dribbble\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dropbox\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-facebook\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-facebook-square\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-flickr\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-foursquare\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-github\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-github-alt\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-github-square\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-google-plus\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-google-plus-square\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-html5\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-instagram\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-linkedin\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-linkedin-square\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-linux\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-maxcdn\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-pagelines\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-pinterest\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-pinterest-square\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-renren\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-skype\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-stack-exchange\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-stack-overflow\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-trello\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-tumblr\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-tumblr-square\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-twitter\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-twitter-square\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-vimeo-square\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-vk\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-weibo\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-windows\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-xing\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-xing-square\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-youtube\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-youtube-play\"></i></a></li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-youtube-square\"></i></a></li> \r\n	  	</ul>\r\n	  	\r\n	  	<hr />\r\n	  	<h2>Social Icons - Hover Zoom  (.icon-zoom)</h2>\r\n	  	\r\n	  	<ul class=\"social-icons icon-circle icon-zoom list-unstyled list-inline\"> \r\n	      <li><a href=\"#\"><i class=\"fa fa-adn\"></i></a> </li> \r\n	      <li><a href=\"#\"><i class=\"fa fa-android\"></i></a> </li>   \r\n	      <li> <a href=\"#\"><i class=\"fa fa-apple\"></i></a> </li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitbucket\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitcoin\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-css3\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dribbble\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dropbox\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-facebook\"></i></a></li>  \r\n	      <li> <a href=\"#\"><i class=\"fa fa-flickr\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-foursquare\"></i></a></li> \r\n	  	</ul>\r\n	  	\r\n	  	<hr />\r\n	  	<h2>Social Icons - Hover Rotate  (.icon-rotate)</h2>\r\n	  	\r\n	  	<ul class=\"social-icons icon-circle icon-rotate list-unstyled list-inline\"> \r\n	      <li><a href=\"#\"><i class=\"fa fa-adn\"></i></a> </li> \r\n	      <li><a href=\"#\"><i class=\"fa fa-android\"></i></a> </li>   \r\n	      <li> <a href=\"#\"><i class=\"fa fa-apple\"></i></a> </li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitbucket\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitcoin\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-css3\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dribbble\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dropbox\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-facebook\"></i></a></li>  \r\n	      <li> <a href=\"#\"><i class=\"fa fa-flickr\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-foursquare\"></i></a></li>   \r\n	  	</ul>\r\n	  	\r\n	  	<hr />\r\n	  	<h2>Social Icons - Rounded  (.icon-rounded)</h2>\r\n	  	\r\n	  	<ul class=\"social-icons icon-rounded  list-unstyled list-inline\"> \r\n	      <li><a href=\"#\"><i class=\"fa fa-adn\"></i></a> </li> \r\n	      <li><a href=\"#\"><i class=\"fa fa-android\"></i></a> </li>   \r\n	      <li> <a href=\"#\"><i class=\"fa fa-apple\"></i></a> </li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitbucket\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitcoin\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-css3\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dribbble\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dropbox\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-facebook\"></i></a></li>  \r\n	      <li> <a href=\"#\"><i class=\"fa fa-flickr\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-foursquare\"></i></a></li>   \r\n	  	</ul>\r\n	  	\r\n	  	<hr />\r\n	  	<h2>Social Icons - Flat  (.icon-flat)</h2>\r\n	  	\r\n	  	<ul class=\"social-icons icon-flat list-unstyled list-inline\"> \r\n	      <li><a href=\"#\"><i class=\"fa fa-adn\"></i></a> </li> \r\n	      <li><a href=\"#\"><i class=\"fa fa-android\"></i></a> </li>   \r\n	      <li> <a href=\"#\"><i class=\"fa fa-apple\"></i></a> </li>\r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitbucket\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-bitcoin\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-css3\"></i></a> </li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dribbble\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-dropbox\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-facebook\"></i></a></li>  \r\n	      <li> <a href=\"#\"><i class=\"fa fa-flickr\"></i></a></li> \r\n	      <li> <a href=\"#\"><i class=\"fa fa-foursquare\"></i></a></li>   \r\n	  	</ul>\r\n      \r\n      <br />\r\n      <br />\r\n      <div class=\"copyright\"><a href=\"http://ameyraut.com\">ameyraut.com</a></div>\r\n	</div>', '/*----- Genral Classes start ------*/\r\nbody {\r\n	background: #2C303C;\r\n	font-family: \'Source Sans Pro\', sans-serif;\r\n	font-size: 100%;\r\n	margin: 0;\r\n	padding: 0;\r\n}\r\nh1 {\r\n	text-align: center;\r\n	color: #999;\r\n	background: rgba(0, 0, 0, 0.36);\r\n	margin: 0;\r\n	padding: 5px;\r\n}\r\nh2 {\r\n	text-align: center;\r\n	color: #999; \r\n	margin: 0;\r\n	padding: 5px;\r\n	font-size: 1.8em;\r\n	margin-bottom: 30px;\r\n} \r\n \r\n.wrapper,.copyright {\r\n	padding: 20px;\r\n	text-align: center;\r\n}\r\nhr{\r\n	margin: 30px 20px;\r\n	border-top:2px solid #1C1E26 ;\r\n	border-bottom:2px solid #38404D;\r\n}\r\n.list-unstyled {\r\n	padding-left: 0;\r\n	list-style: none;\r\n}\r\n.list-inline li {\r\n	display: inline-block;\r\n	padding-right: 5px;\r\n	padding-left: 5px;\r\n	margin-bottom: 10px;\r\n}\r\n/*---- Genral classes end -------*/\r\n\r\n/*Change icons size here*/\r\n.social-icons .fa {\r\n	font-size: 1.8em;\r\n}\r\n/*Change icons circle size and color here*/\r\n.social-icons .fa {\r\n	width: 50px;\r\n	height: 50px;\r\n	line-height: 50px;\r\n	text-align: center;\r\n	color: #FFF;\r\n	color: rgba(255, 255, 255, 0.8);\r\n	-webkit-transition: all 0.3s ease-in-out;\r\n	-moz-transition: all 0.3s ease-in-out;\r\n	-ms-transition: all 0.3s ease-in-out;\r\n	-o-transition: all 0.3s ease-in-out;\r\n	transition: all 0.3s ease-in-out;\r\n}\r\n\r\n.social-icons.icon-circle .fa{ \r\n	border-radius: 50%;\r\n}\r\n.social-icons.icon-rounded .fa{\r\n	border-radius:5px;\r\n}\r\n.social-icons.icon-flat .fa{\r\n	border-radius: 0;\r\n}\r\n\r\n.social-icons .fa:hover, .social-icons .fa:active {\r\n	color: #FFF;\r\n	-webkit-box-shadow: 1px 1px 3px #333;\r\n	-moz-box-shadow: 1px 1px 3px #333;\r\n	box-shadow: 1px 1px 3px #333; \r\n}\r\n.social-icons.icon-zoom .fa:hover, .social-icons.icon-zoom .fa:active { \r\n 	-webkit-transform: scale(1.1);\r\n	-moz-transform: scale(1.1);\r\n	-ms-transform: scale(1.1);\r\n	-o-transform: scale(1.1);\r\n	transform: scale(1.1); \r\n}\r\n.social-icons.icon-rotate .fa:hover, .social-icons.icon-rotate .fa:active { \r\n	-webkit-transform: scale(1.1) rotate(360deg);\r\n	-moz-transform: scale(1.1) rotate(360deg);\r\n	-ms-transform: scale(1.1) rotate(360deg);\r\n	-o-transform: scale(1.1) rotate(360deg);\r\n	transform: scale(1.1) rotate(360deg);\r\n}\r\n \r\n.social-icons .fa-adn{background-color:#504e54;} \r\n.social-icons .fa-apple{background-color:#aeb5c5;} \r\n.social-icons .fa-android{background-color:#A5C63B;}  \r\n.social-icons .fa-bitbucket,.social-icons .fa-bitbucket-square{background-color:#003366;} \r\n.social-icons .fa-bitcoin,.social-icons .fa-btc{background-color:#F7931A;} \r\n.social-icons .fa-css3{background-color:#1572B7;} \r\n.social-icons .fa-dribbble{background-color:#F46899;}  \r\n.social-icons .fa-dropbox{background-color:#018BD3;}\r\n.social-icons .fa-facebook,.social-icons .fa-facebook-square{background-color:#3C599F;}  \r\n.social-icons .fa-flickr{background-color:#FF0084;}\r\n.social-icons .fa-foursquare{background-color:#0086BE;}\r\n.social-icons .fa-github,.social-icons .fa-github-alt,.social-icons .fa-github-square{background-color:#070709;} \r\n.social-icons .fa-google-plus,.social-icons .fa-google-plus-square{background-color:#CF3D2E;} \r\n.social-icons .fa-html5{background-color:#E54D26;}\r\n.social-icons .fa-instagram{background-color:#A1755C;}\r\n.social-icons .fa-linkedin,.social-icons .fa-linkedin-square{background-color:#0085AE;} \r\n.social-icons .fa-linux{background-color:#FBC002;color:#333;}\r\n.social-icons .fa-maxcdn{background-color:#F6AE1C;}\r\n.social-icons .fa-pagelines{background-color:#241E20;color:#3984EA;}\r\n.social-icons .fa-pinterest,.social-icons .fa-pinterest-square{background-color:#CC2127;} \r\n.social-icons .fa-renren{background-color:#025DAC;}\r\n.social-icons .fa-skype{background-color:#01AEF2;}\r\n.social-icons .fa-stack-exchange{background-color:#245590;}\r\n.social-icons .fa-stack-overflow{background-color:#FF7300;}\r\n.social-icons .fa-trello{background-color:#265A7F;}\r\n.social-icons .fa-tumblr,.social-icons .fa-tumblr-square{background-color:#314E6C;} \r\n.social-icons .fa-twitter,.social-icons .fa-twitter-square{background-color:#32CCFE;} \r\n.social-icons .fa-vimeo-square{background-color:#229ACC;}\r\n.social-icons .fa-vk{background-color:#375474;}\r\n.social-icons .fa-weibo{background-color:#D72B2B;}\r\n.social-icons .fa-windows{background-color:#12B6F3;}\r\n.social-icons .fa-xing,.social-icons .fa-xing-square{background-color:#00555C;} \r\n.social-icons .fa-youtube,.social-icons .fa-youtube-play,.social-icons .fa-youtube-square{background-color:#C52F30;}', '', '1', '2023-12-05 17:54:53'),
-(36, 'Amp', '<link href=\"https://fonts.googleapis.com/css?family=Material Icons|Material Icons Outlined|Material Icons Two Tone|Material Icons Round|Material Icons Sharp\" rel=\"stylesheet\" />  \r\n<nav>\r\n    <a href=\"#section-1\">Vanilla JS Smooth Scroll <i class=\"material-icons\">delete</i></a>\r\n    <a href=\"#section-2\">Easy to use!</a>\r\n    <a href=\"#section-3\">Usage</a>\r\n    <a href=\"#section-4\">Options</a>\r\n    <a href=\"#section-5\">That\'s it</a>\r\n  </nav>\r\n  <section id=\"section-1\">\r\n    <div>\r\n      <strong>Vanilla JS Smooth Scroll</strong>\r\n      <div class=\"links\">\r\n        <a href=\"https://codepen.io/bastian_fiessinger/pen/vYyQNGr\">New version available!</a>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-2\">\r\n    <div>\r\n      <strong>Easy to use!</strong>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-3\">\r\n    <div>\r\n      <span>Usage:</span>\r\n      <pre>\r\n      <code class=\"javascript\">\r\nvar smoothScroll = new scrollToSmooth(\'a\', {\r\n  targetAttribute: \'href\',\r\n  duration: 400,\r\n  durationRelative: false,\r\n  durationMin: false,\r\n  durationMax: false,\r\n  easing: \'easeOutCubic\',\r\n  onScrollStart: (data) => { console.log(data); },\r\n  onScrollUpdate: (data) => { console.log(data); },\r\n  onScrollEnd: (data) => { console.log(data); },\r\n  fixedHeader: null\r\n})\r\nsmoothScroll.init();\r\n      </code>\r\n      </pre>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-4\">\r\n    <div>\r\n      <h3>Options:</h3>\r\n      <dl class=\"options\">\r\n        <dt>targetAttribute<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>string</code><br>\r\n          Default: <code>\'href\'</code>\r\n          <p>\r\n            The attribute to determine the target element. Must be a valid selector!\r\n          </p>\r\n        </dd>\r\n        <dt>duration</dt>\r\n        <dd>\r\n          Type: <code>Number</code><br>\r\n          Default: <code>400</code>\r\n          <p>\r\n            Scroll time in milliseconds\r\n          </p>\r\n        </dd>\r\n        <dt>durationRelative<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>boolean|number</code><br>\r\n          Default: <code>false</code>\r\n          <p>\r\n            Used to calculate the duration based on the amount of pixels to scroll.<br>\r\n            Use true to calculate by 1000px or a number to calculate by that.\r\n          </p>\r\n        </dd>\r\n        <dt>durationMin<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>number</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            minimum duration time in ms\r\n          </p>\r\n        </dd>\r\n        <dt>durationMax<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>number</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            maximum duration time in ms\r\n          </p>\r\n        </dd>\r\n        <dt>easing</dt>\r\n        <dd>\r\n          Type: <code>string</code><br>\r\n          Default: <code>linear</code>\r\n          <p>\r\n            Easing function used for scrolling.<br>\r\n            Available Easings:\r\n            <ul>\r\n              <li>linear</li>\r\n              <li>easeInQuad</li>\r\n              <li>easeOutQuad</li>\r\n              <li>easeInOutQuad</li>\r\n              <li>easeInCubic</li>\r\n              <li>easeOutCubic</li>\r\n              <li>easeInOutCubic</li>\r\n              <li>easeInQuart</li>\r\n              <li>easeOutQuart</li>\r\n              <li>easeInOutQuart</li>\r\n              <li>easeInQuint</li>\r\n              <li>easeOutQuint</li>\r\n              <li>easeInOutQuint</li>\r\n              <li>easeInSine</li>\r\n              <li>easeOutSine</li>\r\n              <li>easeInOutSine</li>\r\n              <li>easeInExpo</li>\r\n              <li>easeOutExpo</li>\r\n              <li>easeInOutExpo</li>\r\n              <li>easeInCirc</li>\r\n              <li>easeOutCirc</li>\r\n              <li>easeInOutCirc</li>\r\n              <li>easeInElastic</li>\r\n              <li>easeOutElastic</li>\r\n              <li>easeInOutElastic</li>\r\n              <li>easeInBack</li>\r\n              <li>easeOutBack</li>\r\n              <li>easeInOutBack</li>\r\n              <li>easeInBounce</li>\r\n              <li>easeOutBounce</li>\r\n              <li>easeInOutBounce</li>\r\n            </ul>\r\n          </p>\r\n        </dd>\r\n        <dt>onScrollStart<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>function</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            Callback to be executed when scrolling has started\r\n          </p>\r\n        </dd>\r\n        <dt>onScrollUpdate<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>function</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            Callback to be executed when scrolling is running\r\n          </p>\r\n        </dd>\r\n        <dt>onScrollEnd<span class=\"badge\">Previously \'callback\'</span></dt>\r\n        <dd>\r\n          Type: <code>function</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            Callback to be executed when scrolling has finished\r\n          </p>\r\n        </dd>  \r\n        <dt>fixedHeader</dt>\r\n        <dd>\r\n          Type: <code>string</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            The header element<br>\r\n            Example: \'#fixed-header\'\r\n          </p>\r\n        </dd>\r\n      </dl>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-5\">\r\n    <div>\r\n      <strong>Here we go!</strong>\r\n      <div class=\"links\">\r\n      Get it on <a href=\"https://github.com/bfiessinger/scrollToSmooth\" target=\"_blank\">GitHub</a> or <a href=\"https://www.npmjs.com/package/scrolltosmooth\" target=\"_blank\">NPM</a>\r\n      </div>\r\n    </div>\r\n  </section>', '@import url(\"https://fonts.googleapis.com/css?family=Montserrat:400,900___amp___display=swap\");\r\n* {\r\n  box-sizing: border-box;\r\n}\r\n\r\nbody {\r\n  font-family: \"Montserrat\", sans-serif;\r\n}\r\n\r\nnav {\r\n  position: fixed;\r\n  right: 20px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n}\r\nnav a {\r\n  font-size: 0px;\r\n  line-height: 0px;\r\n  display: block;\r\n  width: 20px;\r\n  height: 20px;\r\n  background: transparent;\r\n  border: 4px solid #FFF;\r\n  border-radius: 50%;\r\n  margin: 10px 0;\r\n  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));\r\n}\r\n\r\nsection {\r\n  width: 100%;\r\n  min-height: 100vh;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: #FFF;\r\n  padding: 5rem;\r\n}\r\nsection#section-1 {\r\n  background-color: #e67e22;\r\n}\r\nsection#section-2 {\r\n  background-color: #2980b9;\r\n}\r\nsection#section-3 {\r\n  background-color: #8e44ad;\r\n}\r\nsection#section-4 {\r\n  color: #000;\r\n}\r\nsection#section-5 {\r\n  background-color: #c0392b;\r\n}\r\nsection > div {\r\n  width: 80%;\r\n}\r\n\r\nstrong {\r\n  font-size: 80px;\r\n  text-align: center;\r\n  display: block;\r\n}\r\n\r\n.links {\r\n  text-align: center;\r\n  display: block;\r\n  color: #FFF;\r\n  margin-top: 2rem;\r\n}\r\n\r\n.hljs, code {\r\n  font-family: \"Space Mono\", monospace;\r\n}\r\n\r\n.hljs {\r\n  font-size: 14px;\r\n  padding: 0 26px;\r\n  border-radius: 4px;\r\n  flex: 1;\r\n  overflow: auto;\r\n  line-height: 1.6;\r\n}\r\n\r\npre {\r\n  margin: 1rem 0;\r\n  display: flex;\r\n}\r\n\r\n.options dt {\r\n  margin-bottom: 10px;\r\n}\r\n.options dd {\r\n  line-height: 24px;\r\n  margin-left: 0;\r\n  border-bottom: 1px solid #000;\r\n  margin-bottom: 20px;\r\n}\r\n.options dd:last-child {\r\n  margin-bottom: 0;\r\n  border-bottom: 0;\r\n}\r\n.options code {\r\n  background: #f7f7f7;\r\n  font-size: 90%;\r\n  font-weight: normal;\r\n  padding: 1px 5px;\r\n  border-radius: 2px;\r\n  color: #000;\r\n}\r\n\r\n.badge {\r\n  padding: 1px 5px;\r\n  border-radius: 2px;\r\n  margin-left: 0.5rem;\r\n  background-color: #3c6382;\r\n  color: #FFF;\r\n  font-size: 0.6em;\r\n  vertical-align: top;\r\n}\r\n\r\n@media (max-width: 840px) {\r\n  strong {\r\n    font-size: 40px;\r\n  }\r\n\r\n  section {\r\n    padding: 2rem;\r\n  }\r\n}', '', '1', '2023-12-05 18:10:54'),
-(37, 'Amp', '<link href=\"https://fonts.googleapis.com/css?family=Material Icons|Material Icons Outlined|Material Icons Two Tone|Material Icons Round|Material Icons Sharp\" rel=\"stylesheet\" />  \r\n<nav>\r\n    <a href=\"#section-1\">Vanilla JS Smooth Scroll <i class=\"material-icons\">delete</i></a>\r\n    <a href=\"#section-2\">Easy to use!</a>\r\n    <a href=\"#section-3\">Usage</a>\r\n    <a href=\"#section-4\">Options</a>\r\n    <a href=\"#section-5\">That\'s it</a>\r\n  </nav>\r\n  <section id=\"section-1\">\r\n    <div>\r\n      <strong>Vanilla JS Smooth Scroll</strong>\r\n      <div class=\"links\">\r\n        <a href=\"https://codepen.io/bastian_fiessinger/pen/vYyQNGr\">New version available!</a>\r\n      </div>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-2\">\r\n    <div>\r\n      <strong>Easy to use!</strong>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-3\">\r\n    <div>\r\n      <span>Usage:</span>\r\n      <pre>\r\n      <code class=\"javascript\">\r\nvar smoothScroll = new scrollToSmooth(\'a\', {\r\n  targetAttribute: \'href\',\r\n  duration: 400,\r\n  durationRelative: false,\r\n  durationMin: false,\r\n  durationMax: false,\r\n  easing: \'easeOutCubic\',\r\n  onScrollStart: (data) => { console.log(data); },\r\n  onScrollUpdate: (data) => { console.log(data); },\r\n  onScrollEnd: (data) => { console.log(data); },\r\n  fixedHeader: null\r\n})\r\nsmoothScroll.init();\r\n      </code>\r\n      </pre>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-4\">\r\n    <div>\r\n      <h3>Options:</h3>\r\n      <dl class=\"options\">\r\n        <dt>targetAttribute<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>string</code><br>\r\n          Default: <code>\'href\'</code>\r\n          <p>\r\n            The attribute to determine the target element. Must be a valid selector!\r\n          </p>\r\n        </dd>\r\n        <dt>duration</dt>\r\n        <dd>\r\n          Type: <code>Number</code><br>\r\n          Default: <code>400</code>\r\n          <p>\r\n            Scroll time in milliseconds\r\n          </p>\r\n        </dd>\r\n        <dt>durationRelative<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>boolean|number</code><br>\r\n          Default: <code>false</code>\r\n          <p>\r\n            Used to calculate the duration based on the amount of pixels to scroll.<br>\r\n            Use true to calculate by 1000px or a number to calculate by that.\r\n          </p>\r\n        </dd>\r\n        <dt>durationMin<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>number</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            minimum duration time in ms\r\n          </p>\r\n        </dd>\r\n        <dt>durationMax<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>number</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            maximum duration time in ms\r\n          </p>\r\n        </dd>\r\n        <dt>easing</dt>\r\n        <dd>\r\n          Type: <code>string</code><br>\r\n          Default: <code>linear</code>\r\n          <p>\r\n            Easing function used for scrolling.<br>\r\n            Available Easings:\r\n            <ul>\r\n              <li>linear</li>\r\n              <li>easeInQuad</li>\r\n              <li>easeOutQuad</li>\r\n              <li>easeInOutQuad</li>\r\n              <li>easeInCubic</li>\r\n              <li>easeOutCubic</li>\r\n              <li>easeInOutCubic</li>\r\n              <li>easeInQuart</li>\r\n              <li>easeOutQuart</li>\r\n              <li>easeInOutQuart</li>\r\n              <li>easeInQuint</li>\r\n              <li>easeOutQuint</li>\r\n              <li>easeInOutQuint</li>\r\n              <li>easeInSine</li>\r\n              <li>easeOutSine</li>\r\n              <li>easeInOutSine</li>\r\n              <li>easeInExpo</li>\r\n              <li>easeOutExpo</li>\r\n              <li>easeInOutExpo</li>\r\n              <li>easeInCirc</li>\r\n              <li>easeOutCirc</li>\r\n              <li>easeInOutCirc</li>\r\n              <li>easeInElastic</li>\r\n              <li>easeOutElastic</li>\r\n              <li>easeInOutElastic</li>\r\n              <li>easeInBack</li>\r\n              <li>easeOutBack</li>\r\n              <li>easeInOutBack</li>\r\n              <li>easeInBounce</li>\r\n              <li>easeOutBounce</li>\r\n              <li>easeInOutBounce</li>\r\n            </ul>\r\n          </p>\r\n        </dd>\r\n        <dt>onScrollStart<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>function</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            Callback to be executed when scrolling has started\r\n          </p>\r\n        </dd>\r\n        <dt>onScrollUpdate<span class=\"badge\">New!</span></dt>\r\n        <dd>\r\n          Type: <code>function</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            Callback to be executed when scrolling is running\r\n          </p>\r\n        </dd>\r\n        <dt>onScrollEnd<span class=\"badge\">Previously \'callback\'</span></dt>\r\n        <dd>\r\n          Type: <code>function</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            Callback to be executed when scrolling has finished\r\n          </p>\r\n        </dd>  \r\n        <dt>fixedHeader</dt>\r\n        <dd>\r\n          Type: <code>string</code><br>\r\n          Default: <code>null</code>\r\n          <p>\r\n            The header element<br>\r\n            Example: \'#fixed-header\'\r\n          </p>\r\n        </dd>\r\n      </dl>\r\n    </div>\r\n  </section>\r\n  <section id=\"section-5\">\r\n    <div>\r\n      <strong>Here we go!</strong>\r\n      <div class=\"links\">\r\n      Get it on <a href=\"https://github.com/bfiessinger/scrollToSmooth\" target=\"_blank\">GitHub</a> or <a href=\"https://www.npmjs.com/package/scrolltosmooth\" target=\"_blank\">NPM</a>\r\n      </div>\r\n    </div>\r\n  </section>', '@import url(\"https://fonts.googleapis.com/css?family=Montserrat:400,900___amp___display=swap\");\r\n* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n}\r\n\r\nbody {\r\n  font-family: \"Montserrat\", sans-serif;\r\n}\r\n\r\nnav {\r\n  position: fixed;\r\n  right: 20px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n}\r\nnav a {\r\n  font-size: 0px;\r\n  line-height: 0px;\r\n  display: block;\r\n  width: 20px;\r\n  height: 20px;\r\n  background: transparent;\r\n  border: 4px solid #FFF;\r\n  border-radius: 50%;\r\n  margin: 10px 0;\r\n  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));\r\n}\r\n\r\nsection {\r\n  width: 100%;\r\n  min-height: 100vh;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: #FFF;\r\n  padding: 5rem;\r\n}\r\nsection#section-1 {\r\n  background-color: #e67e22;\r\n}\r\nsection#section-2 {\r\n  background-color: #2980b9;\r\n}\r\nsection#section-3 {\r\n  background-color: #8e44ad;\r\n}\r\nsection#section-4 {\r\n  color: #000;\r\n}\r\nsection#section-5 {\r\n  background-color: #c0392b;\r\n}\r\nsection > div {\r\n  width: 80%;\r\n}\r\n\r\nstrong {\r\n  font-size: 80px;\r\n  text-align: center;\r\n  display: block;\r\n}\r\n\r\n.links {\r\n  text-align: center;\r\n  display: block;\r\n  color: #FFF;\r\n  margin-top: 2rem;\r\n}\r\n\r\n.hljs, code {\r\n  font-family: \"Space Mono\", monospace;\r\n}\r\n\r\n.hljs {\r\n  font-size: 14px;\r\n  padding: 0 26px;\r\n  border-radius: 4px;\r\n  flex: 1;\r\n  overflow: auto;\r\n  line-height: 1.6;\r\n}\r\n\r\npre {\r\n  margin: 1rem 0;\r\n  display: flex;\r\n}\r\n\r\n.options dt {\r\n  margin-bottom: 10px;\r\n}\r\n.options dd {\r\n  line-height: 24px;\r\n  margin-left: 0;\r\n  border-bottom: 1px solid #000;\r\n  margin-bottom: 20px;\r\n}\r\n.options dd:last-child {\r\n  margin-bottom: 0;\r\n  border-bottom: 0;\r\n}\r\n.options code {\r\n  background: #f7f7f7;\r\n  font-size: 90%;\r\n  font-weight: normal;\r\n  padding: 1px 5px;\r\n  border-radius: 2px;\r\n  color: #000;\r\n}\r\n\r\n.badge {\r\n  padding: 1px 5px;\r\n  border-radius: 2px;\r\n  margin-left: 0.5rem;\r\n  background-color: #3c6382;\r\n  color: #FFF;\r\n  font-size: 0.6em;\r\n  vertical-align: top;\r\n}\r\n\r\n@media (max-width: 840px) {\r\n  strong {\r\n    font-size: 40px;\r\n  }\r\n\r\n  section {\r\n    padding: 2rem;\r\n  }\r\n}', '', '1', '2023-12-05 18:11:53'),
-(38, 'iconsNeon', '<html lang=\"en\">\r\n\r\n<head>\r\n  <meta charset=\"UTF-8\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title>CSS glowing icons</title>\r\n  <link rel=\"stylesheet\" href=\"style.css\">\r\n  <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\">\r\n</head>\r\n\r\n<body>\r\n  <div class=\"container\">\r\n    <i class=\"fa fa-apple\" id=\"apple\"></i>\r\n    <i class=\"fa fa-twitter\" id=\"twitter\"></i>\r\n    <i class=\"fa fa-github-square github\" id=\"github\"></i>\r\n    <i class=\"fa fa-facebook-square\" id=\"facebook\"></i>\r\n  </div>\r\n</body>\r\n\r\n</html>', '* {\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\nbody {\r\n  height: 100vh;\r\n  width: 100vw;\r\n  background: #18191f;\r\n}\r\n.container {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\r\n  width: 100vw;\r\n}\r\n#apple,\r\n#twitter,\r\n#github,\r\n#facebook {\r\n  font-size: 8em;\r\n  background-color: #18191f;\r\n  color: #fff;\r\n  box-shadow: 2px 2px 2px #00000080, 10px 1px 12px #00000080,\r\n    2px 2px 10px #00000080, 2px 2px 3px #00000080, inset 2px 2px 10px #00000080,\r\n    inset 2px 2px 10px #00000080, inset 2px 2px 10px #00000080,\r\n    inset 2px 2px 10px #00000080;\r\n  border-radius: 29px;\r\n  padding: 11px 19px;\r\n  margin: 0 40px;\r\n  animation: animate 3s linear infinite;\r\n  text-shadow: 0 0 50px #0072ff, 0 0 100px #0072ff, 0 0 150px #0072ff,\r\n    0 0 200px #0072ff;\r\n}\r\n#twitter {\r\n  animation-delay: 0.3s;\r\n}\r\n#facebook {\r\n  animation-delay: 0.7s;\r\n}\r\n#github {\r\n  animation-delay: 0.1s;\r\n}\r\n\r\n@keyframes animate {\r\n  from {\r\n    filter: hue-rotate(0deg);\r\n  }\r\n  to {\r\n    filter: hue-rotate(360deg);\r\n  }\r\n}', '', '1', '2023-12-05 18:47:43');
-INSERT INTO `componentes` (`id`, `nombre`, `html`, `css`, `js`, `user`, `fecha`) VALUES
-(39, 'Tooltips', '<div class=\"tooltip\" data-tooltip=\"Texto del tooltip\" data-tooltip-position=\"right\">\r\n    elemento\r\n</div>', '.tooltip {\r\n  position: relative;\r\n  display: inline-block;\r\n}\r\n\r\n.tooltip::after {\r\n  content: attr(data-tooltip);\r\n  position: absolute;\r\n  background-color: silver;\r\n  color: #fff;\r\n  padding: 5px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n  transition: opacity 0.3s ease-in-out;\r\n  width: auto;\r\n  text-wrap: nowrap;\r\n}\r\n\r\n.tooltip:hover::after {\r\n  visibility: visible;\r\n  opacity: 1;\r\n}\r\n\r\n.tooltip[data-tooltip-position=\"top\"]::after {\r\n  bottom: 100%;\r\n  left: 50%;\r\n  transform: translateX(-50%);\r\n}\r\n\r\n.tooltip[data-tooltip-position=\"right\"]::after {\r\n  top: 50%;\r\n  left: 110%;\r\n  transform: translateY(-55%);\r\n}\r\n\r\n.tooltip[data-tooltip-position=\"left\"]::after {\r\n  top: 50%;\r\n  right: 100%;\r\n  transform: translateY(-50%);\r\n}\r\n\r\n.tooltip[data-tooltip-position=\"bottom\"]::after {\r\n  top: 100%;\r\n  left: 50%;\r\n  transform: translateX(-50%);\r\n}', 'function createTooltip() {\r\n  const tooltips = document.querySelectorAll(\'.tooltip\');\r\n  tooltips.forEach((tooltip) => {\r\n    const position = tooltip.getAttribute(\'data-tooltip-position\');\r\n    tooltip.addEventListener(\'mouseenter\', () => {\r\n      tooltip.style.setProperty(\'data-tooltip\', position);\r\n    });\r\n    tooltip.addEventListener(\'mouseleave\', () => {\r\n      tooltip.style.setProperty(\'data-tooltip\', \'\');\r\n    });\r\n  });\r\n}\r\n\r\ncreateTooltip();', '1', '2023-12-05 19:01:58');
+INSERT INTO `componentes` (`id`, `nombre`, `html`, `css`, `js`, `user`, `fecha`, `idProject`, `category`, `image`) VALUES
+(89, 'Simple Loaders', '<div class=\"page\">\r\n	<header class=\"header\">\r\n		<h1 class=\"header-title\">Simple CSS loaders</h1>\r\n		<p class=\"header-subtitle\">single html element css animation</p>\r\n	</header>\r\n	\r\n	<main class=\"container\">\r\n		<div class=\"item\">\r\n			<i class=\"loader --2\"></i>\r\n		</div>\r\n		<div class=\"item\">\r\n			<i class=\"loader --9\"></i>\r\n		</div>\r\n		<div class=\"item\">\r\n			<i class=\"loader --3\"></i>\r\n		</div>\r\n		\r\n		<div class=\"item\">\r\n			<i class=\"loader --4\"></i>\r\n		</div>\r\n		<div class=\"item\">\r\n			<i class=\"loader --1\"></i>\r\n		</div>\r\n		<div class=\"item\">\r\n			<i class=\"loader --5\"></i>\r\n		</div>\r\n		\r\n		<div class=\"item\">\r\n			<i class=\"loader --6\"></i>\r\n		</div>\r\n		<div class=\"item\">\r\n			<i class=\"loader --8\"></i>\r\n		</div>\r\n		<div class=\"item\">\r\n			<i class=\"loader --7\"></i>\r\n		</div>\r\n	</main>\r\n</div>', '.loader {\r\n	--color: white;\r\n	--size-mid: 6vmin;\r\n	--size-dot: 1.5vmin;\r\n	--size-bar: 0.4vmin;\r\n	--size-square: 3vmin;\r\n	\r\n	display: block;\r\n	position: relative;\r\n	width: 50%;\r\n	display: grid;\r\n	place-items: center;\r\n}\r\n\r\n.loader::before,\r\n.loader::after {\r\n	content: \'\';\r\n	box-sizing: border-box;\r\n	position: absolute;\r\n}\r\n\r\n/**\r\n	loader --1\r\n**/\r\n.loader.--1::before {\r\n	width: var(--size-mid);\r\n	height: var(--size-mid);\r\n	border: 4px solid var(--color);\r\n	border-top-color: transparent;\r\n	border-radius: 50%;\r\n	animation: loader-1 1s linear infinite;\r\n}\r\n\r\n.loader.--1::after {\r\n	width: calc(var(--size-mid) - 2px);\r\n	height: calc(var(--size-mid) - 2px);\r\n	border: 2px solid transparent;\r\n	border-top-color: var(--color);\r\n	border-radius: 50%;\r\n	animation: loader-1 0.6s linear reverse infinite;\r\n}\r\n\r\n@keyframes loader-1 {\r\n	100% {\r\n		transform: rotate(1turn);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --2\r\n**/\r\n.loader.--2::before,\r\n.loader.--2::after {\r\n	width: var(--size-dot);\r\n	height: var(--size-dot);\r\n	background-color: var(--color);\r\n	border-radius: 50%;\r\n	opacity: 0;\r\n	animation: loader-2 0.8s cubic-bezier(0.2, 0.32, 0, 0.87) infinite;\r\n}\r\n\r\n.loader.--2::after {\r\n	animation-delay: 0.3s;\r\n}\r\n\r\n@keyframes loader-2 {\r\n	0%, 80%, 100% {\r\n		opacity: 0;\r\n	}\r\n	\r\n	33% {\r\n		opacity: 1;\r\n	}\r\n	\r\n	0%, 100% {\r\n		transform: translateX(-4vmin);\r\n	}\r\n	\r\n	90% {\r\n		transform: translateX(4vmin);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --3\r\n**/\r\n.loader.--3::before,\r\n.loader.--3::after {\r\n	width: var(--size-dot);\r\n	height: var(--size-dot);\r\n	background-color: var(--color);\r\n	border-radius: 50%;\r\n	animation: loader-3 1.2s ease-in-out infinite;\r\n}\r\n\r\n.loader.--3::before {\r\n	left: calc(50% - 1.6vmin - var(--size-dot));\r\n}\r\n\r\n.loader.--3::after {\r\n	left: calc(50%   1.6vmin);\r\n	animation-delay: -0.4s;\r\n}\r\n\r\n@keyframes loader-3 {\r\n	0%, 100% {\r\n		transform: translateY(-2.6vmin);\r\n	}\r\n	\r\n	44% {\r\n		transform: translateY(2.6vmin);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --4\r\n**/\r\n.loader.--4::before {\r\n	height: var(--size-bar);\r\n	width: 6vmin;\r\n	background-color: var(--color);\r\n	animation: loader-4 0.8s cubic-bezier(0, 0, 0.03, 0.9) infinite;\r\n}\r\n\r\n@keyframes loader-4 {\r\n	0%, 44%, 88.1%, 100% {\r\n		transform-origin: left;\r\n	}\r\n	\r\n	0%, 100%, 88% {\r\n		transform: scaleX(0);\r\n	}\r\n	\r\n	44.1%, 88% {\r\n		transform-origin: right;\r\n	}\r\n	\r\n	33%, 44% {\r\n		transform: scaleX(1);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --5\r\n**/\r\n.loader.--5::before,\r\n.loader.--5::after {\r\n	height: 3vmin;\r\n	width: var(--size-bar);\r\n	background-color: var(--color);\r\n	animation: loader-5 0.6s cubic-bezier(0, 0, 0.03, 0.9) infinite;\r\n}\r\n\r\n.loader.--5::before {\r\n	left: calc(50% - 1vmin);\r\n	top: calc(50% - 3vmin);\r\n}\r\n\r\n.loader.--5::after {\r\n	left: calc(50%   1vmin);\r\n	top: calc(50% - 1vmin);\r\n	animation-delay: 0.2s;\r\n}\r\n\r\n@keyframes loader-5 {\r\n	0%, 88%, 100% {\r\n		opacity: 0;\r\n	}\r\n	\r\n	0% {\r\n		transform: translateY(-6vmin);\r\n	}\r\n	\r\n	33% {\r\n		opacity: 1;\r\n	}\r\n	\r\n	33%, 88% {\r\n		transform: translateY(3vmin);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --6\r\n**/\r\n.loader.--6::before {\r\n	width: var(--size-square);\r\n	height: var(--size-square);\r\n	background-color: var(--color);\r\n	top: calc(50% - var(--size-square));\r\n	left: calc(50% - var(--size-square));\r\n	animation: loader-6 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;\r\n}\r\n\r\n@keyframes loader-6 {\r\n	0%, 100% {\r\n		transform: none;\r\n	}\r\n	\r\n	25% {\r\n		transform: translateX(100%);\r\n	}\r\n	\r\n	50% {\r\n		transform: translateX(100%) translateY(100%);\r\n	}\r\n	\r\n	75% {\r\n		transform: translateY(100%);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --7\r\n**/\r\n.loader.--7::before,\r\n.loader.--7::after {\r\n	width: var(--size-square);\r\n	height: var(--size-square);\r\n	background-color: var(--color);\r\n}\r\n\r\n.loader.--7::before {\r\n	top: calc(50% - var(--size-square));\r\n	left: calc(50% - var(--size-square));\r\n	animation: loader-6 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;\r\n}\r\n\r\n.loader.--7::after {\r\n	top: 50%;\r\n	left: 50%;\r\n	animation: loader-7 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;\r\n}\r\n\r\n@keyframes loader-7 {\r\n	0%, 100% {\r\n		transform: none;\r\n	}\r\n	\r\n	25% {\r\n		transform: translateX(-100%);\r\n	}\r\n	\r\n	50% {\r\n		transform: translateX(-100%) translateY(-100%);\r\n	}\r\n	\r\n	75% {\r\n		transform: translateY(-100%);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --8\r\n**/\r\n.loader.--8::before,\r\n.loader.--8::after {\r\n	width: var(--size-dot);\r\n	height: var(--size-dot);\r\n	border-radius: 50%;\r\n	background-color: var(--color);\r\n}\r\n\r\n.loader.--8::before {\r\n	top: calc(50%   4vmin);\r\n	animation: loader-8-1 0.8s cubic-bezier(0.06, 0.01, 0.49, 1.18) infinite;\r\n}\r\n\r\n.loader.--8::after {\r\n	opacity: 0;\r\n	top: calc(50% - 2vmin);\r\n	animation: loader-8-2 0.8s cubic-bezier(0.46,-0.1, 0.27, 1.07) 0.2s infinite;\r\n}\r\n\r\n@keyframes loader-8-1 {\r\n	0%, 55%, 100% {\r\n		opacity: 0;\r\n	}\r\n	\r\n	0% {\r\n		transform: scale(0.2);\r\n	}\r\n	\r\n	22% {\r\n		opacity: 1;\r\n	}\r\n	\r\n	33%, 55% {\r\n		transform: scale(1) translateY(-6vmin);\r\n	}\r\n}\r\n\r\n@keyframes loader-8-2 {\r\n	0%, 100% {\r\n		opacity: 0;\r\n	}\r\n	\r\n	33% {\r\n		opacity: 0.3;\r\n	}\r\n	\r\n	0% {\r\n		transform: scale(0);\r\n	}\r\n	\r\n	100% {\r\n		transform: scale(4);\r\n	}\r\n}\r\n\r\n/**\r\n	loader --9\r\n**/\r\n.loader.--9::before,\r\n.loader.--9::after {\r\n	width: var(--size-dot);\r\n	height: var(--size-dot);\r\n	border-radius: 50%;\r\n	background-color: var(--color);\r\n	animation: loader-9 0.42s cubic-bezier(0.39, 0.31, 0, 1.11) infinite;\r\n}\r\n\r\n.loader.--9::before {\r\n	left: calc(50% - var(--size-dot) - 1.6vmin);\r\n}\r\n\r\n.loader.--9::after {\r\n	left: calc(50%   1.6vmin);\r\n	animation-delay: 0.12s;\r\n}\r\n\r\n@keyframes loader-9 {\r\n	0%, 100% {\r\n		opacity: 0;\r\n	}\r\n	\r\n	0% {\r\n		transform: translate(-4vmin, -4vmin);\r\n	}\r\n	\r\n	66% {\r\n		opacity: 1;\r\n	}\r\n	\r\n	66%, 100% {\r\n		transform: none;\r\n	}\r\n}\r\n\r\n/**\r\n	miscs\r\n**/\r\n\r\n.container {\r\n	display: grid;\r\n	grid-template-columns: repeat(3, 18vmin);\r\n	grid-template-rows: repeat(3, 18vmin);\r\n	grid-gap: 1vmin;\r\n}\r\n\r\n.item	{\r\n	background: rgba(255, 255, 255, 0.1);\r\n	display: grid;\r\n	place-items: center;\r\n	border-radius: 4px;\r\n	transition: opacity 0.4s ease;\r\n}\r\n\r\n.container:hover .item {\r\n	opacity: 0.3;\r\n}\r\n\r\n.container:hover .item:hover {\r\n	opacity: 1;\r\n}\r\n\r\n.page {\r\n	margin: auto;\r\n}\r\n\r\n.header {\r\n	margin-bottom: 4vmin;\r\n}\r\n\r\n.header-title {\r\n	font-size: 3.75vmin;\r\n}\r\n\r\n.header-subtitle {\r\n	font-size: 2vmin;\r\n	text-transform: uppercase;\r\n	opacity: 0.6;\r\n}\r\n\r\nhtml, body {\r\n	display: flex;\r\n	width: 100%;\r\n	height: 100%;\r\n	background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);\r\n	font-family: \'Noto Sans\', sans-serif;\r\n	color: white;\r\n	text-align: center;\r\n	letter-spacing: 0.3px;\r\n}', '', '1', '2023-12-28 22:15:13', '11', 'base', 'component__658e2bb1ba5f0'),
+(92, 'Nombre del componente', '<!-- html -->', '', '', '1', '2023-12-28 22:29:05', '10', 'base', 'component__658e2ef12bb94');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lenguajes`
+--
+
+CREATE TABLE `lenguajes` (
+  `id` int(22) NOT NULL,
+  `nombre` varchar(222) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `lenguajes`
+--
+
+INSERT INTO `lenguajes` (`id`, `nombre`) VALUES
+(2, 'adonisjs'),
+(3, 'aftereffects'),
+(4, 'amazonwebservices'),
+(5, 'android'),
+(6, 'androidstudio'),
+(7, 'aarch64'),
+(8, 'angularjs'),
+(9, 'ansible'),
+(10, 'apache'),
+(11, 'apachekafka'),
+(12, 'appcelerator'),
+(13, 'apple'),
+(14, 'appwrite'),
+(15, 'arduino'),
+(16, 'atom'),
+(17, 'azure'),
+(18, 'babel'),
+(19, 'backbonejs'),
+(20, 'bamboo'),
+(21, 'bash'),
+(22, 'behance'),
+(23, 'bitbucket'),
+(24, 'bootstrap'),
+(25, 'bulma'),
+(26, 'bower'),
+(27, 'c'),
+(28, 'cakephp'),
+(29, 'canva'),
+(30, 'centos'),
+(31, 'ceylon'),
+(32, 'chrome'),
+(33, 'circleci'),
+(34, 'clojure'),
+(35, 'cmake'),
+(36, 'clojurescript'),
+(37, 'codecov'),
+(38, 'codeigniter'),
+(39, 'codepen'),
+(40, 'coffeescript'),
+(41, 'composer'),
+(42, 'confluence'),
+(43, 'couchdb'),
+(44, 'cplusplus'),
+(45, 'csharp'),
+(46, 'css3'),
+(47, 'cucumber'),
+(48, 'crystal'),
+(49, 'd3js'),
+(50, 'dart'),
+(51, 'debian'),
+(52, 'denojs'),
+(53, 'devicon'),
+(54, 'django'),
+(55, 'docker'),
+(56, 'doctrine'),
+(57, 'dot-net'),
+(58, 'dotnetcore'),
+(59, 'drupal'),
+(60, 'digitalocean'),
+(61, 'discordjs'),
+(62, 'electron'),
+(63, 'eleventy'),
+(64, 'elixir'),
+(65, 'elm'),
+(66, 'ember'),
+(67, 'embeddedc'),
+(68, 'erlang'),
+(69, 'eslint'),
+(70, 'express'),
+(71, 'facebook'),
+(72, 'feathersjs'),
+(73, 'figma'),
+(74, 'filezilla'),
+(75, 'firebase'),
+(76, 'firefox'),
+(77, 'flask'),
+(78, 'flutter'),
+(79, 'foundation'),
+(80, 'fsharp'),
+(81, 'gatling'),
+(82, 'gatsby'),
+(83, 'rect'),
+(84, 'gcc'),
+(85, 'gentoo'),
+(86, 'gimp'),
+(87, 'git'),
+(88, 'github'),
+(89, 'gitlab'),
+(90, 'gitter'),
+(91, 'go'),
+(92, 'google'),
+(93, 'googlecloud'),
+(94, 'gradle'),
+(95, 'grafana'),
+(96, 'grails'),
+(97, 'graphql'),
+(98, 'groovy'),
+(99, 'grunt'),
+(100, 'gulp'),
+(101, 'godot'),
+(102, 'haskell'),
+(103, 'handlebars'),
+(104, 'haxe'),
+(105, 'heroku'),
+(106, 'html5'),
+(107, 'hugo'),
+(108, 'ie10'),
+(109, 'ifttt'),
+(110, 'illustrator'),
+(111, 'inkscape'),
+(112, 'intellij'),
+(113, 'ionic'),
+(114, 'jamstack'),
+(115, 'jasmine'),
+(116, 'java'),
+(117, 'javascript'),
+(118, 'jeet'),
+(119, 'jest'),
+(120, 'jenkins'),
+(121, 'jetbrains'),
+(122, 'jira'),
+(123, 'jquery'),
+(124, 'julia'),
+(125, 'jupyter'),
+(126, 'kaggle'),
+(127, 'karma'),
+(128, 'kotlin'),
+(129, 'knockout'),
+(130, 'krakenjs'),
+(131, 'kubernetes'),
+(132, 'labview'),
+(133, 'laravel'),
+(134, 'latex'),
+(135, 'less'),
+(136, 'linkedin'),
+(137, 'lua'),
+(138, 'linux'),
+(139, 'materialui'),
+(140, 'matlab'),
+(141, 'magento'),
+(142, 'markdown'),
+(143, 'maya'),
+(144, 'meteor'),
+(145, 'minitab'),
+(146, 'mocha'),
+(147, 'modx'),
+(148, 'mongodb'),
+(149, 'moodle'),
+(150, 'msdos'),
+(151, 'mysql'),
+(152, 'neo4j'),
+(153, 'nestjs'),
+(154, 'networkx'),
+(155, 'nextjs'),
+(156, 'nginx'),
+(157, 'nixos'),
+(158, 'nodejs'),
+(159, 'nodewebkit'),
+(160, 'npm'),
+(161, 'nuget'),
+(162, 'numpy'),
+(163, 'nuxtjs'),
+(164, 'objectivec'),
+(165, 'opera'),
+(166, 'ocaml'),
+(167, 'openal'),
+(168, 'opengl'),
+(169, 'opensuse'),
+(170, 'oracle'),
+(171, 'pandas'),
+(172, 'perl'),
+(173, 'phalcon'),
+(174, 'photoshop'),
+(175, 'php'),
+(176, 'phpstorm'),
+(177, 'podman'),
+(178, 'polygon'),
+(179, 'postgresql'),
+(180, 'premierepro'),
+(181, 'processing'),
+(182, 'protractor'),
+(183, 'putty'),
+(184, 'pycharm'),
+(185, 'python'),
+(186, 'pytorch'),
+(187, 'raspberrypi'),
+(188, 'phoenix'),
+(189, 'qt'),
+(190, 'r'),
+(191, 'rails'),
+(192, 'react'),
+(193, 'redhat'),
+(194, 'redis'),
+(195, 'redux'),
+(196, 'rocksdb'),
+(197, 'ruby'),
+(198, 'rubymine'),
+(199, 'rust'),
+(200, 'safari'),
+(201, 'salesforce'),
+(202, 'sdl'),
+(203, 'rstudio'),
+(204, 'sass'),
+(205, 'scala'),
+(206, 'selenium'),
+(207, 'sequelize'),
+(208, 'shopware'),
+(209, 'shotgrid'),
+(210, 'sketch'),
+(211, 'slack'),
+(212, 'socketio'),
+(213, 'solidity'),
+(214, 'sourcetree'),
+(215, 'spring'),
+(216, 'spss'),
+(217, 'sqlalchemy'),
+(218, 'sqlite'),
+(219, 'subversion'),
+(220, 'microsoftsqlserver'),
+(221, 'ssh'),
+(222, 'stylus'),
+(223, 'svelte'),
+(224, 'swift'),
+(225, 'symfony'),
+(226, 'storybook'),
+(227, 'tailwindcss'),
+(228, 'tensorflow'),
+(229, 'terraform'),
+(230, 'threejs'),
+(231, 'tomcat'),
+(232, 'tortoisegit'),
+(233, 'towergit'),
+(234, 'travis'),
+(235, 'thealgorithms'),
+(236, 'trello'),
+(237, 'twitter'),
+(238, 'typescript'),
+(239, 'typo3'),
+(240, 'ubuntu'),
+(241, 'unity'),
+(242, 'unix'),
+(243, 'unrealengine'),
+(244, 'uwsgi'),
+(245, 'vagrant'),
+(246, 'vim'),
+(247, 'visualstudio'),
+(248, 'vuejs'),
+(249, 'vuestorefront'),
+(250, 'vscode'),
+(251, 'webflow'),
+(252, 'weblate'),
+(253, 'webpack'),
+(254, 'webstorm'),
+(255, 'windows8'),
+(256, 'woocommerce'),
+(257, 'wordpress'),
+(258, 'xamarin'),
+(259, 'xcode'),
+(260, 'xd'),
+(261, 'yarn'),
+(262, 'yii'),
+(263, 'yunohost'),
+(264, 'zend'),
+(265, 'zig'),
+(266, 'pytest'),
+(267, 'opencv'),
+(268, 'fastapi'),
+(269, 'k3s'),
+(270, 'packer'),
+(271, 'anaconda'),
+(272, 'rspec'),
+(273, 'argocd'),
+(274, 'prometheus'),
+(275, 'blender'),
+(276, 'dropwizard'),
+(277, 'vuetify'),
+(278, 'fedora');
 
 -- --------------------------------------------------------
 
@@ -138,7 +460,35 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`id`, `nombre`, `apellido`, `usuario`, `contrasena`, `status`, `tipo`, `fecha`) VALUES
 (1, 'August', 'Díaz', 'audev', 'cdcb7422ca0fe077931b84e6fb7e6dfb7d6678dc7e9ae9c4335e98edc7d5761a', '1', 'SuperAdmin', '2023-11-27 00:26:07'),
-(6, 'Leonel', 'Lizardi', 'username', '16f78a7d6317f102bbd95fc9a4f3ff2e3249287690b8bdad6b7810f82b34ace3', '1', 'Administrador', '2023-11-27 18:08:18');
+(6, 'Leonel', 'Lizardi', 'username', '16f78a7d6317f102bbd95fc9a4f3ff2e3249287690b8bdad6b7810f82b34ace3', '1', 'Administrador', '2023-11-27 18:08:18'),
+(16, 'Emma', 'Lizardi', 'emmadev', 'cdcb7422ca0fe077931b84e6fb7e6dfb7d6678dc7e9ae9c4335e98edc7d5761a', '1', 'Motorizado', '2023-12-12 15:01:53'),
+(17, 'Jasmine', 'Apeliid', 'usernamea', 'cdcb7422ca0fe077931b84e6fb7e6dfb7d6678dc7e9ae9c4335e98edc7d5761a', '0', 'Motorizado', '2023-12-13 13:56:20'),
+(18, 'Comprendo', 'Solo que jasmine', 'TGname', 'cdcb7422ca0fe077931b84e6fb7e6dfb7d6678dc7e9ae9c4335e98edc7d5761a', '1', 'Motorizado', '2023-12-13 13:56:59'),
+(19, 'Fresh', 'Contra', 'Agdsa', 'cdcb7422ca0fe077931b84e6fb7e6dfb7d6678dc7e9ae9c4335e98edc7d5761a', '1', 'Motorizado', '2023-12-13 13:57:18');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proyectos`
+--
+
+CREATE TABLE `proyectos` (
+  `id` int(22) NOT NULL,
+  `nombre` varchar(200) NOT NULL,
+  `descripcion` text NOT NULL,
+  `miembros` varchar(222) NOT NULL,
+  `status` varchar(11) NOT NULL,
+  `lenguajes` varchar(222) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `proyectos`
+--
+
+INSERT INTO `proyectos` (`id`, `nombre`, `descripcion`, `miembros`, `status`, `lenguajes`) VALUES
+(9, 'Widget', 'Simplemente se puede decir que hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum, necesitás estar seguro de que no hay nada avergonzante escondido en el medio del texto. Todos los generadores de Lorem Ipsum que se encuentran en Internet tienden a repetir trozos predefinidos cuando sea necesario, haciendo a este el único generador verdadero (válido) en la Internet. Usa un diccionario de mas de 200 palabras provenientes del latín, combinadas con estructuras muy útiles de sentencias, para generar texto de Lorem Ipsum que parezca razonable. Este Lorem Ipsum generado siempre estará libre de repeticiones, humor agregado o palabras no características del lenguaje, etc.', '1', '1', '87'),
+(10, 'Principito', 'Aprendí bien pronto a conocer mejor esta flor. Siempre había habido en el planeta del principito flores muy simples adornadas con una sola fila de pétalos que apenas ocupaban sitio y a nadie molestaban. Aparecían entre la hierba una mañana y por la tarde se extinguían. Pero aquella había terminado un día de una semilla llegada de quién sabe dónde, y el principito había vigilado cuidadosamente desde el primer día aquella ramita tan diferente de las que él conocía. Podía ser una nueva especie de Baobab. Pero el arbusto cesó pronto de crecer y comenzó a echar su flor. El principito observó el crecimiento de un enorme capullo y tenía le convencimiento de que habría de salir de allí una aparición milagrosa; pero la flor no acababa de preparar su belleza al abrigo de su envoltura verde.', '1,6,17', '0', '2,4,59'),
+(11, 'Gato peludito', 'Con un nueva descripción', '1', '0', '2');
 
 -- --------------------------------------------------------
 
@@ -166,9 +516,21 @@ INSERT INTO `roles` (`idRol`, `nombrerol`, `descripcion`, `status`) VALUES
 --
 
 --
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `componentes`
 --
 ALTER TABLE `componentes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `lenguajes`
+--
+ALTER TABLE `lenguajes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -190,6 +552,12 @@ ALTER TABLE `personas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `proyectos`
+--
+ALTER TABLE `proyectos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -200,10 +568,22 @@ ALTER TABLE `roles`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+
+--
 -- AUTO_INCREMENT de la tabla `componentes`
 --
 ALTER TABLE `componentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+
+--
+-- AUTO_INCREMENT de la tabla `lenguajes`
+--
+ALTER TABLE `lenguajes`
+  MODIFY `id` int(22) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
@@ -221,7 +601,13 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `proyectos`
+--
+ALTER TABLE `proyectos`
+  MODIFY `id` int(22) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

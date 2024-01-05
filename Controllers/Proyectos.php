@@ -79,4 +79,8 @@
             $arrData = $this->model->getProjectsComponents();
             echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         }
+        public function deleteProject($idProject) {
+            $arrData = $this->model->deleteProject($idProject);
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        }
     }

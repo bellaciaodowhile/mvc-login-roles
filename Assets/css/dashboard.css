@@ -363,7 +363,7 @@
   display: none;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 71px;
   background: #1e1e1e;
   z-index: 4;
   flex-direction: column;

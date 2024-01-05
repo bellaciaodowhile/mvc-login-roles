@@ -22,7 +22,8 @@
             echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         }
         public function getSubcategory($idParent) {
-            $arrData = $this->model->getSubcategory($idParent);
+            $idProject = $_POST['idProject'];
+            $arrData = $this->model->getSubcategory($idParent, $idProject);
             echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         }
         public function setCategory() {

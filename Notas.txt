@@ -1,3 +1,0 @@
-* Ideas para los componentes
-    - Como la creación de componentes que también tenga la opción de crear proyectos:
-        En este caso para que los creadores de los componentes de Gloobal Jardins no tengan acceso a los componentes de las satelites

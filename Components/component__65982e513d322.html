@@ -1,0 +1,117 @@
+
+                <style>
+                html {
+  font-size: 1vw;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  font-family: monospace;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-group {
+  margin: 0.5rem 0;
+}
+
+button {
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  border: none;
+  outline: none;
+  border-radius: 2rem;
+}
+button:hover {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+.entity {
+  margin-bottom: 5rem;
+}
+
+pre {
+  color: #eee;
+  font-size: 3rem;
+  tab-size: 3;
+}
+
+.selected {
+  background: white;
+  border-radius: 1rem;
+  color: black;
+}
+.selected * {
+  color: black;
+}
+                </style>
+                <body>
+                <!-- <button class=“primary-btn”>Click Here</button> -->
+<div class="entity">
+	<pre>
+<span class="tag tag-name start-tag">&lt;<span class="tag-name">button</span> <span class="attribute"><span class="attribute-name">id</span>=<span class="attribute-value">&ldquo;login-btn&rdquo;</span></span> <span class="attribute"><span class="attribute-name">class</span>=<span class="attribute-value">&ldquo;primary&rdquo;</span></span>&gt;</span>
+	<span class="tag content">Click Here</span>
+<span class="tag tag-name end-tag">&lt;/<span class="tag-name">button</span>&gt;</span>
+	</pre>
+</div>
+
+
+<div class="buttons">
+	<div class="button-group">
+		<button id="tag-btn" title="Refers to the element tags and any children elements or textual content contained within.">Element</button>
+		<button id="content-btn" title="Content can be text or other nested child elements.">Content</button>
+	</div>
+
+	<div class="button-group">
+		<button id="tag-name-btn" title="Tag refers to both the opening and closing tags that appear around an element.">Tag</button>
+		<button id="start-tag-btn" title="The opening Tag may contain attributes.">Start Tag</button>
+		<button id="end-tag-btn" title="The closing Tag has no attributes">End Tag</button>
+	</div>
+
+	<div class="button-group">
+		<button id="attribute-btn" title="Attributes are name/value pairs that apply various traits to an element.">Attribute</button>
+		<button id="attribute-name-btn" title="An element may permit certain attribute types.">Attribute Name</button>
+		<button id="attribute-value-btn" title="An acceptable value of the attribute.">Attribute Value</button>
+	</div>
+</div>
+                <script>
+                const buttons = Array.from(document.querySelectorAll("button"));
+
+const getSpans = (buttonId) => {
+	const spanId = buttonId.substring(0, buttonId.indexOf("-btn"));
+	return document.querySelectorAll(`.${spanId}`);
+};
+
+const select = (nodes,isSelected)=>{
+	nodes.forEach((element)=>{
+		
+		if(isSelected){
+			element?.classList?.add("selected");
+		}else{
+			element?.classList?.remove("selected");
+		}
+	})
+}
+
+buttons.forEach((element) => {
+	element.addEventListener("mouseover", (e) => {
+		select(getSpans(e.target.id),true);
+	});
+	element.addEventListener("mouseout", (e) => {
+		select(getSpans(e.target.id),false);
+	});
+});
+                </script>
+            </body>

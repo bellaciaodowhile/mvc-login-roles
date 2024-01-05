@@ -3,7 +3,7 @@
 <div class="dashboard">
     <nav class="nav__component">
         <div class="nav__logo">
-            <img class="nav__logo-img" src="assets/img/logo.png" alt="Create Components">
+            <img class="nav__logo-img" src="<?php echo BASE_URL; ?>Assets/img/logo.png" alt="Create Components">
             <span class="nav__logo-text">Components</span>
         </div>
         <div class="nav__content">

@@ -21,7 +21,7 @@ function AJAXGJ8({
         data.map((x) => {
             Object.keys(x).map((field, indexField) => {
                 if (indexField == 0) {
-                    insideData += Object.keys(x)[indexField] + '=' + (Array.isArray(Object.values(x)[indexField]) ? JSON.stringify(Object.values(x)[indexField]) : Object.values(x)[indexField].trim())
+                    insideData += Object.keys(x)[indexField] + '=' + (Array.isArray(Object.values(x)[indexField]) ? JSON.stringify(Object.values(x)[indexField]) : Object.values(x)[indexField].toString().trim())
                 } else {
                     insideData += '&' + Object.keys(x)[indexField] + '=' + (Array.isArray(Object.values(x)[indexField]) ? JSON.stringify(Object.values(x)[indexField]) : (typeof Object.values(x)[indexField] == 'string' ? Object.values(x)[indexField].trim() : Object.values(x)[indexField]))
                 }
@@ -569,7 +569,7 @@ function selectMultiple(main, arrData) {
                     }
                 }, 300);
             });
-            selectMain.querySelectorAll('.selectMultiple > div .arrow, .selectMultiple > div a').forEach((el) => {
+            selectMain.querySelectorAll('.selectMultiple > div .arrow').forEach((el) => {
                 el.addEventListener('click', (e) => {
                     el.closest('.selectMultiple').classList.toggle('open');
                     searchInput.classList.toggle('active__input__search')

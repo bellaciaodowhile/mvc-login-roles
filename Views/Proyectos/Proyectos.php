@@ -136,6 +136,11 @@
                         <i class="material-icons-outlined">edit</i>
                     </button>
                 </div>
+                <div class="tooltip" data-tooltip="Eliminar proyecto" data-tooltip-position="top">
+                    <button ripple class="btn btn-icon delete__project">
+                        <i class="material-icons-outlined">delete</i>
+                    </button>
+                </div>
             </div>
             <div class="tag tag__status mt-3"></div>
             <div class="switch mt-3 hidden tag__status__edit">
@@ -176,7 +181,7 @@
         </div>
     </div>
     <div class="tags__languages">
-        <img src="assets/img/icons/icons/html5/html5-plain.svg" alt="html5__svg">
+        <img src="<?php echo BASE_URL; ?>assets/img/icons/icons/html5/html5-plain.svg" alt="html5__svg">
         <img src="assets/img/icons/icons/css3/css3-plain.svg" alt="css3__svg">
         <img src="assets/img/icons/icons/javascript/javascript-plain.svg" alt="javascript__svg">
     </div>

@@ -45,8 +45,12 @@
             $q = $this->selectAll($sql);
             return $q;
         }
-        public function getSubcategory($idParent) {
-            $sql = "SELECT * FROM categorias WHERE idParent = '$idParent'";
+        public function getSubcategory($idParent, $idProject) {
+            if ($idParent == 'base') {
+                $sql = "SELECT * FROM categorias WHERE idParent = '$idParent' and idProject = '$idProject'";
+            } else {
+                $sql = "SELECT * FROM categorias WHERE idParent = '$idParent'";
+            }
             $req = $this->selectAll($sql);
             $categories = array();
             
@@ -54,6 +58,7 @@
                 $categories[] = array(
                     'id' => $row['id'],
                     'idParent' => $row['idParent'],
+                    'idProject' => $row['idProject'],
                     'nombre' => $row['nombre'],
                     'tipo' => $row['tipo'],
                     'estado' => $row['estado'],
@@ -84,6 +89,7 @@
                 $categories[] = array(
                     'id' => $row['id'],
                     'idParent' => $row['idParent'],
+                    'idProject' => $row['idProject'],
                     'nombre' => $row['nombre'],
                     'subcategory' => $this->subCategories($row['id'])
                 );

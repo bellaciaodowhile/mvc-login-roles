@@ -159,4 +159,15 @@
         public function getProjectsComponents() {
 
         }
+        public function deleteProject($idProject) {
+            $categories = "DELETE FROM categorias WHERE idProject = '$idProject'";
+            $cCategories = $this->delete($categories);
+            $components = "DELETE FROM componentes WHERE idProject = '$idProject'";
+            $cComponents = $this->delete($components);
+            $project = "DELETE FROM proyectos WHERE id = '$idProject'";
+            $cProject = $this->delete($project);
+            if ($cProject) {
+                return $cProject;
+            }
+        }
     }

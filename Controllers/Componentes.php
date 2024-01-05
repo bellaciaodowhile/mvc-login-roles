@@ -26,7 +26,25 @@
                 $arrResponse = array('status' => false, 'msg' => 'Debe llenar al menos un campo.');
             } else {
                 $arrData = $this->model->setComponents($html, $css, $js, $name, $user, $idProject, $category);
-                $arrResponse = array('status' => true, 'msg' => $arrData);
+                $arrResponse = array('status' => true, 'msg' => '¡Componente guardado con éxito!');
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+        public function updateComponent() {
+            $html = $_POST['html'];
+            $css = $_POST['css'];
+            $js = $_POST['js'];
+            $name =$_POST['name'];
+            $user = $_POST['user'];
+            $idProject = $_POST['idProject'];
+            $category = $_POST['category'];
+            $idComponent = $_POST['idComponent'];
+
+            if ($html == '' && $css == '' && $js == '' || $name == '') {
+                $arrResponse = array('status' => false, 'msg' => 'Debe llenar al menos un campo.');
+            } else {
+                $arrData = $this->model->updateComponent($html, $css, $js, $name, $user, $idProject, $category, $idComponent);
+                $arrResponse = array('status' => true, 'msg' => '¡Edición guardada con éxito!');
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
@@ -56,7 +74,8 @@
         public function setTransfer() {
             $componentID = $_POST['componentId'];
             $newCategory = $_POST['newCategory'];
-            $arrData = $this->model->setTransfer($componentID, $newCategory);
+            $idProject = $_POST['idProject'];
+            $arrData = $this->model->setTransfer($componentID, $newCategory, $idProject);
             if ($arrData) {
                 $arrResponse = array('status' => true, 'msg' => 'Operación exitosa!');
             } else {

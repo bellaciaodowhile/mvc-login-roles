@@ -26,7 +26,7 @@
                     </div>
                     <div class="tooltip" data-tooltip="Cerrar editor" data-tooltip-position="top">
                         <button ripple class="btn btn-icon btn-icon--fill close__component">
-                            <i class="material-icons-outlined"></i>
+                            <i class="material-icons-outlined">close</i>
                         </button>
                     </div>
                 </div>
