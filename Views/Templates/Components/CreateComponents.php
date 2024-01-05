@@ -61,7 +61,7 @@
     <nav class="nav__create__components">
         <div class="title__component">
             <div class="nav__logo">
-                <img class="nav__logo-img" src="assets/img/logo.png" alt="Create Components">
+                <img class="nav__logo-img" src="<?php echo BASE_URL; ?>Assets/img/logo.png" alt="Create Components">
             </div>
             <div class="input__text input__text--dark">
                 <input class="input__text-input" name="nombre" type="text" required autocomplete="off"
@@ -82,15 +82,15 @@
     <div class="panel-grid">
         <div class="panel" id="panel-a">
             <div id="html__editor" style="width:100%;height:100%;"></div>
-            <img class="panel__icon" src="assets/img/icons/html.svg" alt="Editor HTML">
+            <img class="panel__icon" src="<?php echo BASE_URL; ?>Assets/img/icons/html.svg" alt="Editor HTML">
         </div>
         <div class="panel" id="panel-b">
             <div id="js__editor" style="width:100%;height:100%;"></div>
-            <img class="panel__icon" src="assets/img/icons/js.svg" alt="Editor JS">
+            <img class="panel__icon" src="<?php echo BASE_URL; ?>Assets/img/icons/js.svg" alt="Editor JS">
         </div>
         <div class="panel" id="panel-c">
             <div id="css__editor" style="width:100%;height:100%;"></div>
-            <img class="panel__icon" src="assets/img/icons/css.svg" alt="Editor CSS">
+            <img class="panel__icon" src="<?php echo BASE_URL; ?>Assets/img/icons/css.svg" alt="Editor CSS">
         </div>
         <div class="panel" id="panel-d">
             <button class="btn btn-icon btn-icon--fill tooltip" data-tooltip="Ctrl + 1" data-tooltip-position="left" id="fullscreen__component">

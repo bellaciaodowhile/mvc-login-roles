@@ -4,7 +4,7 @@
             <div class="card-work__img"></div>
             <div class="card-work__header">
                 <div class="card-work__logo">
-                    <img src="assets/img/logo.png" />
+                    <img src="<?php echo BASE_URL; ?>Assets/img/logo.png" />
                 </div>
                 <div class="card-work__info">
                     <p class="title"> Buttons </p>
@@ -24,7 +24,7 @@
             <div class="card-work__img"></div>
             <div class="card-work__header">
                 <div class="card-work__logo">
-                    <img src="assets/img/logo.png" />
+                    <img src="<?php echo BASE_URL; ?>Assets/img/logo.png" />
                 </div>
                 <div class="card-work__info">
                     <p class="title"> Buttons </p>
@@ -44,7 +44,7 @@
             <div class="card-work__img"></div>
             <div class="card-work__header">
                 <div class="card-work__logo">
-                    <img src="assets/img/logo.png" />
+                    <img src="<?php echo BASE_URL; ?>Assets/img/logo.png" />
                 </div>
                 <div class="card-work__info">
                     <p class="title"> Buttons </p>
@@ -64,7 +64,7 @@
             <div class="card-work__img"></div>
             <div class="card-work__header">
                 <div class="card-work__logo">
-                    <img src="assets/img/logo.png" />
+                    <img src="<?php echo BASE_URL; ?>Assets/img/logo.png" />
                 </div>
                 <div class="card-work__info">
                     <p class="title"> Buttons </p>
@@ -85,7 +85,7 @@
             </div>
             <div class="card-work__header">
                 <div class="card-work__logo">
-                    <img src="assets/img/logo.png" />
+                    <img src="<?php echo BASE_URL; ?>Assets/img/logo.png" />
                 </div>
                 <div class="card-work__info">
                     <p class="title"> Buttons </p>

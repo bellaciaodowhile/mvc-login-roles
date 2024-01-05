@@ -181,9 +181,9 @@
         </div>
     </div>
     <div class="tags__languages">
-        <img src="<?php echo BASE_URL; ?>assets/img/icons/icons/html5/html5-plain.svg" alt="html5__svg">
-        <img src="assets/img/icons/icons/css3/css3-plain.svg" alt="css3__svg">
-        <img src="assets/img/icons/icons/javascript/javascript-plain.svg" alt="javascript__svg">
+        <img src="<?php echo BASE_URL; ?>Assets/img/icons/icons/html5/html5-plain.svg" alt="html5__svg">
+        <img src="<?php echo BASE_URL; ?>Assets/img/icons/icons/css3/css3-plain.svg" alt="css3__svg">
+        <img src="<?php echo BASE_URL; ?>Assets/img/icons/icons/javascript/javascript-plain.svg" alt="javascript__svg">
     </div>
     <div class="d-flex jcsb mt-5">
         <button ripple class="btn btn--auto btn-secondary save__project__edit hidden">
