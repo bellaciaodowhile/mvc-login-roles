@@ -1,5 +1,5 @@
 <?php headerAdmin($data); ?>
-
+<div aria-busy="true" aria-label="Loading, please wait." role="progressbar" class="main__preloader"></div>
 <div class="dashboard">
     <nav class="nav__component">
         <div class="nav__logo">
@@ -82,7 +82,7 @@
         </header>
 
         <section class="main__content" id="<?= $_SESSION['idUser']; ?>">
-
+        
         <?php require_once "Views/Templates/Components/CreateComponents.php"; ?>
         <?php require_once "Views/Templates/Components/ComponentsItems.php"; ?>
 

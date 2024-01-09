@@ -402,6 +402,7 @@ onclick({el: '.create__component-category', res: function(res) {
         // * Update category component
         let componentId = localStorage.getItem('componentIdTransfer');
         console.log('Vamos a actualizar el componente con el id: ', componentId, ' a esta nueva categoría con el id: ', parentCategory)
+        activePreloader();
         // * Precedencia
         AJAXGJ8({
             url: 'Categorias/getTree/' + parentCategory,
@@ -478,8 +479,8 @@ onclick({el: '.create__component-category', res: function(res) {
                             // ! Este me está trayendo los componentes de la categoría en el cual registré el último componente
                             getSubcategory(parentCategory, arrDataCreateComponent.idProject);
                             // getProjectComponent(resTree.at(resTree.length - 1).id);
-
                             openBreadcumb();
+                            inactivePreloader();
                             console.log('Vamos a buscar la categoría: ', parentCategory, ' del proyecto: ', arrDataCreateComponent.idProject)
                             // getComponentsCategories(category)
                             // getProjectComponents();
@@ -612,6 +613,7 @@ selectedFolderProject()
     });
 
     monaco.editor.setTheme('vs-dark');
+    
     let htmlEditor = monaco.editor.create(document.getElementById('html__editor'), {
         language: 'html',
         automaticLayout: true,
@@ -627,6 +629,7 @@ selectedFolderProject()
         automaticLayout: true,
         fontSize: "16px",
     });
+    // monaco.editor.setModelLanguage('html', 'markdown');
 
     
     [document.getElementById('html__editor'), document.getElementById('css__editor'), document.getElementById('js__editor')].map(editor => {
@@ -701,9 +704,12 @@ selectedFolderProject()
     }
     function saveComponent() {
             let nameComponent = el('input[name="name__component"]').value;
-            let htmlEncode = htmlEditor.getValue().replaceAll('&', '___amp___')
-            let cssEncode = cssEditor.getValue().replaceAll('&', '___amp___')
-            let jsEncode = jsEditor.getValue().replaceAll('&', '___amp___')
+            let htmlEncode = htmlEditor.getValue().replaceAll('&', '___amp___').replaceAll('+', '___plus___');
+            let cssEncode = cssEditor.getValue().replaceAll('&', '___amp___').replaceAll('+', '___plus___');
+            let jsEncode = jsEditor.getValue().replaceAll('&', '___amp___').replaceAll('+', '___plus___');
+
+
+
             let idProject = arrDataCreateComponent.idProject;
             let category = arrDataCreateComponent.category.id;
             AJAXGJ8({
@@ -810,9 +816,9 @@ selectedFolderProject()
     function saveComponentEdition() {
         let idComponent = el('.save__edit__component').getAttribute('item');
         let nameComponent = el('input[name="name__component"]').value;
-        let htmlEncode = htmlEditor.getValue().replaceAll('&', '___amp___')
-        let cssEncode = cssEditor.getValue().replaceAll('&', '___amp___')
-        let jsEncode = jsEditor.getValue().replaceAll('&', '___amp___')
+        let htmlEncode = htmlEditor.getValue().replaceAll('&', '___amp___').replaceAll('+', '___plus___');
+        let cssEncode = cssEditor.getValue().replaceAll('&', '___amp___').replaceAll('+', '___plus___');
+        let jsEncode = jsEditor.getValue().replaceAll('&', '___amp___').replaceAll('+', '___plus___');
         let idProject = el('.save__edit__component').getAttribute('idProject');
         let category = el('.save__edit__component').getAttribute('category');
         console.log({
@@ -1499,8 +1505,19 @@ onclick({el: '.set__category', res: function(res) {
     });
 }});
 
+// * Preloader
+function activePreloader() {
+    el('.main__preloader').classList.add('main__preloader--active');
+}
+function inactivePreloader() {
+    setTimeout(() => {
+        el('.main__preloader').classList.remove('main__preloader--active');
+    }, 800);
+}
+
 // * Components Projects
 function getProjectComponents() {
+    activePreloader();
     AJAXGJ8({
         url: 'Proyectos/getProjects',
         success: function(res) {
@@ -1532,6 +1549,7 @@ function getProjectComponents() {
                 // if (item.categorias.length > 0) {
                 // }
             }
+            inactivePreloader();
         }
     });
 }
@@ -1672,11 +1690,13 @@ function openBreadcumb() {
 openBreadcumb();
 // * Cargando categorías, subcactegorías y componentes de cada proyecto según la categoría
 function getSubcategory(id, idProject = 'none') {
+    activePreloader();
     console.log('Buscando IDPROJECT: ', idProject, ' en la CATEGORÍA:', id)
     AJAXGJ8({
         url: 'Categorias/getSubcategory/' + id,
         data: [{ idProject }],
         success: function(res) {
+            
             res = JSON.parse(res);
             console.log('---------------------------------------------')
             console.log(res)
@@ -1709,6 +1729,7 @@ function getSubcategory(id, idProject = 'none') {
                     });
                     openCategories();
                 }
+                inactivePreloader();
             } 
         }
     });
@@ -1717,6 +1738,7 @@ function getSubcategory(id, idProject = 'none') {
 }
 // * Trayendo los componentes de cada categoría
 function getComponentsCategories(id, idProject = 'none') {
+    activePreloader();
     console.log('Trayendo los componentes de cada categoría en el proyecto: ', idProject)
     AJAXGJ8({
         url: 'Categorias/getComponentsCategories/' + id,
@@ -1724,6 +1746,7 @@ function getComponentsCategories(id, idProject = 'none') {
         success: function(res) {
             res = JSON.parse(res);
             console.log(res)
+            
             let html = '';
             setTimeout(() => {
                 if (res.length > 0) {
@@ -1739,6 +1762,7 @@ function getComponentsCategories(id, idProject = 'none') {
                         loadComponent();
                     });
                 }
+                inactivePreloader();
             }, 300);
         }
 
@@ -1769,9 +1793,9 @@ function loadComponent() {
                     el('.save__edit__component').setAttribute('idProject', res[0].idProject);
                     el('.save__edit__component').setAttribute('category', res[0].category);
                     el('input[name="name__component"]').value = res[0].nombre;
-                    let htmlDecode = res[0].html.replaceAll('___amp___', '&');
-                    let cssDecode = res[0].css.replaceAll('___amp___', '&');
-                    let jsDecode = res[0].js.replaceAll('___amp___', '&');
+                    let htmlDecode = res[0].html.replaceAll('___amp___', '&').replaceAll('___plus___', '+');
+                    let cssDecode = res[0].css.replaceAll('___amp___', '&').replaceAll('___plus___', '+');
+                    let jsDecode = res[0].js.replaceAll('___amp___', '&').replaceAll('___plus___', '+');
                     htmlEditor.setValue(htmlDecode);
                     cssEditor.setValue(cssDecode);
                     jsEditor.setValue(jsDecode);

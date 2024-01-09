@@ -7,9 +7,9 @@
             $nameUnique = "component__" . uniqid();
             $s = "INSERT INTO componentes (html, css, js, nombre, user, idProject, category, `image`) VALUES (?,?,?,?,?,?,?,?)";
             $arrData = array($html, $css, $js, $name, $user, $idProject, $category, $nameUnique);
-            $cssConvert = str_replace('___amp___', '&', $css);
-            $htmlConvert = str_replace('___amp___', '&', $html);
-            $jsConvert = str_replace('___amp___', '&', $js);
+            $cssConvert = str_replace('___amp___', '&', str_replace('+', '___plus___', $css));
+            $htmlConvert = str_replace('___amp___', '&', str_replace('+', '___plus___', $html));;
+            $jsConvert = str_replace('___amp___', '&', str_replace('+', '___plus___', $js));
             $contentComponent = "
                 <style>
                 ".$cssConvert."
@@ -34,9 +34,9 @@
             $nameUnique = "component__" . uniqid();
             $s = "UPDATE componentes SET html = ?, css = ?, js = ?, nombre = ?, user = ?, idProject = ?, category = ?, `image` = ? WHERE id = '$idComponent'";
             $arrData = array($html, $css, $js, $name, $user, $idProject, $category, $nameUnique);
-            $cssConvert = str_replace('___amp___', '&', $css);
-            $htmlConvert = str_replace('___amp___', '&', $html);
-            $jsConvert = str_replace('___amp___', '&', $js);
+            $cssConvert = str_replace('___amp___', '&', str_replace('+', '___plus___', $css));
+            $htmlConvert = str_replace('___amp___', '&', str_replace('+', '___plus___', $html));;
+            $jsConvert = str_replace('___amp___', '&', str_replace('+', '___plus___', $js));
             $contentComponent = "
                 <style>
                 ".$cssConvert."
