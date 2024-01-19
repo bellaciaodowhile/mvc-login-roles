@@ -1,0 +1,1007 @@
+
+                <style>
+                @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap");
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes fadeInDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes fadeInRight {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes fadeInLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes viewHide {
+  from {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+* {
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.main-table-tabulator {
+  position: relative;
+  padding: 20px;
+  margin: 20px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator {
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator input[type=checkbox] {
+  position: relative;
+  cursor: pointer;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator input[type=checkbox]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: 0;
+  left: -1px;
+  border: 2px solid #737373;
+  border-radius: 3px;
+  background-color: white;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator input[type=checkbox]:checked:after {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 1px;
+  left: 4.4px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator input[type=checkbox]:checked:before {
+  background: #42b574;
+  border-color: #42b574;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header {
+  border-bottom: none;
+  background: #f5f5f5;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col {
+  background: #fff;
+  height: 70px; /* Alto del header */
+  border: none;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col.cur-drag {
+  display: none;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element {
+  background: white;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col.custom-checkbox-cell .tabulator-col-content {
+  border-radius: 6px 0 0 0;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col.custom-checkbox-cell .tabulator-col-content .tabulator-col-title i {
+  cursor: pointer;
+  padding: 0px;
+  color: #737373;
+  font-size: 1.5em;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col.custom-id {
+  position: relative;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col.custom-id .tabulator-col-content .tabulator-col-title .tabulator-header-popup-button i {
+  color: white;
+  font-size: 1.3em;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col.actions-gloobal .tabulator-col-content {
+  border-radius: 0 6px 0 0;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+  padding: 12px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+  font-weight: 700;
+  color: #000;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input {
+  margin-top: 10px;
+  outline: none;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-header-contents .tabulator-headers {
+  width: 100%;
+  background: white;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-header .tabulator-frozen.tabulator-frozen-left {
+  border: none;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-tableholder {
+  background: #fff;
+  padding: 5px 0;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-tableholder::-webkit-scrollbar {
+  height: 5px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-tableholder::-webkit-scrollbar-track {
+  background: #fff;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-tableholder::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 11px;
+  border: 0px solid #ffffff;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-tableholder .tabulator-table {
+  width: 100%;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row {
+  background: #fff;
+  height: 40px;
+  width: 100%;
+  border-bottom: 1px solid #e4e4e4;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row.tabulator-selected {
+  background: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  font-weight: 700;
+  width: 100%;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row.tabulator-selected .checkbox::before {
+  font-family: "Material Icons";
+  content: "\e834";
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+  font-weight: 400;
+  color: #42b574;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .tabulator-cell {
+  border: none;
+  border-bottom: 1px solid #e4e4e4;
+  padding: 12px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .tabulator-cell.tabulator-frozen.tabulator-frozen-left {
+  border: none;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .tabulator-cell.cur-drag {
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+  padding: 0;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .tabulator-cell.cur-drag::before {
+  font-family: "Material Icons";
+  content: "\e945";
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+  font-weight: 400;
+  cursor: drag;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .tabulator-cell.cur-drag.tabulator-row-handle {
+  width: 10px !important;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .tabulator-cell .tabulator-row-handle-box {
+  display: none;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row:hover .tabulator-cell.cur-drag {
+  opacity: 1;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .checkbox {
+  margin-top: -4px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-row .checkbox::before {
+  font-family: "Material Icons";
+  content: "\e835";
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+  font-weight: 400;
+  padding: 0px;
+  color: #737373;
+  font-size: 0.87em;
+  margin-bottom: 10px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer {
+  border-top: none;
+  padding: 10px;
+  background: #fff;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-footer-contents {
+  background: #fff;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-page {
+  border: none;
+  font-weight: 700;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-page.active {
+  color: #42b574;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-pages {
+  margin: 0 7px 4px 7px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-page-size {
+  outline: none;
+  border: 1px solid silver;
+  margin: 0 15px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-paginator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .actions-table {
+  display: flex;
+  color: #c71585;
+  position: relative;
+  margin-top: -5px;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .actions-table i {
+  cursor: pointer;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .actions-table i:nth-child(2) {
+  color: #333;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .actions-table .content-more-vert {
+  background: #fff;
+  margin: 20px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1411764706);
+  border-radius: 6px;
+  position: absolute;
+  color: #737373;
+  top: -21px;
+  right: -23px;
+  display: none;
+  animation: 300ms fadeInUp ease-in-out;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .actions-table .content-more-vert .item-more-vert {
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  color: #c71585;
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .actions-table .content-more-vert .item-more-vert:hover {
+  transform: translateY(-3px);
+}
+.main-table-tabulator .tabulator-gloobal.tabulator .actions-table .content-more-vert .item-more-vert i {
+  font-size: 1.5em;
+}
+
+.tabulator-menu .tabulator-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px !important;
+}
+.tabulator-menu .tabulator-menu-item i {
+  color: #42b574;
+  font-size: 1.5em;
+  margin-top: 1px;
+}
+.tabulator-menu .tabulator-menu-item span {
+  display: inline-flex;
+}
+.tabulator-menu .tabulator-menu-item span span {
+  margin-top: 3px;
+  margin-left: 5px;
+  font-weight: 700;
+}
+.tabulator-menu .tabulator-menu-item:nth-child(1) {
+  display: none;
+}
+.tabulator-menu .tabulator-menu-item:nth-child(2) {
+  display: none;
+}
+.tabulator-menu .tabulator-menu-item:nth-child(3) {
+  display: none;
+}
+
+.dropdown-table {
+  font-size: 0.8em;
+  width: 167px;
+  position: absolute;
+}
+.dropdown-table.actions {
+  bottom: 30px;
+  left: 220px;
+}
+.dropdown-table.selected {
+  bottom: 30px;
+  left: 40px;
+}
+.dropdown-table .action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #555555;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 2px solid #c0c0c0;
+  cursor: pointer;
+  font-weight: bold;
+  background: #FFF;
+}
+.dropdown-table .items-actions {
+  display: none;
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3137254902);
+  margin-top: 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  animation: var(--fadeInUp);
+  margin-bottom: 20px;
+}
+.dropdown-table .items-actions .item {
+  padding: 15px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: var(--trs);
+  background: #fff;
+}
+.dropdown-table .items-actions .item:nth-child(1) {
+  border-radius: 4px 4px 0 0;
+}
+.dropdown-table .items-actions .item:last-child {
+  border-radius: 0 0 4px 4px;
+}
+.dropdown-table .items-actions .item:hover {
+  background: #eee;
+}
+
+@media only screen and (max-width: 870px) {
+  .main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer {
+    padding: 60px 10px 10px 10px;
+  }
+  .main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-paginator {
+    justify-content: flex-start;
+  }
+  .dropdown-table.selected {
+    bottom: 75px;
+  }
+  .dropdown-table.actions {
+    bottom: 75px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .main-table-tabulator {
+    padding: 5px;
+    margin: 5px;
+  }
+  .dropdown-table.selected {
+    left: 20px;
+    bottom: 65px;
+  }
+  .dropdown-table.actions {
+    left: 200px;
+    bottom: 65px;
+  }
+}
+@media only screen and (max-width: 398px) {
+  .main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer {
+    padding: 150px 10px 10px 10px;
+  }
+  .main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-paginator label {
+    display: none;
+  }
+  .main-table-tabulator .tabulator-gloobal.tabulator .tabulator-footer .tabulator-footer-contents {
+    padding: 0;
+  }
+  .dropdown-table.selected {
+    left: 5vw;
+    width: 90%;
+    bottom: 150px;
+  }
+  .dropdown-table.actions {
+    left: 5vw;
+    width: 90%;
+    bottom: 100px;
+  }
+}
+                </style>
+                <body>
+                <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+T|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+
+<div class="main-table-tabulator">
+        <div id="example-table" class="tabulator-gloobal"></div>
+        <div class="dropdown-table selected">
+            <div class="action">
+                Selección 
+                <i class="material-icons">arrow_drop_down</i>
+            </div>
+            <div class="items-actions">
+                <div class="item current">
+                    Página actual 
+                </div>
+                <div class="item all">
+                    Todos 
+                </div>
+                <div class="item inactive">
+                    Inactivos 
+                </div>
+                <div class="item active">
+                    Activos
+                </div>
+            </div>
+        </div>
+        
+        <div class="dropdown-table actions">
+            <div class="action">
+                Acción
+                <i class="material-icons">arrow_drop_down</i>
+            </div>
+            <div class="items-actions">
+                <div class="item isDelete">
+                    Eliminar 
+                </div>
+                <div class="item isDesactive">
+                    Desactivar 
+                </div>
+                <div class="item isActive">
+                    Activar 
+                </div>
+                <div class="item isDuplicate">
+                    Duplicar 
+                </div>
+                <div class="item isMove">
+                    Mover 
+                </div>
+            </div>
+        </div>
+    </div>
+                <script>
+                let tabledata = [{
+        id: '01',
+        name: "Billy Bob",
+        age: 12,
+        gender: "masculino",
+        height: 95,
+        col: "active",
+        dob: "14/05/2010"
+    },
+    {
+        id: '02',
+        name: "Ramon Velasquez",
+        age: 42,
+        gender: "femenino",
+        height: 142,
+        col: "inactive",
+        dob: "30/07/1954"
+    },
+    {
+        id: '03',
+        name: "Steve McAlistaire",
+        age: 35,
+        gender: "masculino",
+        height: 176,
+        col: "active",
+        dob: "04/11/1982"
+    },
+    {
+        id: '04',
+        name: "Billy Bob",
+        age: 12,
+        gender: "masculino",
+        height: 95,
+        col: "red",
+        dob: "14/05/2010"
+    },
+    {
+        id: '05',
+        name: "Ramon Velasquez",
+        age: 42,
+        gender: "femenino",
+        height: 142,
+        col: "active",
+        dob: "30/07/1954"
+    },
+    {
+        id: '06',
+        name: "Steve McAlistaire",
+        age: 35,
+        gender: "masculino",
+        height: 176,
+        col: "active",
+        dob: "04/11/1982"
+    },
+    {
+        id: '07',
+        name: "Billy Bob",
+        age: 12,
+        gender: "masculino",
+        height: 95,
+        col: "active",
+        dob: "14/05/2010"
+    },
+    {
+        id: '08',
+        name: "Ramon Velasquez",
+        age: 42,
+        gender: "femenino",
+        height: 142,
+        col: "inactive",
+        dob: "30/07/1954"
+    },
+    {
+        id: '09',
+        name: "Steve McAlistaire",
+        age: 35,
+        gender: "masculino",
+        height: 176,
+        col: "inactive",
+        dob: "04/11/1982"
+    },
+    {
+        id: '10',
+        name: "Billy Bob",
+        age: 12,
+        gender: "masculino",
+        height: 95,
+        col: "inactive",
+        dob: "14/05/2010"
+    },
+    {
+        id: '11',
+        name: "Ramon Velasquez",
+        age: 42,
+        gender: "femenino",
+        height: 142,
+        col: "inactive",
+        dob: "30/07/1954"
+    },
+    {
+        id: '12',
+        name: "Steve McAlistaire",
+        age: 35,
+        gender: "masculino",
+        height: 176,
+        col: "inactive",
+        dob: "04/11/1982"
+    },
+];
+var rowMenu = [{
+        label: "<i class='material-icons-outlined'>check_box</i> Change Name",
+        action: function (e, row) {
+            row.update({
+                name: "Steve Bobberson"
+            });
+        }
+    },
+    {
+        label: "<i class='fas fa-check-square'></i> Select Row",
+        action: function (e, row) {
+            row.select();
+        }
+    },
+    {
+        separator: true,
+    },
+    {
+        label: "Admin Functions",
+        menu: [{
+                label: "<i class='fas fa-trash'></i> Delete Row",
+                action: function (e, row) {
+                    row.delete();
+                }
+            },
+            {
+                label: "<i class='fas fa-ban'></i> Disabled Option",
+                disabled: true,
+            },
+        ]
+    }
+]
+var headerMenu = function () {
+    var menu = [];
+    var columns = this.getColumns();
+
+    for (let column of columns) {
+
+        let icon = document.createElement("i");
+        icon.classList.add("material-icons-outlined");
+        icon.textContent = (column.isVisible() ? "check_box" : "check_box_outline_blank");
+        
+        let label = document.createElement("span");
+        let title = document.createElement("span");
+
+        title.textContent = " " + column.getDefinition().title;
+
+        label.appendChild(icon);
+        label.appendChild(title);
+
+        menu.push({
+            label: label,
+            action: function (e) {
+                e.stopPropagation();
+
+                column.toggle();
+
+                if (column.isVisible()) {
+                    icon.textContent = 'check_box'
+                    icon.style.color = '#42b574'
+                } else {
+                    icon.textContent = 'check_box_outline_blank'
+                    icon.style.color = '#737373'
+
+                }
+            }
+        });
+    }
+
+    return menu;
+};
+var printIcon = function(cell, formatterParams, onRendered){ //plain text value
+    return /*html*/`
+    <i class="material-icons-outlined col-custom-icon">home</i>
+    `;
+};
+let table = new Tabulator("#example-table", {
+    data: tabledata,
+    layout: "fitColumns",
+    resizableColumnFit: false,
+    height: 'auto',
+    rowHeight: 40,
+    movableRows: true,
+    pagination: "local",
+    paginationSize: 6,
+    paginationSizeSelector: [3, 6, 8, 10],
+    locale: "en-gb",
+    langs: {
+        "en-gb": {
+            "pagination": {
+                "page_title": 'Ver página',
+                "page_size": 'Filas por página',
+                "first": `<i class="material-icons-outlined">first_page</i>`,
+                "first_title": 'Primera página',
+                "last": `<i class="material-icons-outlined">last_page</i>`,
+                "last_title": 'Última página',
+                "prev": `<i class="material-icons-outlined">keyboard_arrow_left</i>`,
+                "prev_title": 'Página anterior',
+                "next": `<i class="material-icons-outlined">keyboard_arrow_right</i>`,
+                "next_title": 'Siguiente',
+            },
+        }
+    },
+    popupContainer:"#modal-div",
+    rowFormatter: function (row) {
+        let rowField = row.getElement();
+        let cellCheckbox = rowField.children[0]
+        let cellActions = rowField.children[rowField.childElementCount - 2]
+        let colCustomCheckboxCellTitle = row._row.parent.renderer.elementHorizontal.querySelector('.tabulator-col.custom-checkbox-cell .tabulator-col-title')
+        let icon = document.createElement('i')
+        if (row._row.table.getSelectedRows().length == tabledata.length) {
+            icon.style.display = 'none'
+        }
+        cellCheckbox.innerHTML = /* html */
+        `<i class="material-icons-outlined checkbox"></i>`;
+        icon.style.top = '0'
+        colCustomCheckboxCellTitle.addEventListener('click', (e) => { 
+            if (row._row.table.getSelectedRows().length >= 1) {
+                colCustomCheckboxCellTitle.children[1].remove()
+                row._row.table.deselectRow()
+            }
+        });
+        cellCheckbox.onclick = () => {
+            if ([...cellCheckbox.parentElement.classList][3] == 'tabulator-selected') {
+                row.deselect();
+            } else {
+                row.select();
+            }
+
+            if (row._row.table.getSelectedRows().length >= 1) {
+                if (colCustomCheckboxCellTitle.children[1] != undefined || colCustomCheckboxCellTitle.children[1] != null) {
+                    colCustomCheckboxCellTitle.children[1].remove()
+                }
+                icon.style.display = 'block'
+                icon.style.color = '#737373'
+                icon.style.position = 'absolute'
+                icon.style.top = '0px'
+                icon.style.left = '0px'
+                icon.style.cursor = 'pointer'
+                icon.classList.add('material-icons-outlined')
+                icon.textContent = 'indeterminate_check_box'
+                colCustomCheckboxCellTitle.appendChild(icon)
+            } else {
+                console.log('Nada')
+                colCustomCheckboxCellTitle.children[1].remove()
+            }
+
+            if (row._row.table.getSelectedRows().length == tabledata.length) {
+                colCustomCheckboxCellTitle.children[1].remove()
+            }
+        };
+        cellActions.innerHTML = /* html */ 
+        `<div class="actions-table">
+            <i class="material-icons search-actions-table">search</i>
+            <i class="trigger-actions-table material-icons-outlined">more_vert</i>
+            <div class="content-more-vert">
+                <div class="item-more-vert">
+                    <i class="material-icons">public</i>
+                </div>
+                <div class="item-more-vert">
+                    <i class="material-icons-outlined">account_tree</i>
+                </div>
+                <div class="item-more-vert">
+                    <i class="material-icons">content_copy</i>
+                </div>
+                <div class="item-more-vert">
+                    <i class="material-icons-outlined">delete</i>
+                </div>
+                <div class="item-more-vert close-content-actions">
+                    <i class="material-icons-outlined">close</i>
+                </div>
+            </div>
+        </div>`
+        let triggerCellActions = cellActions.querySelector('.trigger-actions-table')
+        let closeContentActions = cellActions.querySelector('.close-content-actions')
+        triggerCellActions.onclick = () => {
+            if (cellActions.querySelector('.content-more-vert').style.display == '' || cellActions.querySelector('.content-more-vert').style.display == 'none') {
+                cellActions.querySelector('.content-more-vert').style.display = 'flex'
+            } else {
+                cellActions.querySelector('.content-more-vert').style.display = 'none'
+            }
+        };
+        closeContentActions.onclick = () => {
+            cellActions.querySelector('.content-more-vert').style.display = 'none'
+        }
+    },
+    columns: [{
+            formatter: "rowSelection",
+            titleFormatter: 'rowSelection',
+            hozAlign: "left",
+            headerSort: false,
+            width: 50,
+            cssClass: "custom-checkbox-cell",
+            resizable: false,
+        },
+        {
+            rowHandle: true,
+            formatter: "handle",
+            headerSort: false,
+            width: 0,
+            minWidth: 0,
+            cssClass: 'cur-drag',
+            resizable: false
+        },
+        {
+            title: "#",
+            field: "id",
+            width: 70,
+            minWidth: 70,
+            editor: 'input',
+            hozAlign: 'left',
+            resizable: false,
+            cssClass: 'custom-id',
+            headerFilter:"input"
+        },
+        {
+            title: "Name",
+            field: "name",
+            minWidth: 150,
+            editor: 'input',
+            resizable: true,
+            headerMenu: headerMenu,
+            headerFilter:"input"
+        },
+        {
+            title: "Gender",
+            field: "gender",
+            minWidth: 100,
+            editor: 'input',
+            resizable: true,
+            headerMenu: headerMenu,
+            headerFilter:"input"
+
+        },
+        {
+            title: "Rating",
+            field: "rating",
+            formatter: "star",
+            formatterParams: {
+                stars: 6
+            },
+            hozAlign: "left",
+            minWidth: 120,
+            editor: 'input',
+            resizable: true,
+            headerMenu: headerMenu,
+            headerFilter:"input"
+        },
+        {
+            title: "Favourite Color",
+            field: "col",
+            minWidth: 150, 
+            editor: 'input',
+            resizable: true,
+            headerMenu: headerMenu,
+            headerFilter:"input"
+        },
+        {
+            title: "Date Of Birth",
+            field: "dob",
+            hozAlign: "left",
+            minWidth: 150,
+            editor: 'input',
+            resizable: true,
+            widthGrow: 1,
+            headerMenu: headerMenu,
+            headerFilter:"input"
+        },
+        {
+            title: "Actions",
+            field: "actions",
+            hozAlign: "left",
+            minWidth: 150,
+            resizable: true,
+            headerSort: false,
+            widthGrow: 1,
+            cssClass: 'actions-gloobal',
+            headerMenu: headerMenu,
+        },
+    ],
+
+});
+// Seleccion a todos
+document.querySelector('.items-actions .item.all').addEventListener("click", function(){
+    table.deselectRow();
+    table.selectRow();
+});
+// Selección página actual
+document.querySelector('.items-actions .item.current').addEventListener("click", function(){
+    table.deselectRow();
+    table.selectRow("visible")
+});
+// Seleccion inactivos
+document.querySelector('.items-actions .item.inactive').addEventListener("click", function(){
+    table.deselectRow();
+    let rows = table.getRows()
+    rows.filter(function(row){
+        if (row._row.data.col == 'inactive') {
+            table.selectRow(row);
+        }
+    });
+});
+// Seleccion activos
+document.querySelector('.items-actions .item.active').addEventListener("click", function(){
+    table.deselectRow();
+    let rows = table.getRows()
+    rows.filter(function(row){
+        if (row._row.data.col == 'active') {
+            table.selectRow(row);
+        }
+    });
+});
+// Action eliminar
+document.querySelector('.items-actions .item.isDelete').addEventListener("click", function(){
+    let rows = table.getRows()
+    let rowsSelected = [];
+    rows.filter(function(row){
+        if (row.isSelected()) {
+            rowsSelected.push(row)
+        }
+    });
+    if (confirm(`¿Está seguro de eliminar estos ${ rowsSelected.length } registros?`)) {
+        rowsSelected.map(x => {
+            x.delete()
+        })
+    }
+});
+// Action desactivar
+document.querySelector('.items-actions .item.isDesactive').addEventListener("click", function(){
+    let rows = table.getRows()
+    let rowsSelected = [];
+    rows.filter(function(row){
+        if (row.isSelected()) {
+            rowsSelected.push(row)
+        }
+    });
+
+    if (confirm(`¿Está seguro de desactivar estas ${ rowsSelected.length } filas?`)) {
+        rowsSelected.map(row => {
+            row.update({ col: 'inactive' })
+        })
+    }
+});
+// Action activar
+document.querySelector('.items-actions .item.isActive').addEventListener("click", function(){
+    let rows = table.getRows()
+    let rowsSelected = [];
+    rows.filter(function(row){
+        if (row.isSelected()) {
+            rowsSelected.push(row)
+        }
+    });
+
+    if (confirm(`¿Está seguro de activar estas ${ rowsSelected.length } filas?`)) {
+        rowsSelected.map(row => {
+            row.update({ col: 'active' })
+        })
+    }
+});
+// Action duplicar
+document.querySelector('.items-actions .item.isDuplicate').addEventListener("click", function(){
+    let rows = table.getRows()
+    let rowsSelected = [];
+    rows.filter(function(row){
+        if (row.isSelected()) {
+            rowsSelected.push(row)
+        }
+    });
+    if (confirm(`¿Está seguro de duplicar estas ${ rowsSelected.length } filas?`)) {
+        rowsSelected.map(row => {
+            table.addRow(Object.assign({}, row.getData()))
+        })
+    }
+});
+const dropdownTable = [...document.querySelectorAll('.dropdown-table')]
+dropdownTable.map((el, index) => {
+    const trigger = el.children[0]
+    const content = el.children[1]
+    trigger.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        if (content.style.display == '' || content.style.display == 'none') {
+            content.style.display = 'flex'
+        } else {
+            content.style.display = 'none'
+        }
+        
+    })
+})
+// console.clear();
+                </script>
+            </body>

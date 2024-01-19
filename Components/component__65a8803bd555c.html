@@ -1,0 +1,116 @@
+
+                <style>
+                /* General */
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+:root {
+    --color-primary: #2e8b57;
+    --color-primary-light: #42b574;
+    --color-secondary: #555;
+    --color-text: #434343;
+    --color-selected: #58a279;
+    --icon-language: #fff;
+    --max-height-tabs: 67px;
+    --trs: all 300ms ease-in-out;
+    --pink: #c71585;
+    --fadeIn: 300ms fadeIn ease-in-out;
+    --fadeInUp: 300ms fadeInUp ease-in-out;
+    --fadeInDown: 300ms fadeInDown ease-in-out;
+    --fadeInRight: 300ms fadeInRight ease-in-out;
+    --fadeInLeft: 300ms fadeInLeft ease-in-out;
+}
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  color: #434345;
+  overflow-x: hidden;
+}
+body {
+  height: 100vh;
+  background: #fff;
+  padding: 4em;
+}
+
+/* Jump */
+.btn-icon-left,
+.btn-icon-right {
+    font-size: 1.6em;
+    color: var(--color-primary-light);
+    font-weight: 800;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.btn-icon-left i {
+    font-size: 1.3em;
+    margin-top: 3px;
+}
+.btn-icon-right i {
+    font-size: 1.3em;
+    margin-top: 3px;
+}
+.btn-icon-right {
+  background: var(--color-primary-light);
+  padding: 18px;
+  border-radius: 6px;
+  color: #fff;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--trs);
+}
+
+.btn-icon-left {
+  background: #fff;
+  padding: 18px;
+  border-radius: 6px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-primary-light);
+  transition: var(--trs);
+}
+
+.btn-icon-right:hover {
+  transform: translateY(-3px);
+}
+
+.btn-icon-left:hover {
+  transform: translateY(-3px);
+}
+/* Optional */
+.d-flex {
+  display: flex;
+  gap: 15px;
+}
+                </style>
+                <body>
+                <!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
+
+
+<div class="d-flex">
+  <div class="btn-icon-left btn-step step-trigger" step="7">
+  <i class="material-icons-outlined">restart_alt</i>
+  Borrar
+</div>
+<div class="btn-icon-right btn-step step-trigger save-filter">
+  <i class="material-icons-outlined">file_upload</i>
+  Publicar
+</div>
+</div>
+                <script>
+                let vale = 'hola';
+                </script>
+            </body>

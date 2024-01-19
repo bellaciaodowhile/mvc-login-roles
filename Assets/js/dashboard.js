@@ -922,22 +922,47 @@ selectedFolderProject()
     
 
 
+const iframeResult = el('#components__result');
+const iframeDoc = iframeResult.contentDocument;
+const iframeHead = iframeDoc.head;
+const iframeBody = iframeDoc.body;
+const scriptIframe = iframeDoc.createElement("script");
+const styleIframe = iframeDoc.createElement("style");
+iframeHead.innerHTML = '<meta charset="UTF-8">'
+iframeHead.innerHTML += '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+iframeHead.appendChild(styleIframe);
 
 function updateIframeOutput(res) {
-
-    const iframeResult = el('#components__result');
-    const iframeDoc = iframeResult.contentDocument;
-    const iframeHead = iframeDoc.head;
-    const iframeBody = iframeDoc.body;
+    let html, css, js;
     if (res.lang == 'css') {
-        iframeHead.innerHTML = "\n<style>\n" + res.value + "\n</style>\n";
+        // styleIframe.innerHTML = res.value;
+         css = "<style>" + res.value + "</style>";
     } else if (res.lang == 'html') {
-        iframeBody.innerHTML = "\n" + res.value + "\n";
+        // iframeBody.innerHTML = "\n" + res.value + "\n";
+         html = res.value;
     } else {
-        const script = iframeDoc.createElement("script");
-        script.innerHTML = "\n" + res.value + "\n";
-        iframeBody.appendChild(script);
+        if (scriptIframe != undefined) {
+            // scriptIframe.type = 'module';
+            // scriptIframe.innerHTML = "\n" + res.value + "\n";
+            // iframeBody.appendChild(scriptIframe);
+             js = "<script>" + res.value + "</script>";
+        }
     }
+
+
+    let code = html + css + js;
+    iframeResult.srcdoc = code;
+
+
+
+
+
+
+
+
+
+
+
 }
 
 // * Fullscreen component
@@ -970,7 +995,8 @@ onclick({
         el('.list-container').classList.toggle('active');
     }
 });
-
+const mefalta = 'hola';
+console.log(mefalta)
 // * Proyectos
 // * Get Languages
 AJAXGJ8({
@@ -1065,7 +1091,7 @@ function getProjects(selector) {
                             <div class="card__project-users">`;
                     item.members.map((member, index) => {
                         if (index <= 3) {
-                            html += `<span class="tag__user tooltip" data-tooltip="${member.nombre}" data-tooltip-position="top">${ member.nombre[0] }</span>`;
+                            html += `<span class="tag__user tooltip" data-tooltip="${member.nombre}" data-tooltip-position="top">${ (member.nombre != undefined ? member.nombre[0] : '') }</span>`;
                         }
                     })
                     let membersLast = [];
