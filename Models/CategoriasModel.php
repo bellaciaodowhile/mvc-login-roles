@@ -4,7 +4,7 @@
             parent::__construct();
         }
         public function getCategories($idProject) {
-            $sql = "SELECT * FROM categorias WHERE idParent = 'base' AND (`global` = '1' OR (idProject = '$idProject' AND `global` = '$idProject'))";
+            $sql = "SELECT * FROM categorias WHERE idParent = 'base' AND (`global` = '1' OR (idProject = '$idProject' AND `global` = '$idProject')) ORDER BY id DESC";
             $req = $this->selectAll($sql);
             $categories = array();
 	
@@ -22,7 +22,7 @@
             return $categories;
         }
         public function getCategory($idProject) {
-            $sql = "SELECT * FROM categorias WHERE idParent = 'base' AND (`global` = '1' OR (idProject = '$idProject' AND `global` = '$idProject'))";
+            $sql = "SELECT * FROM categorias WHERE idParent = 'base' AND (`global` = '1' OR (idProject = '$idProject' AND `global` = '$idProject')) ORDER BY id DESC";
             $req = $this->selectAll($sql);
             $categories = array();
             
@@ -41,15 +41,15 @@
             return $categories;
         }
         public function getComponentsCategory($id) {
-            $sql = "SELECT * FROM componentes WHERE category = '$id'";
+            $sql = "SELECT * FROM componentes WHERE category = '$id' ORDER BY id DESC";
             $q = $this->selectAll($sql);
             return $q;
         }
         public function getSubcategory($idParent, $idProject) {
             if ($idParent == 'base') {
-                $sql = "SELECT * FROM categorias WHERE idParent = '$idParent' and idProject = '$idProject'";
+                $sql = "SELECT * FROM categorias WHERE idParent = '$idParent' and idProject = '$idProject' ORDER BY id DESC";
             } else {
-                $sql = "SELECT * FROM categorias WHERE idParent = '$idParent'";
+                $sql = "SELECT * FROM categorias WHERE idParent = '$idParent' ORDER BY id DESC";
             }
             $req = $this->selectAll($sql);
             $categories = array();
@@ -71,7 +71,7 @@
         }
         public function getComponentsCategories($id, $idProject) {
             if ($id == 'base') {
-                $sql = "SELECT * FROM componentes WHERE category = '$id' and idProject = '$idProject'";
+                $sql = "SELECT * FROM componentes WHERE category = '$id' and idProject = '$idProject' ORDER BY id DESC";
                 $req = $this->selectAll($sql);
                 return $req;
             } else {

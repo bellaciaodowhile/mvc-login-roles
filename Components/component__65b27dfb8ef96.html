@@ -1,0 +1,475 @@
+
+                <style>
+                /* Importación de fuente de Google */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  font-size: 1.5rem;
+  overflow-x: hidden;
+  background: #f5f5f5;
+  color: #434343;
+  /* transform: scale(3); */
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+/* Noticias */
+.input-box {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 900px;
+  height: 80px;
+}
+.input-box input {
+  height: auto;
+  min-height: 40px;
+  width: 100%;
+  outline: none;
+  border: 2px solid silver;
+  border-radius: 6px;
+  resize: none;
+  padding: 28px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  caret-color: #42b574;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.input-box input:focus {
+  border-color: #42b574;
+}
+
+.input-box.error input.input-meta-title,
+.input-box.error input.input-meta-title:focus {
+  border-color: mediumvioletred;
+}
+
+.input-box .title {
+  position: absolute;
+  top: 2px;
+  left: 7px;
+  background: #fff;
+  padding: 5px 5px 0 5px;
+  color: #434343;
+  font-weight: bold;
+}
+
+.input-box.error input.input-meta-title + .title {
+  color: mediumvioletred;
+}
+
+.input-box .characters,
+.input-box .characters-input {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  align-items: center;
+  color: #42b574;
+  background: #fff;
+  padding: 0 5px;
+  display: none;
+  font-weight: bold;
+  z-index: 10003;
+}
+
+.validation-message {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0.35rem 1rem 0 0;
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  color: mediumvioletred;
+}
+
+.input-box.active .characters,
+.input-box.active .characters-input {
+  display: flex;
+}
+
+.input-box.error .characters,
+.input-box.error .characters-input {
+  color: mediumvioletred;
+}
+
+/* overlay input textarea */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 9999;
+}
+
+.absolute-input {
+  position: absolute;
+  z-index: 10000;
+}
+
+.title {
+  position: absolute;
+  top: 50px; /* Ajusta la posición según tus necesidades */
+  left: 10px; /* Ajusta la posición según tus necesidades */
+  z-index: 10001;
+}
+
+/* TOOLTIP */
+.tooltip {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.2);
+  width: 35em;
+  z-index: 10003;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease all;
+  transform: translateY(10px);
+}
+.tooltip-h {
+  display: flex;
+  flex-direction: column !important;
+}
+.tooltip::after {
+  content: "";
+  display: inline-block;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #fff;
+  position: absolute;
+  bottom: -15px;
+  left: calc(50% - 15px);
+}
+.tooltip.activo {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+}
+.tooltip .thumb {
+  width: 40%;
+}
+.tooltip .thumb-h {
+  width: 100%;
+}
+.tooltip .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 0 0 10px;
+  vertical-align: top;
+}
+.tooltip .thumb-h img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 0px !important;
+  vertical-align: top;
+}
+.tooltip .info {
+  width: 60%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tooltip .info-h {
+  width: 100% !important;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tooltip .info .titulo {
+  color: #434343;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.tooltip .info .direccion {
+  color: #707070;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.tooltip .info .resumen {
+  margin-bottom: 20px;
+}
+.tooltip .info .contenedor-btn {
+  display: flex;
+  justify-content: flex-start;
+}
+.tooltip .info button {
+  border: none;
+  background: #f5f5f5;
+  font-weight: bold;
+  padding: 10px 20px;
+  width: fit-content;
+  color: #434343;
+  border-radius: 100px;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tooltip .info button:hover {
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
+}
+.tooltip .info button .news-more-info {
+  margin-left: 5px;
+}
+/* ------------------------- */
+/* Mediaqueries */
+/* ------------------------- */
+@media screen and (max-width: 768px) {
+  .tooltip .info button {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .tooltip {
+    position: static;
+    opacity: 1;
+    width: 100%;
+    transform: translate(0);
+  }
+  .tooltip::after {
+    content: "";
+    display: none;
+  }
+}
+                </style>
+                <body>
+                <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+
+    <div class="input-box">
+      <input
+        class="input input-meta-title"
+        id="inputfield1"
+        type="text"
+        placeholder="Agrega un Meta-Título para tu Noticia"
+        minlength="60"
+        maxlength="80"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <span id="title" class="title">Meta-Título</span>
+      <div class="characters characters-input">
+        <span class="signal_num">0</span>
+        <span class="limit_num">/80</span>
+      </div>
+      <span id="validationMessage" class="validation-message"></span>
+      <div class="tooltip tooltip-h" id="tooltip1">
+        <div class="thumb thumb-h">
+          <img src="img/meta-description-header.jpg" alt="" />
+        </div>
+        <div class="info info-h">
+          <h3 class="titulo">Meta-Título</h3>
+          <p class="direccion">
+            Para mejorar el SEO de una página web debes asignarle una
+            descripción sintética de menos de 140 caracteres.
+          </p>
+          <p class="resumen">
+            Procura que esta descripción contenga la palabra clave o palabra más
+            importante que define esta página web. Incorpora palabras
+            complementarias que enriquezcan y acoten la búsqueda para obtener
+            mejores resultados<br />
+          </p>
+          <div class="contenedor-btn">
+            <button>
+              <span class="material-icons-outlined"> school </span>
+              <span class="news-more-info">Más info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+                <script>
+                document.addEventListener("DOMContentLoaded", function () {
+  const inputMetaTitle = document.querySelector(".input-meta-title");
+
+  // Mostrar caracteres restantes al enfocar y desenfocar los campos
+  inputMetaTitle.addEventListener("focus", showCharacters);
+  inputMetaTitle.addEventListener("blur", hideCharacters);
+  inputMetaTitle.addEventListener("input", () =>
+    countCharacters(inputMetaTitle)
+  );
+
+  function showCharacters() {
+    this.parentNode.querySelector(".characters").style.display = "flex";
+  }
+
+  function hideCharacters() {
+    this.parentNode.querySelector(".characters").style.display = "none";
+    if (this.value === "") {
+      validationMessage.textContent = "Mínimo 60 caracteres";
+      this.classList.add("error");
+    }
+  }
+
+  function countCharacters(input) {
+    const valLength = input.value.length;
+    const characters = input.parentNode.querySelector(
+      ".characters .signal_num"
+    );
+    characters.innerText = valLength;
+    const minLength = input.getAttribute("minlength");
+    const maxLength = input.getAttribute("maxlength");
+    valLength > 0
+      ? input.parentNode.classList.add("active")
+      : input.parentNode.classList.remove("active");
+    valLength < minLength || valLength > maxLength
+      ? input.parentNode.classList.add("error")
+      : input.parentNode.classList.remove("error");
+  }
+
+  /* overlay input textarea */
+  // Obtén el input, textarea y los títulos
+  // const input = document.getElementById("myInput");
+  const inputs = [...document.querySelectorAll(".input")];
+  const titles = document.querySelectorAll(".title");
+
+  // Crea el overlay
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+
+  // Agrega el overlay al final del documento
+  document.body.appendChild(overlay);
+
+  // Función para mostrar el overlay y el título correspondiente
+  function showOverlay(title, input) {
+    overlay.style.display = "block";
+    input.classList.add("absolute-input");
+    titles.forEach((t) => {
+      if (title != t) {
+        t.style.display = "none";
+      }
+    });
+  }
+
+  // Función para ocultar el overlay y todos los títulos
+  function hideOverlay() {
+    overlay.style.display = "none";
+    inputs.map((x) => {
+      x.classList.remove("absolute-input");
+    });
+    titles.forEach((t) => {
+      t.style.display = "block";
+    });
+  }
+
+  // Agrega los eventos de clic para mostrar y ocultar el overlay
+  inputs.map((x) => {
+    console.log(x);
+    x.addEventListener("focus", function () {
+      let title = x.parentElement.querySelector(".title");
+      showOverlay(title, x);
+    });
+    x.addEventListener("blur", (e) => {
+      hideOverlay();
+    });
+  });
+
+  // TOOLTIPS
+  const inputfield1 = document.querySelector("#inputfield1");
+  const tooltip1 = document.querySelector("#tooltip1");
+  const validationMessage = document.getElementById("validationMessage");
+  // const inputfield2 = document.querySelector("#inputfield2");
+  // const tooltip2 = document.querySelector("#tooltip2");
+
+  const inputfield1Placeholder = inputfield1.getAttribute("placeholder");
+
+  inputfield1.addEventListener("focus", function () {
+    this.removeAttribute("placeholder");
+  });
+
+  inputfield1.addEventListener("blur", function () {
+    this.setAttribute("placeholder", inputfield1Placeholder);
+  });
+
+  inputfield1.addEventListener("input", function () {
+    const inputLength = this.value.length;
+    if (inputLength < this.minLength) {
+      validationMessage.textContent = "Mínimo 60 caracteres*";
+    } else {
+      validationMessage.textContent = "";
+    }
+  });
+
+  const calcularPosicionTooltip = (inputfield, tooltip) => {
+    // Calculamos las coordenadas del inputfield.
+    const x = inputfield.offsetLeft;
+    const y = inputfield.offsetTop;
+    // Calculamos el tamaño del tooltip.
+    const anchoTooltip = tooltip.clientWidth;
+    const altoTooltip = tooltip.clientHeight;
+    // Calculamos donde posicionaremos el tooltip.
+    const izquierda = x - anchoTooltip / 2 + inputfield.offsetWidth / 2;
+    const arriba = y - altoTooltip - 20;
+    tooltip.style.left = `${izquierda}px`;
+    tooltip.style.top = `${arriba}px`;
+  };
+
+  window.addEventListener("load", () => {
+    calcularPosicionTooltip(inputfield1, tooltip1);
+    //calcularPosicionTooltip(inputfield2, tooltip2);
+  });
+
+  window.addEventListener("resize", () => {
+    calcularPosicionTooltip(inputfield1, tooltip1);
+    //calcularPosicionTooltip(inputfield2, tooltip2);
+  });
+
+  inputfield1.addEventListener("focus", () => {
+    tooltip1.classList.add("activo");
+    calcularPosicionTooltip(inputfield1, tooltip1);
+  });
+
+  inputfield1.addEventListener("blur", () => {
+    tooltip1.classList.remove("activo");
+  });
+
+  // inputfield2.addEventListener("focus", () => {
+  //   tooltip2.classList.add("activo");
+  //   calcularPosicionTooltip(inputfield2, tooltip2);
+  // });
+
+  // inputfield2.addEventListener("blur", () => {
+  //   tooltip2.classList.remove("activo");
+  // });
+});
+                </script>
+            </body>

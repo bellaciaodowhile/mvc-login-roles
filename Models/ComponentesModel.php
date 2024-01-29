@@ -53,12 +53,12 @@
             return $q;
         }
         public function getComponents() {
-            $s = "SELECT * FROM componentes";
+            $s = "SELECT * FROM componentes ORDER BY id DESC";
             $q = $this->selectAll($s);
             return $q;
         }
         public function getComponent($id) {
-            $s = "SELECT * FROM componentes WHERE id = '$id'";
+            $s = "SELECT * FROM componentes WHERE id = '$id' ORDER BY id DESC";
             $q = $this->selectAll($s);
             return $q;
         }

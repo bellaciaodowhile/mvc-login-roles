@@ -936,34 +936,40 @@ function updateIframeOutput(res) {
     let html, css, js;
     if (res.lang == 'css') {
         // styleIframe.innerHTML = res.value;
-         css = "<style>" + res.value + "</style>";
+        css = "<style>" + res.value + "</style>";
+        localStorage.removeItem('css');
+        localStorage.setItem('css', css)
     } else if (res.lang == 'html') {
         // iframeBody.innerHTML = "\n" + res.value + "\n";
-         html = res.value;
+        html = res.value;
+        localStorage.removeItem('html');
+        localStorage.setItem('html', html)
     } else {
         if (scriptIframe != undefined) {
             // scriptIframe.type = 'module';
             // scriptIframe.innerHTML = "\n" + res.value + "\n";
             // iframeBody.appendChild(scriptIframe);
-             js = "<script>" + res.value + "</script>";
+            js = "<script>" + res.value + "</script>";
+            localStorage.removeItem('js');
+            localStorage.setItem('js', js)
         }
     }
 
-
+    html = localStorage.getItem('html');
+    css = localStorage.getItem('css');
+    js = localStorage.getItem('js');
     let code = html + css + js;
+    // console.log('HTML: ',localStorage.getItem('html'))
+    // console.log('CSS: ',localStorage.getItem('css'))
+    // console.log('JS: ',localStorage.getItem('js'))
     iframeResult.srcdoc = code;
-
-
-
-
-
-
-
-
-
-
+    // console.clear();
 
 }
+
+
+
+
 
 // * Fullscreen component
 function fullscreenComponent() {
