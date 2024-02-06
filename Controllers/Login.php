@@ -25,6 +25,13 @@
                     $_SESSION['nombre'] = $arrData[0]['nombre'];
                     $_SESSION['tipo'] = $arrData[0]['tipo'];
                     $_SESSION['login'] = true;
+
+                    session_write_close();
+                    ini_set('session.cookie_lifetime', 0);
+                    session_set_cookie_params(86400);
+                    session_set_cookie_params(86400);
+
+
                 } else {
                     $arrResponse = array('status' => false, 'msg' => 'Usuario inactivo');
                 }

@@ -388,14 +388,16 @@
 
 .cards__projects {
   margin-top: 3em;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  color: #fff;
+  overflow: hidden;
 }
 .cards__projects .card__project {
   position: relative;
-  width: 300px;
-  max-width: 300px;
+  width: 100%;
+  max-width: 100%;
   background: #212b36;
   margin-top: 25px;
   border-radius: 0 25px 25px 25px;
@@ -511,9 +513,6 @@
 .card__project-edit-header {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-}
-.card__project-edit-description {
   font-size: 1.3em;
   margin-top: 1em;
   color: #8892a9;
@@ -548,6 +547,36 @@
   align-items: end;
 }
 
+@media (max-width: 2220px) {
+  .cards__projects {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+@media (max-width: 1920px) {
+  .cards__projects {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media (max-width: 1600px) {
+  .cards__projects {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 1200px) {
+  .cards__projects {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 920px) {
+  .cards__projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .cards__projects {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 .main-chevrondown-gj8 {
   background: white;
   padding: 20px;

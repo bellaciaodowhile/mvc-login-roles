@@ -1930,4 +1930,26 @@ function closeViewComponent() {
 }).call(this);
 // ! ------------------------------------------------ww
 
+// Search Components Input
+let searchComponentsInput = el('.search__components-input');
+let searchComponentsBox = el('.search__components .search__components-box');
+searchComponentsInput.onkeyup = function(e) {
+    searchComponentsBox.classList.add('search__components-box--active');
+    
+};
+onclick({el: searchComponentsBox, res: (e) => {
+    e.preventDefault();
+    searchComponentsBox.classList.remove('search__components-box--active');
+}});
+
+searchComponentsInput.onfocus = function() {
+    searchComponentsBox.classList.add('search__components-box--active');
+};
+
+searchComponentsInput.onblur = function() {
+    searchComponentsBox.classList.remove('search__components-box--active');
+};
+
+
+
 

@@ -1,3 +1,13 @@
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition-delay: 99999999s;
+} 
+
 .input__text {
     display: flex;
     position: relative;
@@ -7,31 +17,54 @@
 
     &-textarea {
         height: 100%;
+
         .input__text-input {
             padding: 10px;
             margin-top: 1em;
-            white-space: wrap; 
+            white-space: wrap;
             resize: auto;
             overflow: auto;
             height: 100px;
             word-wrap: break-word;
         }
     }
+
     &--dark {
         .input__text-input {
             &:valid {
                 border-color: $color-btn;
-                + .input__text-label {
+
+                +.input__text-label {
                     background-color: $color-secondary;
                     color: white;
                 }
             }
-            &:focus + .input__text-label {
+
+            &:focus+.input__text-label {
                 background-color: $color-secondary;
-                    color: white;
+                color: white;
             }
         }
     }
+
+    &--dark-base {
+        .input__text-input {
+            &:valid {
+                border-color: $color-btn;
+
+                +.input__text-label {
+                    background-color: #111826;
+                    color: white;
+                }
+            }
+
+            &:focus+.input__text-label {
+                background-color: #111826;
+                color: white;
+            }
+        }
+    }
+
     &-input {
         height: 55px;
         width: inherit;
@@ -43,12 +76,15 @@
         border-width: 0.5px;
         float: left;
         transition: border-color 200ms;
+
         &:hover {
             border-color: rgba($color: $color-btn, $alpha: 0.5);
         }
+
         &:valid {
             border-color: $color-btn;
-            + .input__text-label {
+
+            +.input__text-label {
                 top: 2px;
                 left: 10px;
                 font-size: 12px;
@@ -57,13 +93,15 @@
                 padding-right: 5px;
             }
         }
+
         &:focus {
             padding-left: 9px;
             border-width: 2px;
             border-color: $color-btn;
             outline: none;
         }
-        &:focus + .input__text-label {
+
+        &:focus+.input__text-label {
             top: 2px;
             left: 10px;
             font-size: 12px;
@@ -73,6 +111,7 @@
             padding-right: 5px;
         }
     }
+
     &-label {
         position: absolute;
         pointer-events: none;
@@ -89,7 +128,8 @@
     position: relative;
     display: inline-block;
     line-height: 1.5;
-    > input {
+
+    >input {
         z-index: -1;
         position: absolute;
         right: 6px;
@@ -104,58 +144,72 @@
         transform: scale(1);
         pointer-events: none;
         transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
-        &:disabled{
+
+        &:disabled {
             opacity: 0;
-            + span {
+
+            +span {
                 color: $color-btn;
                 opacity: 0.38;
                 cursor: default;
             }
-            + span::before {
+
+            +span::before {
                 background-color: rgba($color: $color-btn, $alpha: 0.6);
             }
-        } 
+        }
+
         &:active {
             opacity: 1;
             transform: scale(0);
             transition: transform 0s, opacity 0s;
-            + span::before {
+
+            +span::before {
                 background-color: rgba($color: $color-btn, $alpha: 0.6);
             }
         }
-        &:hover > input:focus {
+
+        &:hover>input:focus {
             opacity: 0.16;
         }
+
         &:checked {
             &:active {
-                + span::before {
+                +span::before {
                     background-color: rgba($color: $color-btn, $alpha: 0.38);
                 }
             }
+
             right: -10px;
             background-color: rgba($color: $color-btn, $alpha: 1);
-            + span::before {
+
+            +span::before {
                 background-color: rgba($color: $color-btn, $alpha: 0.6);
             }
-            + span::after {
+
+            +span::after {
                 background-color: $color-btn;
                 transform: translateX(16px);
             }
+
             &:disabled {
-                + span::before {
+                +span::before {
                     background-color: rgba($color: $color-btn, $alpha: 0.6);
                 }
             }
         }
+
         &:focus {
             opacity: 0.12;
         }
-        
+
     }
-    > span {
+
+    >span {
         display: inline-block;
         width: 100%;
         cursor: pointer;
+
         &::before {
             content: "";
             float: right;
@@ -168,6 +222,7 @@
             vertical-align: top;
             transition: background-color 0.2s, opacity 0.2s;
         }
+
         &::after {
             content: "";
             position: absolute;
@@ -184,3 +239,53 @@
 }
 
 
+
+
+// * Search Components Input
+.search__components {
+    position: relative;
+    width: 100%;
+
+    &-box {
+        position: absolute;
+        left: 0;
+        top: 84%;
+        width: 100%;
+        background: #111826;
+        border-radius: 0 0 6px 6px;
+        border: 2px solid #3737b3;
+        border-top: none;
+        z-index: 2;
+        max-height: 333px;
+        overflow: auto;
+        display: none;
+        &--active {
+            display: block;
+        }
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #111826;
+            border-radius: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #222c41;
+            border-radius: 10px;
+        }
+
+        &-item {
+            padding: 1em 10px;
+            border-radius: 0 0 6px 6px;
+            cursor: pointer;
+            border-top: 1px solid #222c41;
+            transition: $trs;
+            &:hover {
+                background: #222c41;
+            }
+        }
+    }
+}

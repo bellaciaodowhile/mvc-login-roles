@@ -1,5 +1,37 @@
 <?php headerDashboard($data); ?>
 <h1 class="title__h1">Componentes</h1>
+
+<!-- Search Components -->
+<!-- <div class="search__components">
+    <div class="input__text input__text--dark-base mt-5">
+        <input class="input__text-input search__components-input" type="text" required autocomplete="off" maxlength="80">
+        <span class="input__text-label">Encuentra lo que buscas en este apartado...</span>
+    </div>
+    <div class="search__components-box">
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+        <div class="search__components-box-item">Item 1</div>
+    </div>
+</div> -->
+
 <!-- Breadcumb -->
 <div class="main__breadcumb">
     <span class="breadcumb__item" item="base">Proyectos</span>

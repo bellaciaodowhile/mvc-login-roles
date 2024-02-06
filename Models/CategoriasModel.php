@@ -75,13 +75,13 @@
                 $req = $this->selectAll($sql);
                 return $req;
             } else {
-                $sql = "SELECT * FROM componentes WHERE category = '$id'";
+                $sql = "SELECT * FROM componentes WHERE category = '$id' ORDER BY id DESC";
                 $req = $this->selectAll($sql);
                 return $req;
             }
         }
         public function subCategories($id) {
-            $sql = "SELECT * FROM categorias WHERE idParent = $id";
+            $sql = "SELECT * FROM categorias WHERE idParent = $id ORDER BY id DESC";
             $req = $this->selectAll($sql);
             $categories = array();
 	
