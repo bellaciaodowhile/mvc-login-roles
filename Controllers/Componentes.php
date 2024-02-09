@@ -7,7 +7,7 @@
                 header('Location:'.BASE_URL.'login');
             }
         }
-        public function componentes() {
+        public function componentes($url) {
             $data['title_page'] = 'Componentes';
             $data['css'] = 'dashboard.css';
             $data['js'] = ['dashboard.js'];
@@ -83,4 +83,21 @@
             }
             echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
         }
+
+        public function search() {
+            $query = $_POST['query'];
+            $arrData = $this->model->search($query);
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        }
+
+        // * Temporary
+        public function updateTemporal() {
+            $arrData = $this->model->updateTemporal();
+            echo $arrData;
+        }
+
+
+
+
+        
     }

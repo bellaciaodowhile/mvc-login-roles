@@ -1,4 +1,7 @@
 console.log('Dashboard')
+
+
+
 // * Load the Monaco Editor.
 require.config({
     paths: {
@@ -309,7 +312,7 @@ function contentLoadedButtonsComponents() {
 }
 contentLoadedButtonsComponents();
 
-// * Selected folder project
+// * Selected folder project - Projects
 function selectedFolderProject() {
     AJAXGJ8({
         url: 'Proyectos/getProjects',
@@ -324,7 +327,7 @@ function selectedFolderProject() {
                             ${ item.nombre }
                         </div>
                         <div class="tag ${item.status == '0' ? 'tag--paused' : 'tag--progress'} mt-3">
-                            ${item.status == '0' ? 'inactivo' : 'activo'}
+                            ${ item.status == '0' ? 'inactivo' : 'activo' }
                         </div>
                         <div class="card__project-users">
                             <small class="center gap-5">
@@ -412,37 +415,6 @@ onclick({el: '.create__component-category', res: function(res) {
 
                 // * ¿En que proyecto estamos?
                 if (resTree.length > 0) {
-                    // AJAXGJ8({
-                    //     url: 'Proyectos/getProject/' + res[1].idProject,
-                    //     success: function(resProject) {
-                    //         resProject = JSON.parse(resProject);
-                    //         console.log(resProject)
-                    //         // * Nuevo Breadcumb al transferir componente
-                    //         cleanHtml('.main__breadcumb');
-                    //         cleanHtml('#cards__projects__components');
-                    //         viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                    //         <span class="breadcumb__item" item="base"> 
-                    //             Proyectos
-                    //         </span>`});
-                    //         for (itemProject of resProject) {
-                    //             viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                    //             <span class="breadcumb__item" item="${itemProject.id}"> 
-                    //                 <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
-                    //             </span>`});
-                    //         }
-                    //         for (itemCategory of res) {
-                    //             if (itemCategory != false) {
-                    //                 viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                    //                 <span class="breadcumb__item" item="${itemCategory.id}"> 
-                    //                     <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
-                    //                 </span>`});
-                    //             }
-                    //         }
-                    //         openBreadcumb();
-                    //         // getProjectComponents();
-                    //         getComponentsCategories(res[1].idProject);
-                    //     }
-                    // });
                     AJAXGJ8({
                         url: 'Proyectos/getProject/' + arrDataCreateComponent.idProject,
                         success: function(resProject) {
@@ -458,7 +430,7 @@ onclick({el: '.create__component-category', res: function(res) {
                             // * Cargando los proyectos
                             for (itemProject of resProject) {
                                 viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                <span class="breadcumb__item" item="${itemProject.id}" folder="project"> 
+                                <span class="breadcumb__item" item="${itemProject.id}" folder="project" unique="${itemProject.idUnique}"> 
                                 <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
                                 </span>`});
                                 console.log('proyecto en curso: ======= ', itemProject.id, ' ¬ Categoría en curso: ', parentCategory)
@@ -467,7 +439,7 @@ onclick({el: '.create__component-category', res: function(res) {
                             for (itemCategory of resTree) {
                                 if (itemCategory != false) {
                                     viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                    <span class="breadcumb__item" item="${itemCategory.id}"> 
+                                    <span class="breadcumb__item" item="${itemCategory.id}" unique="${itemCategory.idUnique}"> 
                                     <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
                                     </span>`});
                                     console.log('subcategorías en curso: ======= ', itemCategory.id)
@@ -769,7 +741,7 @@ selectedFolderProject()
                                         // * Cargando los proyectos
                                         for (itemProject of resProject) {
                                             viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                            <span class="breadcumb__item" item="${itemProject.id}" folder="project"> 
+                                            <span class="breadcumb__item" item="${itemProject.id}" folder="project" unique="${itemProject.idUnique}"> 
                                             <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
                                             </span>`});
                                             console.log('proyecto en curso: ======= ', itemProject.id, ' ¬ Categoría en curso: ', category)
@@ -778,7 +750,7 @@ selectedFolderProject()
                                         for (itemCategory of resTree) {
                                             if (itemCategory != false) {
                                                 viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                                <span class="breadcumb__item" item="${itemCategory.id}"> 
+                                                <span class="breadcumb__item" item="${itemCategory.id}" unique="${itemCategory.idUnique}"> 
                                                 <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
                                                 </span>`});
                                                 console.log('subcategorías en curso: ======= ', itemCategory.id)
@@ -868,7 +840,7 @@ selectedFolderProject()
                                     // * Cargando los proyectos
                                     for (itemProject of resProject) {
                                         viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                        <span class="breadcumb__item" item="${itemProject.id}" folder="project"> 
+                                        <span class="breadcumb__item" item="${itemProject.id}" folder="project" unique="${itemProject.idUnique}"> 
                                         <i class="material-icons-outlined">chevron_right</i> ${itemProject.nombre}
                                         </span>`});
                                         console.log('proyecto en curso: ======= ', itemProject.id, ' ¬ Categoría en curso: ', category)
@@ -877,7 +849,7 @@ selectedFolderProject()
                                     for (itemCategory of resTree) {
                                         if (itemCategory != false) {
                                             viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                                            <span class="breadcumb__item" item="${itemCategory.id}"> 
+                                            <span class="breadcumb__item" item="${itemCategory.id}" unique="${itemCategory.idUnique}"> 
                                             <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
                                             </span>`});
                                             console.log('subcategorías en curso: ======= ', itemCategory.id)
@@ -964,7 +936,6 @@ function updateIframeOutput(res) {
     // console.log('JS: ',localStorage.getItem('js'))
     iframeResult.srcdoc = code;
     // console.clear();
-
 }
 
 
@@ -1001,8 +972,6 @@ onclick({
         el('.list-container').classList.toggle('active');
     }
 });
-const mefalta = 'hola';
-console.log(mefalta)
 // * Proyectos
 // * Get Languages
 AJAXGJ8({
@@ -1547,7 +1516,7 @@ function inactivePreloader() {
     }, 800);
 }
 
-// * Components Projects
+// * Components Projects - pointProjects
 function getProjectComponents() {
     activePreloader();
     AJAXGJ8({
@@ -1558,7 +1527,7 @@ function getProjectComponents() {
             cleanHtml('#cards__projects__components');
             for (item of res) {
                 let html = /*html*/ `
-                <div class="card__project card__project__component" item="${item.id}" folders="${item.categorias.length}" > 
+                <div class="card__project card__project__component" item="${item.id}" folders="${item.categorias.length}" unique="${item.idUnique}"> 
                     <div class="card__project-content">
                         <div class="card__project-title">
                             ${ item.nombre }
@@ -1572,7 +1541,7 @@ function getProjectComponents() {
                             </small>
                         </div>
                     </div>
-                </div> `;
+                </div>`;
                 viewHtml({
                     el: '#cards__projects__components',
                     content: html
@@ -1594,16 +1563,36 @@ function openProjectsComponents() {
     console.log(cardsProjects)
     cardsProjects.map(project => {
         project = project.parentElement
+        let name = project.querySelector('.card__project-title').textContent;
+        name = name.toLowerCase().trim().split(' ').join('-');
         onclick({
             el: project,
             res: function (res) {
                 // console.log(project.getAttribute('item'))
                 if (project.getAttribute('folders') > 0) {
+                    
+                    let idUnique = project.getAttribute('unique');
+                    // ---------- Esto esta bien ---------------
                     viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                    <span class="breadcumb__item" item="${project.getAttribute('item')}" folder="project"> 
+                    <span class="breadcumb__item" item="${project.getAttribute('item')}" folder="project" unique="${idUnique}"> 
                         <i class="material-icons-outlined">chevron_right</i>${ project.querySelector('.card__project-title').textContent.trim() }
                     </span>`});
                     getProjectComponent(project.getAttribute('item'));
+                    // ---------- Hasta aquí ---------------
+
+
+                    // URL --- Estamos probando el URL aquí
+                    console.log(name)
+                    console.log(idUnique)
+                    console.log(window.location.href)
+                    console.log(window.location.href + '/' + idUnique)
+                    // window.location.href = window.location.href + '/' + name
+                    // history.pushState(null, '', '');
+
+                    // * PointUrl
+                    let url = `componentes?q=${idUnique}`
+                    history.pushState(null, '', url);
+
                 }
             }
         });
@@ -1612,6 +1601,7 @@ function openProjectsComponents() {
 // * Todas las categorías
 function getProjectComponent(id) {
     console.log(id)
+    console.log('Cargando Proyecto')
     AJAXGJ8({
         url: 'Categorias/getCategory/' + id,
         success: function(res) {
@@ -1621,7 +1611,7 @@ function getProjectComponent(id) {
             for (item of res) {
                 if (item != undefined) {
                     let html = /*html*/ `
-                    <div class="card__project card__project__component" item="${item.id}" folders="${item.subcategory.length}" components="${item.components.length}"> 
+                    <div class="card__project card__project__component" item="${item.id}" folders="${item.subcategory.length}" components="${item.components.length}" unique="${item.idUnique}"> 
                         <div class="card__project-content">
                             <div class="card__project-title">
                                 ${ item.nombre }
@@ -1652,6 +1642,226 @@ function getProjectComponent(id) {
     // * Trayendo componentes base
     getComponentsCategories('base', id);
 }
+
+
+// * Get URL 
+let urlGet = window.location.href;
+let url = new URL(urlGet);
+let query = url.searchParams.get('q');
+if (query != 'null') {
+
+    console.log(query)
+    AJAXGJ8({
+        url: 'Componentes/search',
+        data: [{
+            query
+        }],
+        success: function(res) {
+            // ! Ahora toca mostrar los datos en el HTML desde aquí el JS
+            res = JSON.parse(res);
+            console.log('PointUrl')
+            console.log(res)
+            // * Project URL
+            if (res.type == 'project') {
+                // * Breabcumb 
+                viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                <span class="breadcumb__item" item="${res.idProject}" folder="project" unique="${res.idUnique}"> 
+                    <i class="material-icons-outlined">chevron_right</i>${ res.name }
+                </span>`});
+
+                // * Cards Categories and Components
+                cleanHtml('#cards__projects__components');
+                for (item of res.content) {
+                    if (item != undefined) {
+                        console.log(item)
+                        let html = /*html*/ `
+                        <div class="card__project card__project__component" item="${item.id}" folders="${item.subcategory.length}" components="${item.components.length}" unique="${item.idUnique}"> 
+                            <div class="card__project-content">
+                                <div class="card__project-title">
+                                    ${ item.nombre }
+                                </div>
+                                <div class="tag ${item.estado == 'inactive' ? 'tag--paused' : 'tag--progress'} mt-3">
+                                    ${item.status == 'inactive' ? 'inactivo' : 'activo'}
+                                </div>
+                                <div class="card__project-users">
+                                    <small class="center gap-5">
+                                        <i class="material-icons-outlined">perm_media</i> <span>${item.components.length}</span>
+                                    </small>
+                                    <small class="center gap-5">
+                                        <i class="material-icons-outlined">folder</i> <span>${item.subcategory.length}</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div> `;
+                        viewHtml({
+                            el: '#cards__projects__components',
+                            content: html
+                        });
+                        openCategories();
+                    }
+                    // if (item.subcategory.length > 0) { }
+                }
+                getComponentsCategories('base', res.idProject);
+            } else if (res.type == 'category') {
+                // * Categories URL
+                console.log(res)
+                cleanHtml('.main__breadcumb');
+                cleanHtml('#cards__projects__components');
+                viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                <span class="breadcumb__item" item="base"> 
+                    Proyectos
+                </span>`});
+                // * Cargando los proyectos
+                viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                <span class="breadcumb__item" item="${res.getProject.id}" folder="project" unique="${res.getProject.idUnique}"> 
+                    <i class="material-icons-outlined">chevron_right</i> ${res.getProject.nombre}
+                </span>`});
+                if (res.getTree.length >= 1) {
+                    for (itemCategory of res.getTree) {
+                        if (itemCategory != false) {
+                            viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                            <span class="breadcumb__item" item="${itemCategory.id}" unique="${itemCategory.idUnique}"> 
+                                <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
+                            </span>`});
+                        }
+                    }
+                }
+                viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                <span class="breadcumb__item" item="${res.idProject}" unique="${res.idUnique}"> 
+                    <i class="material-icons-outlined">chevron_right</i> ${res.name}
+                </span>`});
+                
+                // * Cards Categories and Components
+                getSubcategory(res.idCategory, res.idProject);
+                console.log('Categoria URL')
+            } else {
+                console.log('Componentes URL')
+                cleanHtml('.main__breadcumb');
+                cleanHtml('#cards__projects__components');
+                viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                <span class="breadcumb__item" item="base"> 
+                    Proyectos
+                </span>`});
+                // * Cargando los proyectos
+                viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                <span class="breadcumb__item" item="${res.getProject.id}" folder="project" unique="${res.getProject.idUnique}"> 
+                    <i class="material-icons-outlined">chevron_right</i> ${res.getProject.nombre}
+                </span>`});
+                if (res.idCategory != 'base') {
+                    if (res.getTree.length >= 1) {
+                        for (itemCategory of res.getTree) {
+                            if (itemCategory != false) {
+                                viewHtml({el: '.main__breadcumb', content: /*html*/ `
+                                <span class="breadcumb__item" item="${itemCategory.id}" unique="${itemCategory.idUnique}"> 
+                                    <i class="material-icons-outlined">chevron_right</i> ${itemCategory.nombre}
+                                </span>`});
+                            }
+                        }
+                    }
+                    getSubcategory(res.idCategory, res.idProject);
+                } else {
+                    cleanHtml('#cards__projects__components');
+                    for (item of res.content) {
+                        if (item != undefined) {
+                            console.log(item)
+                            let html = /*html*/ `
+                            <div class="card__project card__project__component" item="${item.id}" folders="${item.subcategory.length}" components="${item.components.length}" unique="${item.idUnique}"> 
+                                <div class="card__project-content">
+                                    <div class="card__project-title">
+                                        ${ item.nombre }
+                                    </div>
+                                    <div class="tag ${item.estado == 'inactive' ? 'tag--paused' : 'tag--progress'} mt-3">
+                                        ${item.status == 'inactive' ? 'inactivo' : 'activo'}
+                                    </div>
+                                    <div class="card__project-users">
+                                        <small class="center gap-5">
+                                            <i class="material-icons-outlined">perm_media</i> <span>${item.components.length}</span>
+                                        </small>
+                                        <small class="center gap-5">
+                                            <i class="material-icons-outlined">folder</i> <span>${item.subcategory.length}</span>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div> `;
+                            viewHtml({
+                                el: '#cards__projects__components',
+                                content: html
+                            });
+                            openCategories();
+                        }
+                        // if (item.subcategory.length > 0) { }
+                    }
+                    getComponentsCategories('base', res.idProject);
+                }
+
+                // * Load Component
+                components.classList.toggle('create__components--active');
+                el('.component__settings').classList.add('component__settings--active');
+                el('.more-button-list').classList.add('more-button-list--active');
+                // * Component
+                AJAXGJ8({
+                    url: 'Componentes/getComponent',
+                    data: [{
+                        id: res.idComponent
+                    }],
+                    success: function (res) {
+
+                        res = JSON.parse(res)
+                        el('.save__edit__component').setAttribute('item', res[0].id);
+                        el('.save__edit__component').setAttribute('idProject', res[0].idProject);
+                        el('.save__edit__component').setAttribute('category', res[0].category);
+                        el('input[name="name__component"]').value = res[0].nombre;
+                        let htmlDecode = res[0].html.replaceAll('___amp___', '&').replaceAll('___plus___', '+');
+                        let cssDecode = res[0].css.replaceAll('___amp___', '&').replaceAll('___plus___', '+');
+                        let jsDecode = res[0].js.replaceAll('___amp___', '&').replaceAll('___plus___', '+');
+                        htmlEditor.setValue(htmlDecode);
+                        cssEditor.setValue(cssDecode);
+                        jsEditor.setValue(jsDecode);
+                        updateIframeOutput({
+                            lang: 'html',
+                            value: htmlDecode
+                        });
+                        updateIframeOutput({
+                            lang: 'css',
+                            value: cssDecode
+                        });
+                        updateIframeOutput({
+                            lang: 'js',
+                            value: jsDecode
+                        });
+                    }
+                });
+                // * Delete component
+                // deleteComponent(componentId, component);
+                el('.delete__component').setAttribute('item', res.idComponent);
+                el('.delete__component').setAttribute('category', res.idImage);
+                // * Transfer component
+                transferComponent(res.idComponent);
+                // console.clear();
+            }
+            console.log(res)
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // * Cargando componentes de cada categoría
 function openCategories() {
     let cardsProjects = getAllElements({
@@ -1667,7 +1877,7 @@ function openCategories() {
                 console.log(project.getAttribute('components'))
                 if (project.getAttribute('folders') > 0) {
                     viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                    <span class="breadcumb__item" item="${project.getAttribute('item')}"> 
+                    <span class="breadcumb__item" item="${project.getAttribute('item')}" unique="${project.getAttribute('unique')}"> 
                         <i class="material-icons-outlined">chevron_right</i>${ project.querySelector('.card__project-title').textContent.trim() }
                     </span>`});
                     console.log('Estoy abriendo esta subcategoría ahora: ', project.getAttribute('item'))
@@ -1676,13 +1886,18 @@ function openCategories() {
                 }
                 if (project.getAttribute('folders') == 0 && project.getAttribute('components') > 0) {
                     viewHtml({el: '.main__breadcumb', content: /*html*/ `
-                    <span class="breadcumb__item" item="${project.getAttribute('item')}" folder="subcategory"> 
+                    <span class="breadcumb__item" item="${project.getAttribute('item')}" folder="subcategory" unique="${project.getAttribute('unique')}"> 
                         <i class="material-icons-outlined">chevron_right</i>${ project.querySelector('.card__project-title').textContent.trim() }
                     </span>`});
                     console.log('Estoy abriendo componentes de esta subcategoría ahora: ', project.getAttribute('item'))
                     cleanHtml('#cards__projects__components');
                     getComponentsCategories(project.getAttribute('item'))
                 }
+
+                // * PointUrl
+                let idUnique = project.getAttribute('unique');
+                let url = `componentes?q=${idUnique}`;
+                history.pushState(null, '', url);
             }
         });
     });
@@ -1700,6 +1915,7 @@ function openBreadcumb() {
             }
             if (item.getAttribute('item') == 'base') {
                 getProjectComponents();
+                history.pushState(null, '', 'base');
             } else {
                 if (item.getAttribute('folder') == 'project') {
                     // * Abriendo solamente los proyectos
@@ -1716,6 +1932,10 @@ function openBreadcumb() {
                     getSubcategory(item.getAttribute('item'));
                 }
             }
+            // * PointUrl
+            let idUnique = item.getAttribute('unique');
+            let url = `componentes?q=${idUnique}`;
+            history.pushState(null, '', url);
         }});
     });
 }
@@ -1737,7 +1957,7 @@ function getSubcategory(id, idProject = 'none') {
                 cleanHtml('#cards__projects__components');
                 for (item of res) {
                     let html = /*html*/ `
-                    <div class="card__project card__project__component" item="${item.id}" folders="${item.subcategory.length}" components="${item.components.length}"> 
+                    <div class="card__project card__project__component" item="${item.id}" folders="${item.subcategory.length}" components="${item.components.length}" unique="${item.idUnique}"> 
                         <div class="card__project-content">
                             <div class="card__project-title">
                                 ${ item.nombre }
@@ -1782,10 +2002,11 @@ function getComponentsCategories(id, idProject = 'none') {
             let html = '';
             setTimeout(() => {
                 if (res.length > 0) {
+                    console.log(res)
                     res.map((component, index) => {
                         viewHtml({
                             el: '#cards__projects__components',
-                            content: /*html*/ `<div class="card__load__component card__project card__project__component" component="${component.id}" id="${component.image}" style="animation-delay: ${index + 1}00ms;"> 
+                            content: /*html*/ `<div class="card__load__component card__project card__project__component" component="${component.id}" id="${component.image}" style="animation-delay: ${index + 1}00ms;" unique="${component.idUnique}"> 
                             <p class="title__component__load">${component.nombre}</p>
                             <iframe class="iframe__component" src="${BASE_URL}/Components/${component.image}.html" scrolling="no"></iframe>
                         </div>`
@@ -1808,7 +2029,9 @@ function loadComponent() {
         onclick({el: load, res: function(res) {
             let componentId = load.parentElement.getAttribute('component');
             let component = load.parentElement.getAttribute('id');
+            let idUnique = load.parentElement.getAttribute('unique');
             console.log('Cargando un solo componente que es: ', componentId);
+
             components.classList.toggle('create__components--active');
             el('.component__settings').classList.add('component__settings--active');
             el('.more-button-list').classList.add('more-button-list--active');
@@ -1851,6 +2074,10 @@ function loadComponent() {
             el('.delete__component').setAttribute('category', component);
             // * Transfer component
             transferComponent(componentId);
+
+            // * PointUrl
+            let url = `componentes?q=${idUnique}`;
+            history.pushState(null, '', url);
             
         }});
     });
@@ -1930,26 +2157,25 @@ function closeViewComponent() {
 }).call(this);
 // ! ------------------------------------------------ww
 
+
+
 // Search Components Input
-let searchComponentsInput = el('.search__components-input');
-let searchComponentsBox = el('.search__components .search__components-box');
-searchComponentsInput.onkeyup = function(e) {
-    searchComponentsBox.classList.add('search__components-box--active');
+// let searchComponentsInput = el('.search__components-input');
+// let searchComponentsBox = el('.search__components .search__components-box');
+// searchComponentsInput.onkeyup = function(e) {
+//     searchComponentsBox.classList.add('search__components-box--active');
     
-};
-onclick({el: searchComponentsBox, res: (e) => {
-    e.preventDefault();
-    searchComponentsBox.classList.remove('search__components-box--active');
-}});
+// };
+// onclick({el: searchComponentsBox, res: (e) => {
+//     e.preventDefault();
+//     searchComponentsBox.classList.remove('search__components-box--active');
+// }});
 
-searchComponentsInput.onfocus = function() {
-    searchComponentsBox.classList.add('search__components-box--active');
-};
+// searchComponentsInput.onfocus = function() {
+//     searchComponentsBox.classList.add('search__components-box--active');
+// };
 
-searchComponentsInput.onblur = function() {
-    searchComponentsBox.classList.remove('search__components-box--active');
-};
-
-
-
-
+// searchComponentsInput.onblur = function() {
+//     searchComponentsBox.classList.remove('search__components-box--active');
+// };
+// console.clear();

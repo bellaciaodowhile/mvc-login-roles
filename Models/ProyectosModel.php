@@ -14,8 +14,8 @@
             if ($qv) {
                 $return = 'exist';
             } else {
-                $s = "INSERT INTO proyectos (nombre, `status`, miembros, descripcion, lenguajes) VALUES (?,?,?,?,?)";
-                $arrData = array($nombre, $status, $members, $descripcion, $langs);
+                $s = "INSERT INTO proyectos (nombre, `status`, miembros, descripcion, lenguajes, idUnique) VALUES (?,?,?,?,?,?)";
+                $arrData = array($nombre, $status, $members, $descripcion, $langs, create_unique_id());
                 $q = $this->insert($s, $arrData);
                 $return = $q;
             }
@@ -110,6 +110,7 @@
                 // Consulta para obtener las categorías y subcategorías según el ID del proyecto
                 $data[] = array(
                     'id' => $value['id'],
+                    'idUnique' => $value['idUnique'],
                     'nombre' => $value['nombre'],
                     'status' => $value['status'],
                     'descripcion' => $value['descripcion'],
@@ -141,6 +142,7 @@
                 }
                 $data[] = array(
                     'id' => $value['id'],
+                    'idUnique' => $value['idUnique'],
                     'nombre' => $value['nombre'],
                     'status' => $value['status'],
                     'descripcion' => $value['descripcion'],

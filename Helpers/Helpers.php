@@ -97,6 +97,16 @@
         $token = $r1.'-'.$r2.'-'.$r3.'-'.$r4;
         return $token;
     }
+
+    function create_unique_id(){
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters_lenght = strlen($characters);
+        $random_string = '';
+        for($i = 0; $i < 20; $i++){
+            $random_string .= $characters[mt_rand(0, $characters_lenght - 1)];
+        }
+        return $random_string;
+    }
     
     
 

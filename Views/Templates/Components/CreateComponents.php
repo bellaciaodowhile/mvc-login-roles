@@ -1,6 +1,4 @@
 <section class="create__components">
-
-
     <div class="list-container">
         <button class="more-button" aria-label="Menu Button">
             <div class="menu-icon-wrapper">
@@ -172,4 +170,6 @@
     </section>
 </section>
 
+
+<!-- Load component only - GET URL -->
 

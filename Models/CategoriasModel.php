@@ -11,6 +11,7 @@
             foreach($req as $row) {
                 $categories[] = array(
                     'id' => $row['id'],
+                    'idUnique' => $row['idUnique'],
                     'idParent' => $row['idParent'],
                     'nombre' => $row['nombre'],
                     'tipo' => $row['tipo'],
@@ -29,6 +30,7 @@
             foreach($req as $row) {
                 $categories[] = array(
                     'id' => $row['id'],
+                    'idUnique' => $row['idUnique'],
                     'idParent' => $row['idParent'],
                     'nombre' => $row['nombre'],
                     'tipo' => $row['tipo'],
@@ -57,6 +59,7 @@
             foreach($req as $row) {
                 $categories[] = array(
                     'id' => $row['id'],
+                    'idUnique' => $row['idUnique'],
                     'idParent' => $row['idParent'],
                     'idProject' => $row['idProject'],
                     'nombre' => $row['nombre'],
@@ -89,6 +92,7 @@
                 $categories[] = array(
                     'id' => $row['id'],
                     'idParent' => $row['idParent'],
+                    'idUnique' => $row['idUnique'],
                     'idProject' => $row['idProject'],
                     'nombre' => $row['nombre'],
                     'subcategory' => $this->subCategories($row['id'])
@@ -97,8 +101,8 @@
             return $categories;
         }
         public function setCategory($idProject, $name, $status, $global, $parentCategory, $tipo) {
-            $s = "INSERT INTO categorias (idProject, nombre, estado, `global`, idParent, tipo) VALUES (?,?,?,?,?,?)";
-            $arr = array($idProject, $name, $status, $global, $parentCategory, $tipo);
+            $s = "INSERT INTO categorias (idProject, idUnique, nombre, estado, `global`, idParent, tipo) VALUES (?,?,?,?,?,?,?)";
+            $arr = array($idProject, create_unique_id(), $name, $status, $global, $parentCategory, $tipo);
             $q = $this->insert($s, $arr);
             return $q;
         }
