@@ -1,8 +1,9 @@
 <?php 
     class Componentes extends Controllers{
         public function __construct() {
+            sessionStart();
             parent::__construct();
-            session_start();
+            // session_start();
             if (empty($_SESSION['login'])) {
                 header('Location:'.BASE_URL.'login');
             }

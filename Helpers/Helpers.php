@@ -107,6 +107,20 @@
         }
         return $random_string;
     }
+
+    function sessionStart() {
+        session_start();
+
+        $inactive = 60 * 60 * 24;
+        if (isset($_SESSION['timeout'])) {
+            $session_in = time() - $_SESSION['inicio'];
+            if ($session_in > $inactive) {
+                header('Location:'.BASE_URL.'Logout');
+            }
+        } else {
+            header('Location:'.BASE_URL.'Logout');
+        }
+    }
     
     
 

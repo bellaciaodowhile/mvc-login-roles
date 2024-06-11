@@ -1,6 +1,7 @@
 <?php 
     class Login extends Controllers {
         public function __construct() {
+            // sessionStart();
             session_start();
             if (isset($_SESSION['login'])) {
                 header('Location:'.BASE_URL.'dashboard');
@@ -25,11 +26,13 @@
                     $_SESSION['nombre'] = $arrData[0]['nombre'];
                     $_SESSION['tipo'] = $arrData[0]['tipo'];
                     $_SESSION['login'] = true;
+                    $_SESSION['timeout'] = true;
+                    $_SESSION['inicio'] = time();
 
-                    session_write_close();
-                    ini_set('session.cookie_lifetime', 0);
-                    session_set_cookie_params(86400);
-                    session_set_cookie_params(86400);
+                    // session_write_close();
+                    // ini_set('session.cookie_lifetime', 0);
+                    // session_set_cookie_params(86400);
+                    // session_set_cookie_params(86400);
 
 
                 } else {

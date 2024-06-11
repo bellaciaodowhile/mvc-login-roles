@@ -94,7 +94,7 @@
             <button class="btn btn-icon btn-icon--fill tooltip" data-tooltip="Ctrl + 1" data-tooltip-position="left" id="fullscreen__component">
                 <i class="material-icons-outlined">fullscreen</i>
             </button>
-            <iframe sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation" id="components__result"></iframe>
+            <iframe allow="accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share; serial; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation" id="components__result"></iframe>
         </div>
 
         <div id="handler"></div>
